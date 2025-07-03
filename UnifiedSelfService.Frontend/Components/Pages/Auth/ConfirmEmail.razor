@@ -1,0 +1,106 @@
+@page "/email-confirm/{userId}/{token}"
+@attribute [Authorize]
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject ApiService ApiService
+
+<h1>Confirm Email</h1>
+
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-sm">
+
+       <!-- <div class="flex row justify-center gap-32 ">
+            <div class="flex-col justify-center items-center w-full text-lg">
+                <h2 class="text-lg font-semibold text-gray-700 mb-8 text-center">KNUST UNIFIED SELF SERVICE</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+                    <p class="text-center text-lg">Click the button below to confirm your email</p>
+                </div>
+            </div>    
+       </div> -->
+
+        <!-- @if (isLoading)
+        {
+            <div class="mb-3 flex justify-center">
+                <Spinner />
+            </div>
+        } -->
+
+        <!-- <div class="flex justify-center gap-2 mt-12">
+            <button @onclick="ConfirmUserEmail" class="px-3 py-2 bg-green-700 text-black rounded hover:bg-red-800 transition-colors">
+                Confirm Email
+            </button>
+        </div> -->
+</div>
+
+@code 
+{
+    [Parameter] public string? userId { get; set; }
+    [Parameter] public string? token { get; set; }
+
+    private string? userDepartmentId;
+    private string? userType; 
+    private string? userEmail;
+    private string? decodedToken;
+    private bool selectAll = false;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {   
+        
+        Console.WriteLine($"userId: {userId}");
+        Console.WriteLine($"token: {token}");
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            decodedToken = Uri.UnescapeDataString(token); 
+            Console.WriteLine($"token => {decodedToken}");
+        }
+
+        await ApiService.ConfirmEmailAsync(userId, decodedToken);
+
+        MessageService.AlertMessage = "Email successfully confirmed. Please login";
+        MessageService.AlertType = "success";
+    }
+
+    private async Task ConfirmUserEmail()
+    {
+        isLoading = true;
+		var response = await ApiService.ConfirmEmailAsync(userId, decodedToken);
+
+        if (response.Status)
+        {
+            NavigationManager.NavigateTo("/login");
+            MessageService.AlertMessage = response.Message;
+            MessageService.AlertType = "success";
+            isLoading = false;
+        }
+        else
+        {
+            MessageService.AlertMessage = response.Message;
+            MessageService.AlertType = "danger";
+            isLoading = false;
+        }
+    }
+  
+    private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+    {
+        {"class", "text-white"},
+    };
+        private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", "w-[500px] max-w-[700px] gap-4 p-4 border-2 bg-white"},
+    };
+
+    private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+        {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

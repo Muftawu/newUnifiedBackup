@@ -1,0 +1,160 @@
+@page "/{departmentRequestTypeName}/{requestId}/verify"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+
+<div class="max-w-7xl mx-auto">
+            <h1 class="text-xl font-semibold mb-12">English Proficiency Letter</h1>
+
+    <div class="bg-white p-8">
+
+        <div class="flex gap-8">
+            <!-- Left Section - Student's Profile -->
+            <div class="flex-1">
+                <div class="mb-8">
+                    <h2 class="text-lg font-bold mb-8">Student's profile</h2>
+                </div>
+                <div class="mb-8 rounded-lg shadow-lg mb-8">
+                    <div class="flex  gap-12">
+                        <img src="assets/images/users/avatar-2.jpg"
+                            alt="Student Profile" 
+                            class="w-16 h-16 rounded-full object-cover mx-4" />
+                        <div class="space-y-6 mb-4">
+                            @if(applicant != null)
+                            {
+                            <div class="flex gap-20">
+                                <div>
+                                    <p class="text-base font-semibold text-gray-600">Name:</p>
+                                    <p class="text-sm">@applicant.Surname @applicant.OtherNames</p>
+                                </div>
+                                <div>
+                                    <p class="text-base font-semibold text-gray-600">Programme</p>
+                                    <p class="text-sm">@requestTransaction.ProgrammeOfStudy</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-16">
+                                <div>
+                                    <p class="text-base font-semibold text-gray-600">Student Number:</p>
+                                    <p class="text-sm">@(applicant.ReferenceNumber != null ? applicant.ReferenceNumber : "N/A")</p>
+                                </div>
+                                <div>
+                                    <p class="text-base font-semibold text-gray-600">Index Number:</p>
+                                    <p class="text-sm">@(applicant.IndexNumber != null ? applicant.IndexNumber : "N/A")</p>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    @if (applicant != null)
+                    {
+                    <div class="flex justify-between items-center bg-[#18ab50] text-white py-2 px-2 rounded-t-lg ">
+                        <h2 class="text-sm font-medium text-white-600">Request details</h2>
+                        <span class="text-white-600 text-sm font-bold mx-4">REQ-@requestTransaction.RequestTransactionId.ToString().Substring(0, 5).ToUpper()</span>
+                    </div>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div class="flex gap-2 border-b-2 border-[#18ab50] pb-4">
+                            <p class="text-sm text-gray-600 w-32">Programme:</p>
+                            <p class="text-sm">@requestTransaction.ProgrammeOfStudy</p>
+                        </div>
+                        
+                        <div class="flex gap-2 border-b-2 border-[#18ab50] pb-4">
+                            <p class="text-sm text-gray-600 w-32">Year of completion:</p>
+                            <p class="text-sm">1st November, 2024</p>
+                        </div>
+                         <div class="flex gap-2 border-b-2 border-[#18ab50] pb-4">
+                            <p class="text-sm text-gray-600 w-32">Delivery Mode:</p>
+                            <p class="text-sm">@requestTransaction.DeliveryModeOption</p>
+                        </div>
+                        <div class="flex gap-2 border-b-2 border-[#18ab50] pb-4">
+                            <p class="text-sm text-gray-600 w-32">@(requestTransaction.DeliveryModeOption == "Email" ? "Recipient Email" : "Recipient Name")</p>
+                            <p class="text-sm">@requestTransaction.RecipientInfo</p>
+                        </div>
+                        <div class="flex gap-2 border-b-2 border-[#18ab50] pb-4">
+                            <p class="text-sm text-gray-600 w-32">Processing Status:</p>
+                            <p class="text-sm">@requestTransaction.ProcessingStatus</p>
+                        </div>
+                    </div>
+                    }
+                   <div class="mt-4">
+                    @if (requestTransaction.ProcessingStatus != "Completed")
+                    {
+                     <button @onclick="VerifyApplicantRequest" class="px-6 py-2 bg-white text-green-400 font-bold rounded-xl text-sm transition-colors border border-green-400">
+                        Verify Applicant
+                    </button>
+                    }
+                    else 
+                    {
+                        <p class="text-sm text-gray-600">APPLICANT REQUEST ALREADY VERIFIED:</p>
+                    }
+                   </div>
+                </div>
+            </div>
+
+            <!-- Right Section - Student Transcript -->
+            <div class="flex-1 border-l-2 border-[#18ab50] pl-8">
+                <div class="mb-8">
+                    <h2 class="text-lg font-bold mb-4">Student's Transcript</h2>
+                </div>
+                <div class="bg-[#fbfbfb] rounded-lg p-8 w-[500px] h-[400px] flex items-center justify-center">
+                    <div class="text-center">
+                       <box-icon name='images' class="w-10"></box-icon>
+                        <p class="text-[#18ab50] mb-2">Display Transcript of Applicant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? departmentRequestTypeName { get; set; }
+    [Parameter] public string? requestId { get; set; }
+    
+    private User? applicant = new User();
+    private Request? request = new Request();
+    private RequestTransaction? requestTransaction = new RequestTransaction();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserRequest();
+    }
+
+    private async Task GetUserRequest()
+    {
+        request = await ApiService.GetApplicantRequestById(requestId);
+        if (request != null)
+        {
+            if (!string.IsNullOrEmpty(request.UserId.ToString()))
+            {
+                applicant = await ApiService.GetUserById(request.UserId.ToString());
+                requestTransaction = await ApiService.GetApplicantRequestTransaction(request.UserId.ToString(), requestId);
+            }
+        }
+    }
+
+    private async Task VerifyApplicantRequest()
+    {
+        if (!string.IsNullOrEmpty(requestTransaction.RequestTransactionId.ToString()))
+        {
+            Console.WriteLine($"request transaction id: {requestTransaction.RequestTransactionId.ToString()}");
+            var isVerified = await ApiService.VerifyApplicantRequest(requestTransaction.RequestTransactionId.ToString());
+            if (isVerified)
+            {
+                NavigationManager.NavigateTo($"/letter-dashboard/{request.DepartmentRequestTypeId.ToString()}");
+            }
+            else
+            {
+                MessageService.AlertMessage = "Verification Failed";
+                MessageService.AlertType = "danger";
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,66 @@
+@namespace Partials
+
+<p @attributes="AdditionalAttributes" class="@TextClass" @onclick="OnClickHandler" disabled="@IsDisabled">
+    <span>@TextLabel</span>
+</p>
+
+@code {
+    [Parameter] 
+    public string? FontWeight { get; set; } = "light";
+
+    [Parameter] 
+    public string? TextSize { get; set; } = "sm";
+
+    [Parameter] 
+    public bool IsDisabled { get; set; } = false;
+    
+    [Parameter] 
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter] 
+    public string? TextLabel { get; set; } = "text label";
+    
+    [Parameter(CaptureUnmatchedValues = true)] 
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string TextClass => $"{BuildTextClass()} {AdditionalClass}";
+
+    private string BuildTextClass()
+    {
+        var fontWeightClass = FontWeight switch
+        {
+            "normal" => "font-normal",
+            "medium" => "font-medium",
+            "semi-bold" => "font-semibold",
+            "bold" => "font-bold",
+            "extrabold" => "font-light",
+            _ => "font-light",
+        };
+
+        var TextSizeClass = TextSize switch
+        {
+            "xs" => "text-xs",
+            "sm" => "text-sm",
+            "lg" => "text-lg",
+            "xl" => "text-xl",
+            "2xl" => "text-2xl",
+            _ => "text-sm"
+        };
+
+        var disabledClass = IsDisabled ? "opacity-50 cursor-not-allowed" : "";
+
+        return $"{fontWeightClass} {TextSizeClass} {disabledClass} block dark:text-gray-100 ";
+    }
+
+    private string? AdditionalClass => AdditionalAttributes != null && AdditionalAttributes.ContainsKey("class")
+    ? AdditionalAttributes["class"].ToString()
+    : string.Empty;
+
+    private async Task OnClickHandler(MouseEventArgs e)
+    {
+        if (!IsDisabled && OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(e);
+        }
+    }
+}  

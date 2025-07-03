@@ -1,0 +1,246 @@
+@page "/"
+@layout EmptyLayout
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject NavigationManager NavigationManager
+@inject MessageService MessageService
+@inject ApiService ApiService
+@inject AccessTokenService AccessTokenService
+
+<PageTitle>KNUST Unified Self Service</PageTitle>
+
+<div class="container lg\:max-w-6xl ">
+
+	<div class=" flex justify-between items-center ">
+		<div>
+			<div class="flex text-primary-default justify-center items-center">
+				<img src="/assets/images/knust_logo.png" alt="My Image" style="width:70px;" />
+				KNUST Unified Self Service
+			</div>
+		</div>
+
+		<div>
+			<ul class="flex justify-content-between items-center gap-8">
+				<li style="color:forestgreen;" class="cursor-pointer">Home</li>
+				<li class="cursor-pointer">Requests</li>
+				<li class="cursor-pointer">FAQs</li>
+			</ul>
+		</div>
+
+		<div class="flex gap-4">
+			<a href="@redirectLink">
+			<Button>@(string.Equals(redirectLink, "/login") ? "Login" : "Go to Dashboard")</Button>
+		</a>
+		</div>
+
+	</div>
+
+	<div class=" flex justify-between items-center " style="margin-top:3rem; ">
+		<div style="width:45%;">
+			<h1 style="font-size:3rem;line-height:normal;" class="font-bold">Effortless Requests,<br />Maximum
+				<br />Convenience
+			</h1>
+			<p class="mt-12 text-gray-300 text-16">Simplified, Streamlined, Stress-Free-Document Requests <br />Done
+				Right!</p>
+			<div class="py-4">
+				<img src="/assets//images/curve.png" alt="curve" style="width:92%;" />
+			</div>
+			<div class="mt-6 gap-4 flex">
+				<Button>Make a Request</Button>
+				<Button variant="green">Learn More</Button>
+			</div>
+		</div>
+		<div style="width:55%;">
+			<div style="width:600px; margin-left:60px" class="rounded-xl  ">
+				<img src="/assets/images/lady-typing1.png" alt="lady-image" style="width:100%;" />
+			</div>
+		</div>
+	</div>
+
+	<div class=" mt-20">
+		<h4 class="mb-3">
+			About this Platform
+		</h4>
+		<div class="mt-8 flex  gap-16 items-center  ">
+			<div class=" rounded-xl" style="width:450px;">
+				<img src="/assets/images/lady-typing2.png" alt="lady-image" style="width:100%;" />
+			</div>
+			<div>
+				<Card ShowBorder=true BorderRadius="lg">
+					<div class="px-4 py-4">
+						<i class='bx bx-grid-alt py-5 pl-6  text-3xl' style="color:#719382;"></i>
+						<p class="pb-3 text-base">Features</p>
+						<div class="gap-2 flex items-center pb-3" style="font-size:14px;color:#9c9e9d;"> <box-icon
+								name='check' color='#098c30'></box-icon>Multiple Service Options</div>
+						<div class="gap-2 flex items-center " style="font-size:14px;color:#9c9e9d;"><box-icon name='check'
+								color='#098c30'></box-icon>Seamless Document Request</div>
+					</div>
+				</Card>
+				<Card ShowBorder=true BorderRadius="lg">
+				<div class="px-4 py-4">
+					<i class='bx bx-sync py-5 pl-6  text-3xl' style="color:#719382;"></i>
+					<p class="pb-3 text-base">How it works</p>
+					<div class="gap-2 flex items-center pb-3" style="font-size:14px;color:#9c9e9d;"> Lorem ipsum dolor
+						sit amet consectetur. Enim nibh in scelerisque <br />sodales venenatis ultrices sit volutpat.
+						Elit tristique </div>
+				</div>
+				</Card>
+
+			</div>
+		</div>
+	</div>
+	<div class="mt-20 container">
+		<h3>Explore our request services</h3>
+		<div class="mt-4">
+			<Button Variant="secondary" size="sm"  AditionalAttributes="AdditionalButtonClasses">All</Button>
+			<Button Variant="gray" size="sm" AditionalAttributes="AdditionalButtonClasses">Academic</Button>
+			<Button Variant="gray"size="sm"  AditionalAttributes="AdditionalButtonClasses">Others</Button>
+		</div>
+	</div>
+	<div class="grid grid-cols-1 mt-12 md:grid-cols-2 2xl:grid-cols-4  ">
+		@if (allRequestsTypes != null)
+		{
+			@foreach (var requestType in allRequestsTypes)
+			{
+				<Card 
+					OuterShadow="xl" 
+					ShowBorder=true 
+					BorderRadius="lg" 
+					IsDisabled=false
+					AdditionalAttributes="AdditionalClasses"
+					>
+						<img src="/assets/images/File.png" alt="file" style="width:40px;" />
+						<div class="mt-3 flex-wrap">
+							<Text TextLabel="@requestType.Name" TextSize="1rem" TextColor="green" />
+					
+					</div>
+				</Card>
+			}
+		}
+	</div>
+
+
+	<div class=" mb-16 mt-16 ">
+		<div class="flex flex-col justify-center items-center text-center mb-6">
+			<h3 class="font-bold">Frequently Asked Questions.</h3>
+			<p class="text-11">Get answers to common questions about KNUST Unified Self Service.</p>
+		</div>
+		<div class="flex gap-16 justify-center items-center">
+
+			<div class="flex flex-col  justify-end items-end">
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p> What is the KNUST Unified Self Service?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+				</div>
+
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p> What offers can the system provide?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+				</div>
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p> Who can use the Unified Self Service?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+				</div>
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p>How do i use the Unified Self Service?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+				</div>
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p> How fast is the Document application process?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+				</div>
+				<div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+					<div class="flex justify-between items-center py-3">
+						<p> How do i recover my password?</p>
+						<i class="bx bx-plus"></i>
+					</div>
+					<hr style="height:1px; background-color:forestgreen;  width:600px;" />
+
+				</div>
+
+			</div>
+			<div style="width:40%;">
+
+				<div class=" bg-gray-200 rounded-lg" style="width:350px; height:450px;"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+@code {
+    private List<RequestType> allRequestsTypes = new();
+	private ClaimsPrincipal? _currentUser;
+
+	private string? accessToken = string.Empty;
+	private string? redirectLink = "/login";
+	private string? userId;
+	private string? userType;
+	private bool isProfileVerified;
+
+    protected override async Task OnInitializedAsync()
+    {
+		var accessToken = await AccessTokenService.GetToken();
+
+		if (string.IsNullOrWhiteSpace(accessToken))
+		{ 
+			redirectLink = "/login";
+		}
+		else
+		{
+		 	var authState = await CustomAuthenticationStateProviderJWT.GetAuthenticationStateAsync();
+            _currentUser = authState.User;
+
+			var user = await ApiService.GetUserById(userId);
+
+            userType = user.UserType.ToString();
+            isProfileVerified = user.IsProfileVerified;
+			
+			if (isProfileVerified)
+			{
+				if (string.Equals(userType, "Developer"))
+				{
+					redirectLink = "/dashboard/dev";
+				}
+				else if (string.Equals(userType, "Applicant") || string.Equals(userType, "DepartmentAdmin"))
+				{
+					redirectLink = "/dashboard";
+				}
+			}
+			else
+			{
+				if (string.Equals(userType, "Applicant"))
+				{
+					redirectLink = "/profile/personal-information";
+				}
+			}
+
+		}
+        allRequestsTypes = await ApiService.GetAllRequestTypes();
+    }
+
+	private Dictionary<string, object> AdditionalClasses = new Dictionary<string, object>
+	{
+		{"class", "py-6 w-64 flex flex-col items-center justify-center border-2 bg-white"},
+	};
+
+	private Dictionary<string, object> AdditionalButtonClasses = new Dictionary<string, object>
+	{
+		{"class", "text-xs   border-primary-default border-2 "},
+	};
+}

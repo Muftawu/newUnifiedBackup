@@ -1,0 +1,41 @@
+@namespace Partials 
+
+<button type="button"
+    class=
+    "text-@TextColor 
+    btn 
+    "
+    data-tw-toggle="modal"
+    data-tw-target="#@ModalTarget"
+
+    style="
+    background-color: @ModalButtonColor
+    "
+    >
+    @ModalButtonName
+</button> 
+
+@code {
+
+    [Parameter]
+    public string ModalButtonName { get; set; } = "Toggle Modal";
+
+    [Parameter]
+    public string ModalButtonColor { get; set; } = "red";
+
+    [Parameter]
+    public string ModalButtonColorIntensity { get; set; } = "600";
+
+    [Parameter]
+    public string TextColor { get; set; } = "red";
+
+    [Parameter]
+    public string OnHoverColorIntensity { get; set; } = "600";
+
+    [Parameter]
+    public string OnHoverColor { get; set; } = "white";
+
+    [Parameter]
+    public string ModalTarget { get; set; } = "modal-id_wideButton";
+
+}

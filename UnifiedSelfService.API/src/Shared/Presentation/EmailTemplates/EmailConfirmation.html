@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px; 
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .footer {
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Your Email</h2>
+        <p>Hello Applicant</p>
+        <p>Thank you for registering with KNUST Unified Self Service. Please confirm your email address by clicking the button below:</p>
+        <p style="text-align: center;">
+            <a href="{CONFIRMATION_LINK}" class="button" style="color: white;">Confirm Email</a>
+        </p>
+        <p>If you did not sign up for this service, you can ignore this email.</p>
+        <p class="footer">KNUST Unified Self Service &copy; 2024</p>
+    </div>
+</body>
+</html>

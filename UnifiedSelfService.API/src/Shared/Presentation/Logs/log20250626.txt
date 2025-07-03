@@ -1,0 +1,173 @@
+2025-06-26 08:34:16.573 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-26 08:34:16.785 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-26 08:34:16.789 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-26 08:34:16.790 +00:00 [INF] Hosting environment: Development
+2025-06-26 08:34:16.790 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-26 08:34:17.114 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-26 08:34:17.127 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-26 08:34:17.337 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 221.4214ms
+2025-06-26 08:34:17.376 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-26 08:34:17.380 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 4.4794ms
+2025-06-26 08:34:17.527 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-26 08:34:17.731 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 203.5164ms
+2025-06-26 08:35:54.983 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 08:35:54.985 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:35:54.986 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 3.0511ms
+2025-06-26 08:35:54.988 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 08:35:54.990 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:35:54.996 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:35:55.036 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 08:35:56.846 +00:00 [INF] Executed DbCommand (142ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 08:35:57.104 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 08:35:57.127 +00:00 [INF] Executed action AuthController.Login (Presentation) in 2088.2736ms
+2025-06-26 08:35:57.128 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:35:57.136 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 2147.8366ms
+2025-06-26 08:46:36.945 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 08:46:36.966 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 08:46:36.970 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 08:46:36.970 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 25.5869ms
+2025-06-26 08:51:48.947 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 08:51:48.947 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:51:48.948 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.7276ms
+2025-06-26 08:51:48.949 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 08:51:48.949 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:51:48.950 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:51:48.951 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 08:51:49.227 +00:00 [INF] Executed DbCommand (144ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 08:51:49.327 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 08:51:49.327 +00:00 [INF] Executed action AuthController.Login (Presentation) in 376.4966ms
+2025-06-26 08:51:49.328 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:51:49.328 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 379.0093ms
+2025-06-26 08:51:49.366 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 08:51:49.366 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:51:49.369 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 08:51:49.370 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 08:51:49.371 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 4.4855ms
+2025-06-26 08:57:39.911 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 08:57:39.911 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:57:39.912 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.6845ms
+2025-06-26 08:57:39.913 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 08:57:39.913 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:57:39.914 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:57:39.914 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 08:57:39.954 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 08:57:40.029 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 08:57:40.029 +00:00 [INF] Executed action AuthController.Login (Presentation) in 114.9819ms
+2025-06-26 08:57:40.029 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 08:57:40.029 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 116.3621ms
+2025-06-26 08:57:40.104 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 08:57:40.105 +00:00 [INF] CORS policy execution successful.
+2025-06-26 08:57:40.106 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 08:57:40.107 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 08:57:40.107 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 2.2724ms
+2025-06-26 09:01:15.305 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 09:01:15.305 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:01:15.306 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.5337ms
+2025-06-26 09:01:15.307 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 09:01:15.307 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:01:15.308 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:01:15.308 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 09:01:15.323 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 09:01:15.424 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 09:01:15.424 +00:00 [INF] Executed action AuthController.Login (Presentation) in 116.2151ms
+2025-06-26 09:01:15.424 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:01:15.425 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 117.4857ms
+2025-06-26 09:01:15.466 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 09:01:15.466 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:01:15.467 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 09:01:15.467 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 09:01:15.467 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 0.801ms
+2025-06-26 09:33:40.508 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 09:33:40.508 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:33:40.508 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 09:33:40.508 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 09:33:40.509 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 1.0761ms
+2025-06-26 09:41:53.053 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 09:41:53.053 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:41:53.053 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.5753ms
+2025-06-26 09:41:53.055 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 09:41:53.055 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:41:53.056 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:41:53.056 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 09:41:53.110 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 09:41:53.191 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 09:41:53.191 +00:00 [INF] Executed action AuthController.Login (Presentation) in 135.0909ms
+2025-06-26 09:41:53.191 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:41:53.192 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 136.1193ms
+2025-06-26 09:43:34.811 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 09:43:34.812 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:43:34.812 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.4807ms
+2025-06-26 09:43:34.813 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 09:43:34.813 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:43:34.816 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:43:34.816 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 09:43:34.839 +00:00 [INF] Executed DbCommand (20ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 09:43:34.914 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 09:43:34.914 +00:00 [INF] Executed action AuthController.Login (Presentation) in 98.1261ms
+2025-06-26 09:43:34.914 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:43:34.914 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 101.2845ms
+2025-06-26 09:43:34.956 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 09:43:34.956 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:43:34.957 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 09:43:34.957 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 09:43:34.957 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 1.2628ms
+2025-06-26 09:45:35.562 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-26 09:45:35.562 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:45:35.563 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-26 09:45:35.563 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-26 09:45:35.563 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 1.3569ms
+2025-06-26 09:45:56.190 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 09:45:56.191 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:45:56.191 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.4204ms
+2025-06-26 09:45:56.192 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 09:45:56.193 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:45:56.193 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:45:56.193 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 09:45:56.208 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 09:45:56.287 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 09:45:56.287 +00:00 [INF] Executed action AuthController.Login (Presentation) in 93.6865ms
+2025-06-26 09:45:56.287 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:45:56.287 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 94.9047ms
+2025-06-26 09:49:34.202 +00:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5161/login - null null
+2025-06-26 09:49:34.202 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:49:34.203 +00:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5161/login - 204 null null 0.4752ms
+2025-06-26 09:49:34.205 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 56
+2025-06-26 09:49:34.205 +00:00 [INF] CORS policy execution successful.
+2025-06-26 09:49:34.206 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:49:34.206 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-26 09:49:34.226 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-26 09:49:34.304 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-26 09:49:34.304 +00:00 [INF] Executed action AuthController.Login (Presentation) in 98.1181ms
+2025-06-26 09:49:34.304 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-26 09:49:34.304 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 99.2726ms

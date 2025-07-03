@@ -1,0 +1,116 @@
+@page "/requests/{RequestType}"
+
+
+            <div class="pb-6 grid grid-cols-1">
+                <div class="md:flex items-center justify-between px-4">
+
+                    <Text 
+                        TextLabel=@($"{RequestType!.ToString().ToUpper()[0]}{RequestType!.ToString()[1..]} Letters")
+                        TextColor="black"
+                        TextColorIntensity="600"
+                        TextSize="20px"
+                        IsBold=false
+                    />
+
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 ltr:md:space-x-3 rtl:md:space-x-0">
+
+                            <li class="inline-flex items-center" style="padding-right: 50px;">
+                                <Search 
+                                    SearchPlaceholder="Search by name..."
+                                />
+                            </li>
+
+                            @* <li style="padding-right: 20px;">
+                                <DropDown
+                                    MainTitle="All Requests"
+                                    MainBackgroundColor="gray"
+                                    DropdownSubOptions="@SubOptions1"
+                                />
+                            </li>
+
+                            <li style="padding-right: 20px;">
+                                <DropDown
+                                    MainTitle="All Degrees"
+                                    MainBackgroundColor="gray"
+                                    DropdownSubOptions="@SubOptions2"
+                                />
+                            </li> *@
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+             
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12">
+                    <div class=" dark:bg-zinc-800 dark:border-zinc-600">
+                       
+                        <div class="card-body">
+                            <div class="table-rep-plugin">
+                                <div class="mb-0 table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table w-full text-left table-striped">
+                                        <thead>
+                                            <tr class="border-b border-gray-50 dark:border-zinc-600 bg-green-500 dark:bg-zinc-700/50 dark:text-zinc-100 text-white">
+                                                <th class="p-3">APPLICANT NAME</th>
+                                                <th class="p-3">REFERENCE NUMBER</th>
+                                                <th class="p-3">PROGRAMME</th>
+                                                <th class="p-3">LETTER</th>
+                                                <th class="p-3">DATE</th>
+                                            </tr>                                           
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var letter in @Utils.DummyData.Letters) 
+                                            {
+                                            <tr class="border-b border-gray-50 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 cursor-pointer" 
+                                                onclick="location.href='/application-details/';">
+                                                <th class="p-3">@letter.Name</th>
+                                                <th class="p-3">@letter.ReferenceNumber</th>
+                                                <th class="p-3">@letter.Programme</th>
+                                                <th class="p-3">@letter.LetterType</th>
+                                                <th class="p-3">12th Jan. 2024</th>
+                                            </tr>  
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+@code {
+
+
+
+    private int Records { get; set; } = 5;
+
+    private Dictionary<string, string> SubOptions1 = new Dictionary<string, string>()
+    {
+        {"Reference", "urlaction1"},
+        {"Attestation", "urlaction2"},
+        {"Introductory", "urlaction3"}
+
+    };
+
+    private Dictionary<string, string> SubOptions2 = new Dictionary<string, string>()
+    {
+        {"Bachelor", "urlaction1"},
+        {"Diploma", "urlaction2"},
+        {"Masters", "urlaction3"},
+        {"PhD", "urlaction3"}
+
+    };
+
+    [Parameter]
+    public string? RequestType { get; set; }
+
+    private void OnFormSubmit ()
+    {
+        Console.WriteLine("form has been submitted");
+    }
+}

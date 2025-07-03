@@ -1,0 +1,99 @@
+@page "/payment-history"
+
+
+
+<div class="main-content group-data-[sidebar-size=sm]:ml-[70px]">
+    <div class="page-content dark:bg-zinc-700">
+
+        <div class="container-fluid">
+
+            @* <div class="pb-6 grid grid-cols-1">
+                <div class="md:flex items-center justify-between px-[2px]">
+
+                    <Text 
+                        TextLabel="Payment History"
+                        TextColor="black"
+                        TextColorIntensity="600"
+                        TextSize="20px"
+                        IsBold=false
+                    />
+
+                    <nav class="flex" aria-label="Breadcrumb">
+                        <ol class="inline-flex items-center space-x-1 ltr:md:space-x-3 rtl:md:space-x-0">
+
+                            <li class="inline-flex items-center" style="padding-right: 50px;">
+                                <Search 
+                                    SearchPlaceholder="Search..."
+                                />
+                            </li>
+
+                            <li style="padding-right: 20px;">
+                                <DropDown
+                                    MainTitle="Sort by date"
+                                    MainBackgroundColor="gray"
+                                    DropdownSubOptions="@SubOptions1"
+                                />
+                            </li>
+
+
+                        </ol>
+                    </nav>
+                </div>
+            </div> *@
+            
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12">
+                    <div class=" dark:bg-zinc-800 dark:border-zinc-600">
+                       
+                        <div class="card-body">
+                            <div class="table-rep-plugin">
+                                <div class="mb-0 table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table w-full text-left table-striped">
+                                        <thead>
+                                            <tr class="border-b border-gray-50 dark:border-zinc-600 bg-green-500 dark:bg-zinc-700/50 dark:text-zinc-100 text-white">
+                                                <th class="p-3">NAME</th>
+                                                <th class="p-3">REFERENCE NUMBER</th>
+                                                <th class="p-3">PROGRAMME</th>
+                                                <th class="p-3">LETTER</th>
+                                                <th class="p-3">STATUS</th>                                             
+                                            </tr>                                           
+                                        </thead>
+                                        <tbody>
+                                            @for (int i=0; i<Records; i++) 
+                                            {
+                                            <tr class="border-b border-gray-50 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100">
+                                                <th class="p-3">Adiabu Richard</th>
+                                                <th class="p-3">20583027</th>
+                                                <th class="p-3">Bsc. Computer Engineering</th>
+                                                <th class="p-3">Reference Letter</th>
+                                                <th class="p-3">Pending</th>                                             
+                                            </tr>        
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</div>
+</div>
+</div>
+
+@code {
+
+    private int Records = 7;
+
+    private Dictionary<string, string> SubOptions1 = new Dictionary<string, string>()
+    {
+        {"Last Week", "urlaction1"},
+        {"Last Month", "urlaction2"},
+        {"Last Year", "urlaction3"}
+
+    };
+
+
+}

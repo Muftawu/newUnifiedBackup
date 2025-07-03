@@ -1,0 +1,88 @@
+@page "/processing-request"
+@using System.ComponentModel.DataAnnotations
+
+<div style="padding:  0 55px;">
+    <div>
+        <h3 class="text-xl">Reference-Letter - Processing Requests </h3>
+    </div>
+    <div>
+        <div class="flex flex-col justify-center items-center text-center mb-6 mt-12">
+            <div>
+                <img style="width: 90px;" src="assets/images/KNUSTLOGO.svg" alt="knust log" />
+            </div>
+            <div>
+                <p class="mt-6 font-semibold text-xl"> KWAME NKRUMAH UNIVERSITY OF SCIENCE AND TECHNOLOGY </p>
+                <p class="text-lg "> DEPARTMENT OF ELECTRICAL AND COMPUTER ENGINEERING. </p>
+            </div>
+        </div>
+        <div style="padding-right: 200px;" class="mt-16 flex flex-col justify-end items-end pr-6 text-right mb-4">
+            <p>St. Clark University</p>
+            <p>44 Working, London</p>
+        </div>
+        <div>
+            <h4 class="text-xl text-center text-underline">REFERENCE LETTER.<span><box-icon name='pencil'></box-icon></span></h4>
+            <p class="mt-6" style="padding-left: 200px;">Dear Sir/Madam, <span ><box-icon name='pencil' class="w-6"></box-icon></span></p>
+        </div>
+    </div>
+
+
+    <div class=" mt-10">
+    <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="space-y-4 flex flex-col justify-center items-center">   
+            <div class="text-lg leading-7 ">
+                I am pleased to recommend [<InputText @bind-Value="model.ApplicantFullName" 
+                    class="inlin h-6 w-32  border-none  focus:border-b focus:outline-none" placeholder="Grace Yankey" />], 
+                a former student at the Kwame Nkrumah University of Science and 
+                <br/> Technology (KNUST), Ghana. During their [<InputText @bind-Value="model.DurationOfStudy" 
+                    class="inline h-6  w-32 border-none focus:border-none focus:outline-none" placeholder="4 Years of Study"/>], 
+                [<InputText @bind-Value="model.ApplicantFirstName" 
+                    class="inline h-6 w-32 border-none  focus:border-none focus:outline-none" placeholder="Grace Yankey"/>] 
+                demonstrated outstanding <br/> academic performance, strong analytical skills, and a remarkable ability to excel in 
+                [<InputText @bind-Value="model.SpecificFieldOrSkills" 
+                    class="inline h-6 w-32 border-none focus:border-none focus:outline-none" placeholder="Data Analytics"/>].
+                    <br/>
+            </div>
+
+            <div class="text-lg leading-7">
+                I am confident that [<InputText @bind-Value="model.ApplicantFullName" 
+                    class="inline h-6   w-32 border-none focus:border-none focus:outline-none" placeholder="Grace Yankey" />] 
+                will make valuable contributions to your institution. Please contact me at <br/>
+                [<InputText @bind-Value="model.LecturerEmail" 
+                    class="inline h-6 w-36 border-none focus:border-none focus:outline-none" placeholder="twum@gmail.com"/>] or 
+                [<InputText @bind-Value="model.LecturerPhone" 
+                    class="inline h-6  w-28 border-none  focus:border-none focus:outline-none" placeholder="0256778060"/>] 
+                for further information.<br/>
+            </div>
+            <div class="mt-6">
+                <button type="submit" 
+                    class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    Apply user details
+                </button>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+</div>
+
+
+@code {
+    private RecommendationModel model = new();
+
+    private void HandleValidSubmit()
+    {
+       
+    }
+
+    public class RecommendationModel
+    {
+        public string ApplicantFullName { get; set; } = string.Empty;
+        public string ApplicantFirstName { get; set; } = string.Empty;
+        public string DurationOfStudy { get; set; } = string.Empty;
+        public string SpecificFieldOrSkills { get; set; } = string.Empty;
+        public string LecturerEmail { get; set; } = string.Empty;
+        public string LecturerPhone { get; set; } = string.Empty;
+    }
+}

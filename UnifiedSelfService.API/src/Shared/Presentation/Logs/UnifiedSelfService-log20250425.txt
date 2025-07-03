@@ -1,0 +1,953 @@
+2025-04-25 16:27:03.120 +00:00 [INF] Executed DbCommand (161ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 16:27:03.312 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 16:27:03.321 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 16:27:03.482 +00:00 [INF] User profile is available. Using '/home/muftawu/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-04-25 16:27:03.576 +00:00 [INF] Now listening on: http://localhost:5161
+2025-04-25 16:27:03.581 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-04-25 16:27:03.582 +00:00 [INF] Hosting environment: Development
+2025-04-25 16:27:03.582 +00:00 [INF] Content root path: /home/muftawu/unified/UnifiedSelfService.API/src/Shared/Presentation
+2025-04-25 16:27:03.922 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-04-25 16:27:04.127 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 207.6602ms
+2025-04-25 16:27:04.147 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-04-25 16:27:04.149 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/swagger-ui-standalone-preset.js - null null
+2025-04-25 16:27:04.153 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 6.2656ms
+2025-04-25 16:27:04.145 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/swagger-ui-bundle.js - null null
+2025-04-25 16:27:04.195 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2025-04-25 16:27:04.195 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2025-04-25 16:27:04.200 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 55.0435ms
+2025-04-25 16:27:04.200 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 51.0311ms
+2025-04-25 16:27:04.645 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-04-25 16:27:04.886 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 241.2055ms
+2025-04-25 16:28:01.038 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-04-25 16:28:01.064 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-04-25 16:28:01.123 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:28:01.157 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:01.450 +00:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-04-25 16:28:01.509 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:01.589 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 426.7194ms
+2025-04-25 16:28:01.590 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:28:01.596 +00:00 [INF] HTTP GET /request_type responded 200 in 483.6856 ms
+2025-04-25 16:28:01.607 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 568.4722ms
+2025-04-25 16:28:21.051 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-04-25 16:28:21.073 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:28:21.074 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:21.127 +00:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-04-25 16:28:21.129 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:21.129 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 55.547ms
+2025-04-25 16:28:21.130 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:28:21.130 +00:00 [INF] HTTP GET /request_type responded 200 in 57.6016 ms
+2025-04-25 16:28:21.131 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 79.4285ms
+2025-04-25 16:28:29.277 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 60
+2025-04-25 16:28:29.283 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:28:29.301 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:28:29.565 +00:00 [INF] Executed DbCommand (189ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:28:30.150 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`4[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:30.163 +00:00 [INF] Executed action AuthController.Login (Presentation) in 861.7904ms
+2025-04-25 16:28:30.164 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:28:30.164 +00:00 [INF] HTTP POST /login responded 200 in 881.0611 ms
+2025-04-25 16:28:30.164 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 887.0117ms
+2025-04-25 16:28:30.297 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:28:30.298 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:30.312 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:28:30.313 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:30.313 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:28:30.313 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:28:30.325 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:28:30.326 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:30.337 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:30.414 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:28:30.416 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:30.474 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:28:30.475 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:30.476 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:28:30.478 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:30.480 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 143.3577ms
+2025-04-25 16:28:30.481 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:30.481 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 154.6381 ms
+2025-04-25 16:28:30.481 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 156.6541ms
+2025-04-25 16:28:30.490 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 176.315ms
+2025-04-25 16:28:30.490 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 176.4211ms
+2025-04-25 16:28:30.490 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:30.491 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 192.8780 ms
+2025-04-25 16:28:30.490 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:30.491 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 178.2086 ms
+2025-04-25 16:28:30.491 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 194.0799ms
+2025-04-25 16:28:30.491 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 179.3185ms
+2025-04-25 16:28:30.559 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:28:30.560 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:30.560 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:30.573 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:28:30.574 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:30.575 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 14.2346ms
+2025-04-25 16:28:30.575 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:30.575 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 15.0089 ms
+2025-04-25 16:28:30.575 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 16.0501ms
+2025-04-25 16:28:51.187 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:28:51.188 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:51.188 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:28:51.194 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:28:51.194 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:28:51.195 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:51.195 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:51.195 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:28:51.195 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:51.254 +00:00 [INF] Executed DbCommand (62ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:28:51.254 +00:00 [INF] Executed DbCommand (56ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:28:51.255 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:51.255 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:51.256 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 67.5099ms
+2025-04-25 16:28:51.256 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:51.256 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 60.8499ms
+2025-04-25 16:28:51.256 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 68.0461 ms
+2025-04-25 16:28:51.256 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:28:51.256 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 61.5285 ms
+2025-04-25 16:28:51.256 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 68.8363ms
+2025-04-25 16:28:51.256 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 62.3291ms
+2025-04-25 16:28:51.258 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:28:51.258 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:51.258 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:51.279 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:28:51.280 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:51.280 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 21.5615ms
+2025-04-25 16:28:51.280 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:51.280 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 22.1525 ms
+2025-04-25 16:28:51.281 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 22.9141ms
+2025-04-25 16:28:51.336 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:28:51.337 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:51.337 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 141.9628ms
+2025-04-25 16:28:51.337 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:28:51.337 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 142.7124 ms
+2025-04-25 16:28:51.338 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 143.4838ms
+2025-04-25 16:28:52.197 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - null null
+2025-04-25 16:28:52.198 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:28:52.207 +00:00 [INF] Route matched with {action = "AllDepartmentRequestTypes", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllDepartmentRequestTypes() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:28:52.265 +00:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+2025-04-25 16:28:52.338 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:28:52.349 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation) in 141.7449ms
+2025-04-25 16:28:52.349 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:28:52.349 +00:00 [INF] HTTP GET /allDepartmentRequestTypes responded 200 in 151.3795 ms
+2025-04-25 16:28:52.349 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - 200 null application/json; charset=utf-8 152.3698ms
+2025-04-25 16:32:29.637 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:32:29.637 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:32:29.637 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:32:29.638 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:32:29.638 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:32:29.638 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:32:29.638 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:32:29.640 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:29.641 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:29.677 +00:00 [INF] Executed DbCommand (35ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:32:29.677 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:32:29.677 +00:00 [INF] Executed DbCommand (34ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:32:29.678 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:29.678 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:29.678 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:29.678 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 37.5585ms
+2025-04-25 16:32:29.678 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:29.678 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 40.4012ms
+2025-04-25 16:32:29.678 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:32:29.678 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 40.8621 ms
+2025-04-25 16:32:29.678 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 40.9166 ms
+2025-04-25 16:32:29.679 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 40.5278ms
+2025-04-25 16:32:29.679 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:32:29.679 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 41.1662 ms
+2025-04-25 16:32:29.679 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 41.4337ms
+2025-04-25 16:32:29.679 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 41.732ms
+2025-04-25 16:32:29.679 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 42.022ms
+2025-04-25 16:32:29.774 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:32:29.774 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:29.774 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:29.794 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:32:29.795 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:29.795 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 20.3102ms
+2025-04-25 16:32:29.795 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:29.795 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 20.9223 ms
+2025-04-25 16:32:29.795 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 21.6625ms
+2025-04-25 16:32:43.123 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:32:43.123 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:43.124 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:43.140 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:32:43.141 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:43.141 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 17.2118ms
+2025-04-25 16:32:43.141 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:43.141 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 17.7798 ms
+2025-04-25 16:32:43.142 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 18.7125ms
+2025-04-25 16:32:43.842 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-04-25 16:32:43.842 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:32:43.843 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:44.098 +00:00 [INF] Executed DbCommand (253ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-04-25 16:32:44.099 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:44.100 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 256.8866ms
+2025-04-25 16:32:44.100 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:32:44.100 +00:00 [INF] HTTP GET /request_type responded 200 in 257.6384 ms
+2025-04-25 16:32:44.100 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 258.3632ms
+2025-04-25 16:32:46.176 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/requestType/dc79ca09-8291-4fd1-d62d-08dd80f75239 - null null
+2025-04-25 16:32:46.177 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetRequestTypeById (Presentation)'
+2025-04-25 16:32:46.184 +00:00 [INF] Route matched with {action = "GetRequestTypeById", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetRequestTypeById(System.Guid) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:46.215 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+WHERE [r].[RequestTypeId] = @__requestTypeId_0
+2025-04-25 16:32:46.216 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:46.216 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetRequestTypeById (Presentation) in 31.5457ms
+2025-04-25 16:32:46.216 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetRequestTypeById (Presentation)'
+2025-04-25 16:32:46.217 +00:00 [INF] HTTP GET /requestType/dc79ca09-8291-4fd1-d62d-08dd80f75239 responded 200 in 39.1956 ms
+2025-04-25 16:32:46.217 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/requestType/dc79ca09-8291-4fd1-d62d-08dd80f75239 - 200 null application/json; charset=utf-8 40.2736ms
+2025-04-25 16:32:47.890 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-04-25 16:32:47.891 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:32:47.891 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:47.905 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-04-25 16:32:47.906 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:47.907 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 15.0837ms
+2025-04-25 16:32:47.907 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-04-25 16:32:47.907 +00:00 [INF] HTTP GET /request_type responded 200 in 16.1064 ms
+2025-04-25 16:32:47.907 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 17.1954ms
+2025-04-25 16:32:51.226 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:32:51.227 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:51.227 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:51.240 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:32:51.241 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:51.241 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 14.2122ms
+2025-04-25 16:32:51.241 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:32:51.242 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 14.7356 ms
+2025-04-25 16:32:51.242 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 15.4899ms
+2025-04-25 16:32:51.933 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - null null
+2025-04-25 16:32:51.934 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:32:51.934 +00:00 [INF] Route matched with {action = "AllDepartmentRequestTypes", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllDepartmentRequestTypes() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:32:51.949 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+2025-04-25 16:32:51.951 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:32:51.952 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation) in 17.2733ms
+2025-04-25 16:32:51.952 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:32:51.952 +00:00 [INF] HTTP GET /allDepartmentRequestTypes responded 200 in 18.0006 ms
+2025-04-25 16:32:51.952 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - 200 null application/json; charset=utf-8 18.8859ms
+2025-04-25 16:33:39.632 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - null null
+2025-04-25 16:33:39.632 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:39.633 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:39.633 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:39.633 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:39.633 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:33:39.633 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:39.633 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:39.633 +00:00 [INF] Route matched with {action = "AllDepartmentRequestTypes", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllDepartmentRequestTypes() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:39.639 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+2025-04-25 16:33:39.640 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:39.641 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:39.641 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:39.641 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 7.9992ms
+2025-04-25 16:33:39.641 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:39.641 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 8.4636 ms
+2025-04-25 16:33:39.641 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation) in 7.7233ms
+2025-04-25 16:33:39.641 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 8.9775ms
+2025-04-25 16:33:39.641 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.AllDepartmentRequestTypes (Presentation)'
+2025-04-25 16:33:39.642 +00:00 [INF] HTTP GET /allDepartmentRequestTypes responded 200 in 8.8138 ms
+2025-04-25 16:33:39.642 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/allDepartmentRequestTypes - 200 null application/json; charset=utf-8 9.6016ms
+2025-04-25 16:33:39.643 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:39.643 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:39.644 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 10.4517ms
+2025-04-25 16:33:39.644 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:39.644 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 11.0179 ms
+2025-04-25 16:33:39.644 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 11.4522ms
+2025-04-25 16:33:39.666 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:39.667 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:39.667 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:39.673 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:39.674 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:39.674 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 7.3854ms
+2025-04-25 16:33:39.675 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:39.675 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 8.0825 ms
+2025-04-25 16:33:39.675 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 9.0569ms
+2025-04-25 16:33:42.354 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:42.354 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:42.355 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:42.355 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:42.355 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:42.356 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:42.362 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:42.363 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:42.363 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:42.368 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:42.368 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:42.369 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:42.369 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 14.3731ms
+2025-04-25 16:33:42.369 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:42.370 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:42.370 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 15.0141 ms
+2025-04-25 16:33:42.370 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 13.6325ms
+2025-04-25 16:33:42.370 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 15.6194ms
+2025-04-25 16:33:42.370 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:42.370 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 15.3805 ms
+2025-04-25 16:33:42.370 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 16.0396ms
+2025-04-25 16:33:42.373 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:42.374 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:42.374 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:42.416 +00:00 [INF] Executed DbCommand (39ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:42.416 +00:00 [INF] Executed DbCommand (50ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:42.416 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:42.417 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:42.417 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 42.3331ms
+2025-04-25 16:33:42.417 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:42.417 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 53.6061ms
+2025-04-25 16:33:42.417 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 42.9314 ms
+2025-04-25 16:33:42.417 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:42.417 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 54.2134 ms
+2025-04-25 16:33:42.417 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 43.7306ms
+2025-04-25 16:33:42.417 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 55.0216ms
+2025-04-25 16:33:43.815 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:43.816 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:43.817 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:44.028 +00:00 [INF] Executed DbCommand (204ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:44.029 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:44.029 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 211.7242ms
+2025-04-25 16:33:44.029 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:44.029 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 213.7849 ms
+2025-04-25 16:33:44.030 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 215.2659ms
+2025-04-25 16:33:44.033 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/all-request-transactions - null null
+2025-04-25 16:33:44.034 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequestTransactions (Presentation)'
+2025-04-25 16:33:44.039 +00:00 [INF] Route matched with {action = "GetAllRequestTransactions", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequestTransactions() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:44.082 +00:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTransactionId], [r].[CreatedBy], [r].[CreatedDate], [r].[DeliveryModeOption], [r].[PaidDate], [r].[PaymentStatus], [r].[ProcessingStatus], [r].[ProgrammeOfStudy], [r].[RecipientEmail], [r].[RecipientName], [r].[RequestId], [r].[TransactionPaymentRef], [r].[TransactionReference], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestTransaction] AS [r]
+2025-04-25 16:33:44.083 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:44.084 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequestTransactions (Presentation) in 44.8551ms
+2025-04-25 16:33:44.084 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequestTransactions (Presentation)'
+2025-04-25 16:33:44.084 +00:00 [INF] HTTP GET /all-request-transactions responded 200 in 50.3908 ms
+2025-04-25 16:33:44.084 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/all-request-transactions - 200 null application/json; charset=utf-8 51.1793ms
+2025-04-25 16:33:46.116 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:46.117 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:46.117 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:46.122 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:46.122 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:46.123 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:46.123 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:46.123 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:46.124 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:46.169 +00:00 [INF] Executed DbCommand (49ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:46.169 +00:00 [INF] Executed DbCommand (44ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:46.169 +00:00 [INF] Executed DbCommand (44ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:46.170 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:46.170 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:46.170 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:46.170 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 52.9367ms
+2025-04-25 16:33:46.170 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 47.7872ms
+2025-04-25 16:33:46.171 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:46.171 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:46.171 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 53.7508 ms
+2025-04-25 16:33:46.171 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 48.4496 ms
+2025-04-25 16:33:46.170 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 46.8189ms
+2025-04-25 16:33:46.171 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:46.171 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 47.8947 ms
+2025-04-25 16:33:46.171 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 49.3218ms
+2025-04-25 16:33:46.171 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 55.1318ms
+2025-04-25 16:33:46.171 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 48.2965ms
+2025-04-25 16:33:46.173 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:46.173 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:46.173 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:46.218 +00:00 [INF] Executed DbCommand (43ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:46.219 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:46.219 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 45.9853ms
+2025-04-25 16:33:46.219 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:46.219 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 46.4226 ms
+2025-04-25 16:33:46.219 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 46.957ms
+2025-04-25 16:33:53.855 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:53.855 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:33:53.856 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:53.856 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:53.856 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:53.856 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:33:53.871 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:53.871 +00:00 [INF] Executed DbCommand (13ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:33:53.872 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:53.872 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:53.872 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 16.3444ms
+2025-04-25 16:33:53.872 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:53.872 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 16.5181ms
+2025-04-25 16:33:53.872 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 16.8652 ms
+2025-04-25 16:33:53.872 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:33:53.872 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 16.9365 ms
+2025-04-25 16:33:53.873 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 17.8479ms
+2025-04-25 16:33:53.873 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 17.9175ms
+2025-04-25 16:33:53.873 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:33:53.874 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:53.874 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:33:53.888 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:33:53.888 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:33:53.888 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 14.1032ms
+2025-04-25 16:33:53.888 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:33:53.888 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 14.4800 ms
+2025-04-25 16:33:53.888 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 14.9479ms
+2025-04-25 16:34:13.460 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 62
+2025-04-25 16:34:13.461 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:34:13.461 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:34:13.469 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:34:13.470 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:13.473 +00:00 [INF] Executed action AuthController.Login (Presentation) in 12.3016ms
+2025-04-25 16:34:13.473 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:34:13.473 +00:00 [INF] HTTP POST /login responded 400 in 12.8118 ms
+2025-04-25 16:34:13.474 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 13.7279ms
+2025-04-25 16:34:24.254 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:24.255 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:24.256 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:24.260 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:24.260 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:24.261 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:24.270 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:24.270 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:24.271 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:24.271 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:24.271 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 15.5914ms
+2025-04-25 16:34:24.271 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 10.6612ms
+2025-04-25 16:34:24.271 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:24.272 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 11.1277 ms
+2025-04-25 16:34:24.272 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 11.7128ms
+2025-04-25 16:34:24.271 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:24.272 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 16.5360 ms
+2025-04-25 16:34:24.272 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 17.759ms
+2025-04-25 16:34:24.273 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:34:24.274 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:24.274 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:34:24.280 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:34:24.280 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:24.280 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 6.5138ms
+2025-04-25 16:34:24.280 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:24.281 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 6.8963 ms
+2025-04-25 16:34:24.281 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 7.3574ms
+2025-04-25 16:34:26.103 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:26.103 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:34:26.103 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:26.103 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:26.103 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:26.103 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:26.104 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:26.104 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:34:26.104 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:26.113 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:26.113 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:26.113 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:34:26.114 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:26.114 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:26.114 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 10.1383ms
+2025-04-25 16:34:26.114 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:26.114 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 10.4292ms
+2025-04-25 16:34:26.114 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:26.114 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 10.5758 ms
+2025-04-25 16:34:26.114 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 10.7960 ms
+2025-04-25 16:34:26.114 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:26.114 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 11.4851ms
+2025-04-25 16:34:26.115 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 10.8682ms
+2025-04-25 16:34:26.115 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:26.115 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 11.1666 ms
+2025-04-25 16:34:26.115 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 11.8077ms
+2025-04-25 16:34:26.115 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 11.4015ms
+2025-04-25 16:34:26.117 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:34:26.117 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:26.117 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:34:26.145 +00:00 [INF] Executed DbCommand (25ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:34:26.145 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:26.146 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 28.3139ms
+2025-04-25 16:34:26.146 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:26.146 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 28.7678 ms
+2025-04-25 16:34:26.146 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 29.2841ms
+2025-04-25 16:34:44.021 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-04-25 16:34:44.022 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.4765ms
+2025-04-25 16:34:44.053 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-04-25 16:34:44.054 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.5862ms
+2025-04-25 16:34:44.422 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-04-25 16:34:44.453 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 31.0513ms
+2025-04-25 16:34:59.912 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:59.913 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:59.913 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:59.919 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - null null
+2025-04-25 16:34:59.919 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:59.919 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:34:59.945 +00:00 [INF] Executed DbCommand (23ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:59.945 +00:00 [INF] Executed DbCommand (29ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:34:59.946 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:59.946 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 33.4226ms
+2025-04-25 16:34:59.947 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:59.947 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 34.2093 ms
+2025-04-25 16:34:59.946 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:59.947 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 34.7361ms
+2025-04-25 16:34:59.947 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 27.791ms
+2025-04-25 16:34:59.947 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:34:59.947 +00:00 [INF] HTTP GET /getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 responded 200 in 28.1657 ms
+2025-04-25 16:34:59.947 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/4a033f77-30b4-4b86-b9a2-75a1e59861e2 - 200 null application/json; charset=utf-8 28.6474ms
+2025-04-25 16:34:59.948 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:34:59.949 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:59.949 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:34:59.975 +00:00 [INF] Executed DbCommand (23ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:34:59.976 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:34:59.976 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 26.4671ms
+2025-04-25 16:34:59.976 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:34:59.976 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 26.8982 ms
+2025-04-25 16:34:59.976 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 28.0639ms
+2025-04-25 16:36:45.553 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/register - application/json; charset=utf-8 118
+2025-04-25 16:36:45.553 +00:00 [INF] Executing endpoint 'AuthController.Register (Presentation)'
+2025-04-25 16:36:45.563 +00:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(RegisterDTO) on controller AuthController (Presentation).
+2025-04-25 16:36:45.612 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:36:46.017 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-04-25 16:36:46.059 +00:00 [INF] Executed DbCommand (35ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:36:46.251 +00:00 [INF] Executed DbCommand (28ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 255), @p5='?' (DbType = DateTime2), @p6='?' (DbType = DateTime2), @p7='?' (Size = 256), @p8='?' (DbType = Boolean), @p9='?' (Size = 4000), @p10='?' (Size = 255), @p11='?' (DbType = Boolean), @p12='?' (DbType = Boolean), @p13='?' (DbType = DateTimeOffset), @p14='?' (Size = 256), @p15='?' (Size = 256), @p16='?' (Size = 255), @p17='?' (Size = 8000) (DbType = Binary), @p18='?' (Size = 255), @p19='?' (Size = 4000), @p20='?' (DbType = Boolean), @p21='?' (Size = 255), @p22='?' (Size = 4000), @p23='?' (Size = 255), @p24='?' (DbType = Boolean), @p25='?' (Size = 256), @p26='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [CountryCode], [CountryOfResidence], [DateCreated], [DateOfBirth], [Email], [EmailConfirmed], [Gender], [IndexNumber], [IsProfileVerified], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [OtherNames], [PassportPicture], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [ReferenceNumber], [SecurityStamp], [Surname], [TwoFactorEnabled], [UserName], [UserType])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26);
+2025-04-25 16:36:46.302 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2025-04-25 16:36:46.358 +00:00 [INF] Executed DbCommand (39ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @__p_0 AND [a].[RoleId] = @__p_1
+2025-04-25 16:36:46.380 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedRoleName_0
+2025-04-25 16:36:46.408 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-04-25 16:36:46.420 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:36:46.514 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 255), @p28='?' (Size = 255), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p29='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 255), @p6='?' (DbType = DateTime2), @p7='?' (DbType = DateTime2), @p8='?' (Size = 256), @p9='?' (DbType = Boolean), @p10='?' (Size = 4000), @p11='?' (Size = 255), @p12='?' (DbType = Boolean), @p13='?' (DbType = Boolean), @p14='?' (DbType = DateTimeOffset), @p15='?' (Size = 256), @p16='?' (Size = 256), @p17='?' (Size = 255), @p18='?' (Size = 8000) (DbType = Binary), @p19='?' (Size = 255), @p20='?' (Size = 4000), @p21='?' (DbType = Boolean), @p22='?' (Size = 255), @p23='?' (Size = 4000), @p24='?' (Size = 255), @p25='?' (DbType = Boolean), @p26='?' (Size = 256), @p27='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [ConcurrencyStamp] = @p3, [CountryCode] = @p4, [CountryOfResidence] = @p5, [DateCreated] = @p6, [DateOfBirth] = @p7, [Email] = @p8, [EmailConfirmed] = @p9, [Gender] = @p10, [IndexNumber] = @p11, [IsProfileVerified] = @p12, [LockoutEnabled] = @p13, [LockoutEnd] = @p14, [NormalizedEmail] = @p15, [NormalizedUserName] = @p16, [OtherNames] = @p17, [PassportPicture] = @p18, [PasswordHash] = @p19, [PhoneNumber] = @p20, [PhoneNumberConfirmed] = @p21, [ReferenceNumber] = @p22, [SecurityStamp] = @p23, [Surname] = @p24, [TwoFactorEnabled] = @p25, [UserName] = @p26, [UserType] = @p27
+OUTPUT 1
+WHERE [Id] = @p28 AND [ConcurrencyStamp] = @p29;
+2025-04-25 16:36:50.645 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:36:50.645 +00:00 [INF] Executed action AuthController.Register (Presentation) in 5081.6937ms
+2025-04-25 16:36:50.645 +00:00 [INF] Executed endpoint 'AuthController.Register (Presentation)'
+2025-04-25 16:36:50.645 +00:00 [INF] HTTP POST /register responded 200 in 5091.5964 ms
+2025-04-25 16:36:50.645 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/register - 200 null application/json; charset=utf-8 5092.2439ms
+2025-04-25 16:38:26.685 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 62
+2025-04-25 16:38:26.686 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:26.686 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:38:26.699 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:38:26.700 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:38:26.700 +00:00 [INF] Executed action AuthController.Login (Presentation) in 14.2826ms
+2025-04-25 16:38:26.700 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:26.700 +00:00 [INF] HTTP POST /login responded 400 in 14.7411 ms
+2025-04-25 16:38:26.700 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 15.5639ms
+2025-04-25 16:38:49.734 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 62
+2025-04-25 16:38:49.735 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:49.735 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:38:49.748 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:38:49.748 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:38:49.749 +00:00 [INF] Executed action AuthController.Login (Presentation) in 13.8084ms
+2025-04-25 16:38:49.749 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:49.749 +00:00 [INF] HTTP POST /login responded 400 in 14.2229 ms
+2025-04-25 16:38:49.749 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 14.7952ms
+2025-04-25 16:38:51.902 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 62
+2025-04-25 16:38:51.903 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:51.903 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:38:51.913 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:38:51.913 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:38:51.914 +00:00 [INF] Executed action AuthController.Login (Presentation) in 10.2529ms
+2025-04-25 16:38:51.914 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:38:51.914 +00:00 [INF] HTTP POST /login responded 400 in 11.1532 ms
+2025-04-25 16:38:51.914 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 12.0681ms
+2025-04-25 16:39:36.165 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json; charset=utf-8 62
+2025-04-25 16:39:36.166 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:39:36.166 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-04-25 16:39:36.187 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-25 16:39:36.530 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`4[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[Shared.Domain.Models.UserRoles, Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:39:36.531 +00:00 [INF] Executed action AuthController.Login (Presentation) in 364.4342ms
+2025-04-25 16:39:36.531 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-04-25 16:39:36.531 +00:00 [INF] HTTP POST /login responded 200 in 364.8767 ms
+2025-04-25 16:39:36.531 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 200 null application/json; charset=utf-8 365.4463ms
+2025-04-25 16:39:36.620 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:39:36.621 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:39:36.621 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:39:36.624 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:39:36.625 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:39:36.625 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:39:36.637 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:39:36.637 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:39:36.638 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:39:36.638 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:39:36.638 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 13.0191ms
+2025-04-25 16:39:36.638 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:39:36.638 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 13.3078 ms
+2025-04-25 16:39:36.638 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 16.5016ms
+2025-04-25 16:39:36.638 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:39:36.638 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 13.7197ms
+2025-04-25 16:39:36.638 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 17.2464 ms
+2025-04-25 16:39:36.638 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 18.3918ms
+2025-04-25 16:39:36.641 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:39:36.641 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:39:36.642 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:39:36.675 +00:00 [INF] Executed DbCommand (29ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:39:36.675 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:39:36.675 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 33.4152ms
+2025-04-25 16:39:36.675 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:39:36.675 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 33.7532 ms
+2025-04-25 16:39:36.675 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 34.2244ms
+2025-04-25 16:40:53.139 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:40:53.139 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:40:53.139 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:40:53.139 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:40:53.139 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:40:53.140 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:40:53.152 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:40:53.152 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:40:53.153 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:40:53.154 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 14.3546ms
+2025-04-25 16:40:53.154 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:40:53.154 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 14.7891 ms
+2025-04-25 16:40:53.154 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:40:53.154 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 15.3477ms
+2025-04-25 16:40:53.155 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 14.4391ms
+2025-04-25 16:40:53.155 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:40:53.155 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 16.4669 ms
+2025-04-25 16:40:53.156 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 16.9604ms
+2025-04-25 16:40:53.255 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:40:53.256 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:40:53.256 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:40:53.279 +00:00 [INF] Executed DbCommand (20ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:40:53.279 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:40:53.279 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 23.0012ms
+2025-04-25 16:40:53.279 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:40:53.279 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 23.3957 ms
+2025-04-25 16:40:53.279 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 23.9339ms
+2025-04-25 16:41:11.685 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:41:11.685 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:41:11.686 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:41:11.686 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:41:11.686 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:41:11.686 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:41:11.698 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:41:11.699 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:41:11.699 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 12.8983ms
+2025-04-25 16:41:11.699 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:41:11.699 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 13.7772 ms
+2025-04-25 16:41:11.700 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:41:11.700 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 14.5687ms
+2025-04-25 16:41:11.700 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:41:11.701 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 14.7677ms
+2025-04-25 16:41:11.701 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:41:11.701 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 15.1510 ms
+2025-04-25 16:41:11.701 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 15.6644ms
+2025-04-25 16:41:11.704 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:41:11.705 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:41:11.705 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:41:11.716 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:41:11.717 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:41:11.717 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 12.4542ms
+2025-04-25 16:41:11.717 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:41:11.717 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 12.9820 ms
+2025-04-25 16:41:11.718 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 13.7469ms
+2025-04-25 16:45:13.110 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:45:13.110 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:45:13.110 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:45:13.111 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:45:13.111 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:45:13.112 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:45:13.121 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:45:13.122 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:45:13.122 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 11.0232ms
+2025-04-25 16:45:13.122 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:45:13.122 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:45:13.122 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 11.7862 ms
+2025-04-25 16:45:13.122 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 12.7681ms
+2025-04-25 16:45:13.122 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:45:13.123 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 9.9686ms
+2025-04-25 16:45:13.123 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:45:13.123 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 11.5450 ms
+2025-04-25 16:45:13.123 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 13.0086ms
+2025-04-25 16:45:13.212 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:45:13.214 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:45:13.215 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:45:13.224 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:45:13.225 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:45:13.225 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 9.7467ms
+2025-04-25 16:45:13.226 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:45:13.227 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 12.9952 ms
+2025-04-25 16:45:13.227 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 14.7292ms
+2025-04-25 16:51:06.331 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:51:06.332 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - null null
+2025-04-25 16:51:06.332 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:51:06.332 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:51:06.332 +00:00 [INF] Executing endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:51:06.332 +00:00 [INF] Route matched with {action = "GetUserById", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserById(System.Guid) on controller AuthController (Presentation).
+2025-04-25 16:51:06.711 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:51:06.711 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:51:06.711 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 378.9636ms
+2025-04-25 16:51:06.711 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:51:06.712 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 379.7289 ms
+2025-04-25 16:51:06.712 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 380.1065ms
+2025-04-25 16:51:06.738 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - null null
+2025-04-25 16:51:06.738 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:51:06.738 +00:00 [INF] Route matched with {action = "DepartmentRequestTypeByName", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DepartmentRequestTypeByName(System.String) on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-04-25 16:51:06.743 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__requestTypeName_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepartmentRequestType], [d].[AcceptPayment], [d].[Amount], [d].[CreatedBy], [d].[CreatedDate], [d].[DepartmentId], [d].[RequestTypeId], [d].[SISDeptId], [d].[UpdatedBy], [d].[UpdatedDate], [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [DepartmentRequestType] AS [d]
+INNER JOIN [RequestType] AS [r] ON [d].[RequestTypeId] = [r].[RequestTypeId]
+WHERE [r].[Name] = @__requestTypeName_0
+2025-04-25 16:51:06.743 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:51:06.744 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation) in 5.1614ms
+2025-04-25 16:51:06.744 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-04-25 16:51:06.744 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.DepartmentRequestTypeByName (Presentation)'
+2025-04-25 16:51:06.744 +00:00 [INF] HTTP GET /departmentRequestTypeByName/English Proficiency responded 400 in 5.5453 ms
+2025-04-25 16:51:06.744 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentRequestTypeByName/English Proficiency - 400 null application/json; charset=utf-8 6.0571ms
+2025-04-25 16:51:06.744 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-04-25 16:51:06.744 +00:00 [INF] Executed action AuthController.GetUserById (Presentation) in 412.35ms
+2025-04-25 16:51:06.744 +00:00 [INF] Executed endpoint 'AuthController.GetUserById (Presentation)'
+2025-04-25 16:51:06.744 +00:00 [INF] HTTP GET /getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 responded 200 in 412.6608 ms
+2025-04-25 16:51:06.745 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/getUserById/58ae2da2-2979-4a37-868d-49d98237ac24 - 200 null application/json; charset=utf-8 413.2927ms
+2025-04-25 16:58:48.483 +00:00 [INF] Application is shutting down...
+2025-04-25 20:20:58.089 +00:00 [INF] Executed DbCommand (273ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 20:20:58.373 +00:00 [INF] Executed DbCommand (65ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 20:20:58.459 +00:00 [INF] Executed DbCommand (84ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-25 20:20:58.651 +00:00 [INF] User profile is available. Using '/home/muftawu/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2025-04-25 20:20:58.766 +00:00 [INF] Now listening on: http://localhost:5161
+2025-04-25 20:20:58.772 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-04-25 20:20:58.773 +00:00 [INF] Hosting environment: Development
+2025-04-25 20:20:58.773 +00:00 [INF] Content root path: /home/muftawu/unified/UnifiedSelfService.API/src/Shared/Presentation
+2025-04-25 20:58:16.097 +00:00 [INF] Application is shutting down...

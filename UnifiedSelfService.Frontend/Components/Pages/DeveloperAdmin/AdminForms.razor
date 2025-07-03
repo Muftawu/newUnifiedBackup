@@ -1,0 +1,518 @@
+@page "/admin-forms/{detailType}"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+
+<div class="min-h-auto">
+ @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+    {
+        <div class="flex row justify-center items-center">
+            <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+        </div>
+    }
+
+@if (!string.IsNullOrEmpty(detailType))
+{
+ @if (string.Equals(formView, "addGenericFormFields"))
+ {<h3 class="mb-12 ml-24">Add Default Form Fields</h3>
+ }else{<h3 class="mb-12 ml-24">Add New @(string.Equals(detailType, "all-departments") ? "Department" : string.Equals(detailType, "request-types") ? "Service" : "Department Request Type")</h3>}
+}
+    <div class="max-w-4xl mx-auto p-6 h-auto py-4 bg-white rounded-xl shadow-lg">
+        <div class="max-w-2xl mx-auto">
+            <!-- Progress Steps -->
+            <div class="flex flex-row justify-center items-center gap-2 mb-8">
+                    <div class="flex justify-between items-center w-full mt-4  gap-2">
+                        <span class="text-[30px]">Please fill in the details</span>
+                    </div>
+            </div>
+
+            @if (string.Equals(detailType, "all-departments"))
+            {
+                <EditForm Model="@newDepartmentModel" FormName="NewDepartmentForm" OnValidSubmit="@HandleNewDepartmentFormSubmit">
+                <div class="mb-4">
+                    <div class="mb-3">
+                        <label for="departmentName"
+                                class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Department Name</label>
+                            <InputText
+                                class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                @bind-Value="newDepartmentModel.DepartmentName" placeholder="Computer Science"
+                                id="departmentName" />
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="mb-3">
+                        <label for="departmentAdminEmail"
+                                class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Department Admin Email</label>
+                            <InputText type="email"
+                                class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                @bind-Value="departmentAdminMail" placeholder="johndoe@knust.edu.gh"
+                                id="departmentAdminEmail" />
+                    </div>
+                </div>
+
+                 @if (isLoading)
+                {
+                    <div class="mb-3 flex justify-center">
+                        <Spinner />
+                    </div>
+                }
+
+                <div class="mb-4 mt-8 text-center">
+                    <div class="mb-3">
+                         <Button Variant="green" Size="lg" Type="submit">Next</Button>
+                    </div>
+                </div>
+                </EditForm>
+            } else if (string.Equals(detailType, "request-types"))
+            {
+                @if (string.Equals(formView, "newDeveloperRequestType"))
+                {
+                <EditForm Model="@newRequestTypeModel" FormName="NewRequestTypeForm" OnValidSubmit="@HandleNewRequestTypeFormSubmit">
+                    <div class="mb-4">
+                        <div class="mb-3">
+                            <label for="requestName"
+                                class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Request Name</label>
+                            <InputText
+                                class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                @bind-Value="newRequestTypeModel.Name" placeholder="Transcript"
+                                id="requestName" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="mb-3">
+                            <label for="requestDescription"
+                                class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Request Description</label>
+                            <InputText
+                                class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                @bind-Value="newRequestTypeModel.Description" placeholder="Description for request"
+                                id="requestDescription" required />
+                        </div>
+                    </div>
+
+                    @if (isLoading)
+                    {
+                        <div class="mb-3 flex justify-center">
+                            <Spinner />
+                        </div>
+                    }
+
+                    <div class="mb-4 text-center">
+                        <div class="mb-3">
+                            <Button Variant="green" Size="lg" Type="submit">Next</Button>
+                        </div>
+                    </div>
+                </EditForm>
+                } else if (string.Equals(formView, "addGenericFormFields"))
+                {
+                @* <div class="card max-w-2xl mx-auto bg-white rounded-md p-8 shadow-md z-40" style="top: 0px;"> *@
+                        
+                        <div class="flex row justify-between">
+                          <h4 class="flex row justify-start items-start mb-8">Generate Input Form</h4>
+                          @* <h2 class="mx-4 cursor-pointer" @onclick="toggleModal">X</h2> *@
+                        </div>
+                          <div class="max-w-2xl mx-auto mb-12 flex flex-col justify-center items-center gap-2"></div>
+                        
+                            <div class="mb-8">
+                            </div>
+                            
+                            <div class="mt-4">
+                                    <form enctype="multipart/form-data">
+
+                                        <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                            <div>
+                                                <label for="type" class="block mb-1 font-medium">Field Type<span class="text-red-500">*</span></label>
+                                                <select @bind="newFormField.Type" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                                                <option>---</option>
+                                                @foreach(InputTypesEnum option in Enum.GetValues(typeof(InputTypesEnum)))
+                                                {
+                                                    <option value="@option">@option</option>
+                                                }
+                                            </select>
+                                            </div>
+                                     </div>
+                                    
+                                    @if (string.Equals(newFormField.Type, "select"))
+                                    {
+                                        @for (int i=1; i<optionCounter; i++)
+                                        {
+                                            <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                                    <div>
+                                                        <label for="label" class="block mb-1 font-medium">Option [Added = @(optionCounter-1)]<span class="text-red-500">*</span></label>
+                                                        <InputText @bind-Value="selectOptionBindValues[i]" id="@($"option_{i}")" class="w-full px-3 py-2 border-2 border-gray-300 rounded-md" />
+                                                    </div>
+                                             </div>
+                                        }
+                                        <a style="text-decoration: underline; color: blue; display: flex; flex-direction: row; justify-content: end" @onclick="IncreaseOptionCounter">Add New Option</a>
+                                    }
+
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                            <div>
+                                                <label for="isRequired" class="block mb-1 font-medium">Is Required<span class="text-red-500">*</span></label>
+                                                <select @bind="newFormField.IsRequired" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                                                <option value="true">Yes</option>
+                                                <option value="false">No</option>
+                                            </select>
+                                            </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                            <div>
+                                                <label for="label" class="block mb-1 font-medium">Label<span class="text-red-500">*</span></label>
+                                                <InputText id="text" @bind-Value="newFormField.Label"  class="w-full px-3 py-2 border-2 border-gray-300 rounded-md" />
+                                            </div>
+                                     </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                            <div>
+                                                <label for="label" class="block mb-1 font-medium">Placeholder<span class="text-red-500">*</span></label>
+                                                <InputText id="text" @bind-Value="newFormField.Placeholder"  class="w-full px-3 py-2 border-2 border-gray-300 rounded-md" />
+                                            </div>
+                                     </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-x-20 gap-y-6 mb-8"> 
+                                            <div>
+                                                <label for="label" class="block mb-1 font-medium">Width<span class="text-red-500">*</span></label>
+                                                <InputSelect @bind-Value="newFormField.Width" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                                                <option value="25">25%</option>
+                                                <option value="50">50%</option>
+                                                <option value="100">100%</option>
+                                            </InputSelect>
+                                            </div>
+                                     </div>
+
+                                    </form>
+
+                                <div class="flex justify-around mt-8">
+                                    <button type="button" @onclick="AddField" class="block w-40 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                                      Add Input 
+                                    </button>
+                                </div>
+                            </div>
+                        @* </div> *@           
+                    } else if (string.Equals(detailType, "department-subscriptions"))
+                {
+                <EditForm Model="@newDepartmentRequestTypeModel" FormName="NewDepartmentSubscriptionForm" OnValidSubmit="@HandleNewDepartmentRequestType">
+                    <div class="mb-4">
+                        <div class="mb-3">
+                           <label class="block mb-2 font-semibold text-gray-800 dark:text-gray-100">Department</label>
+                           <div class="flex gap-2">
+                            <input type="search" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500" placeholder="Search..." @bind="typedDepartment" @bind:event="oninput" />
+                            <select @bind="newDepartmentRequestTypeModel.SISDeptId" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                            @foreach (var subDept in FilteredDepartments)
+                            {
+                                <option value="@subDept.DepartmentId">@subDept.DepartmentName</option>
+                            }
+                            </select>
+                        </div>
+                            @* <p class="flex row justify-end">Click <a style="text-decoration: underline; color: blue" href="/dev/all-departments"><b> here</b></a> to add a new department</p> *@
+                        </div>
+                    </div>
+
+                    <div class="mb-8 mt-8">
+                        <div class="mb-3">
+                           <label
+                                class="block mb-2 font-semibold text-gray-800 dark:text-gray-100">Request Type</label>
+                            <select
+                                @bind="newDepartmentRequestTypeModel.RequestTypeId" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                                <option>Select Request Type</option>
+                                @if (allRequestTypes != null)
+                                {
+                                    @foreach (var requestType in allRequestTypes)
+                                    {
+                                        <option value="@requestType.RequestTypeId.ToString()">@requestType.Name</option>
+                                    }
+                                }       
+                                else
+                                {
+                                    <option>Loading...</option>
+                                }
+                            </select>
+                            <p class="flex row justify-end">Click <a style="text-decoration: underline; color: blue" href="/dev/request-types"><b> here</b></a> to add a new request type</p>
+                        </div>
+                    </div>
+
+                     @if (isLoading)
+                    {
+                        <div class="mb-3 flex justify-center">
+                            <Spinner />
+                        </div>
+                    }
+
+                    <div class="mb-4">
+                        <div class="mb-3">
+                            <div class="mb-4 text-center">
+                                <div class="mb-3">
+                                    <Button Variant="green" Size="lg" Type="submit">Add Department Request Type</Button>
+                                </div>
+                    </div>
+                </div>
+                </div>
+                </EditForm>
+                }
+            }
+        </div>
+</div>
+</div>
+
+
+@code {
+
+    [Parameter] public string? detailType { get; set; }
+
+    private DepartmentDTO newDepartmentModel = new();
+    private RequestTypeDTO newRequestTypeModel = new();
+    private DepartmentSubscriptionDTO newDepartmentRequestTypeModel = new();
+    private List<Department> departments = new();
+    private List<RequestType> allRequestTypes = new();
+
+    private Department department;
+
+    private string? userDepartmentId;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+    private bool previewForm = false;
+    private bool isModalOpened = false;
+    private string? userType;
+    private string? departmentAdminMail;
+    private string? userEmail;
+    private string? userId;
+    private string? typedDepartment;
+    private User? user;
+
+    private NewFormField newFormField = new NewFormField();
+    private string serviceTypeId = string.Empty;
+    private string formView = "newDeveloperRequestType";
+    private List<string> selectOptionBindValues = new();
+    private int optionCounter = 2;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        userEmail = _currentUser.FindFirst("Email")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+        
+        await FetchFormOptions();
+        await populateSelectOptionBindValues();
+    }
+
+    private void toggleModal()
+    {
+        isModalOpened = !isModalOpened;
+        previewForm = false;
+    }
+
+    private void toggleFormPreview()
+    {
+        previewForm = !previewForm;
+        isModalOpened = false;
+    }
+
+    private async Task FetchFormOptions()
+    {
+        var response = await SISAPIService.GetAllDepartments();
+        departments = response.departments;
+        allRequestTypes = await ApiService.GetAllRequestTypes();
+    }
+
+    private async Task populateSelectOptionBindValues()
+    {
+        for (int i=0; i<optionCounter; i++) 
+        {
+            selectOptionBindValues.Add($"New Option"); 
+        }
+    }
+
+    private async Task AddField()
+    {
+                
+        if (string.Equals(newFormField.Type, "select"))
+        {
+            var formSelectOptionsData = new FormFieldWithOptionsDTO()
+            {
+                new FormField()
+                {
+                    Label = newFormField.Label,
+                    InputType = newFormField.Type,
+                    Placeholder = newFormField.Placeholder,
+                    IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
+                    Width = newFormField.Width
+                },
+                new SelectOptions
+                {
+                    OptionName = "";
+                }
+            };
+        }else{
+            var formData = new FormFieldDTO()
+            {
+                Label = newFormField.Label,
+                InputType = newFormField.Type,
+                Placeholder = newFormField.Placeholder,
+                IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
+                Width = newFormField.Width
+            };
+        }
+
+        Console.WriteLine($"form data: {formData}");
+
+        var response = await ApiService.AddGenericServiceFormField(serviceTypeId, formData);
+        Console.WriteLine($"response: {response}");
+        if (response.Status)
+        {
+            Console.WriteLine($"response message: {response.Message}");
+            NavigationManager.NavigateTo(NavigationManager.Uri, true);
+            MessageService.AlertType = "success";
+            MessageService.AlertMessage = "Form Field added successfully";
+        }
+    }
+
+    private List<Department> FilteredDepartments => 
+        string.IsNullOrWhiteSpace(typedDepartment)
+            ? departments 
+            : departments.Where(r => 
+                (r.DepartmentName.ToString() ?? "").Contains(typedDepartment, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private async Task GetUserProfile()
+    {
+        var response = await ApiService.GetUserById(userId);
+        user = response;
+    }
+
+    // adding new department 
+    private async Task HandleNewDepartmentFormSubmit()
+    {   
+        isLoading = true;
+        var newDepartmentDTO = new DepartmentDTO
+        {
+            DepartmentName = newDepartmentModel.DepartmentName,
+            CreatedBy = userEmail
+        };  
+
+        var generateCredential = true;
+        var response = await ApiService.AddNewDepartmentSubscription(newDepartmentDTO, generateCredential, departmentAdminMail);
+        Console.WriteLine($"response from creating new department: {response.Status} {response.Message}");
+
+        if (response.Status)
+        {
+            isLoading = false;
+            MessageService.AlertMessage = $"{response.Message}";
+            MessageService.AlertType = "success";
+            NavigationManager.NavigateTo("/dev/all-departments");
+        }
+        else
+        {   
+            if (string.IsNullOrEmpty(newDepartmentModel.DepartmentName))
+            {
+                MessageService.AlertMessage = "Department name can not be empty";
+                MessageService.AlertType = "warning";
+            }else
+            {
+                isLoading = false;
+                MessageService.AlertMessage = response.Message;
+                MessageService.AlertType = "danger";
+            }
+        }
+    }
+
+    private async Task IncreaseOptionCounter()
+    {
+       optionCounter++; 
+       await populateSelectOptionBindValues();
+    }
+
+    // adding new request type
+    private async Task HandleNewRequestTypeFormSubmit()
+    {   
+        isLoading = true;
+
+        var newRequestTypeDTO = new RequestTypeDTO
+        {
+            Name = newRequestTypeModel.Name,
+            Description = newRequestTypeModel.Description
+        };
+
+        var response = await ApiService.AddNewRequestType(newRequestTypeDTO);
+        if (response.Status && response.requestType != null)
+        {
+            var formStepDTO = new List<RequestTypeFormStepDTO> 
+            { 
+                new RequestTypeFormStepDTO {
+                    StepNumber = "Step 1",
+                    StepDescription = "Personal Information"
+                }
+            };
+            serviceTypeId = response.requestType.RequestTypeId.ToString(); 
+            var formStepResponse = await ApiService.AddFormStep(serviceTypeId, formStepDTO);
+            isLoading = false;
+            MessageService.AlertMessage = "Request type successfully added";
+            MessageService.AlertType = "success";
+            showNewFormField();
+            @* NavigationManager.NavigateTo("/dev/request-types"); *@
+        }
+        else
+        {
+            isLoading = false;
+            MessageService.AlertMessage = "Failed to save request type";
+            MessageService.AlertType = "danger";
+        }
+    }
+
+    // adding new department request type
+    private async Task HandleNewDepartmentRequestType()
+    {   
+        isLoading = true;
+        if (newDepartmentRequestTypeModel.SISDeptId.ToString() == null) newDepartmentRequestTypeModel.SISDeptId = FilteredDepartments.First().DepartmentId;
+        
+        var deptId = newDepartmentRequestTypeModel.SISDeptId;
+        var departmentResponse = await SISAPIService.GetDepartmentDetails(deptId);
+
+        if (!departmentResponse.Status) 
+        {
+            MessageService.AlertMessage = "Department does not exists";
+            MessageService.AlertType = "danger";
+            NavigationManager.NavigateTo(NavigationManager.Uri);
+        }
+
+        var newDepartmentSubscriptionDTO = new DepartmentSubscriptionDTO
+        {
+            SISDeptId = deptId,
+            RequestTypeId = newDepartmentRequestTypeModel.RequestTypeId,
+            CreatedBy = userEmail
+        };
+
+        var response = await ApiService.CreateNewDepartmentRequestType(newDepartmentSubscriptionDTO);
+        Console.WriteLine($"response from add new request type page: {response}");
+        if (response.Status)
+        {
+            isLoading = false;
+            MessageService.AlertMessage = $"{response.Message}";
+            MessageService.AlertType = "success";
+            NavigationManager.NavigateTo("/dev/department-subscriptions");
+        }
+        else
+        {
+            isLoading = false;
+            MessageService.AlertMessage = $"{response.Message}";
+            MessageService.AlertType = "danger";
+        }
+    }
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", "w-[500px] max-w-[700px] gap-4 p-4 border-2 bg-white"},
+    };
+
+    private void showNewFormField()
+    {
+       formView = "addGenericFormFields"; 
+    }
+
+}

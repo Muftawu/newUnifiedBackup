@@ -1,0 +1,102 @@
+<div class="col-span-12 lg:col-span-6">
+                    <div class="card dark:bg-zinc-800 dark:border-zinc-600">
+                        <div class="border-b border-gray-100 card-body dark:border-zinc-600">
+                            <h6 class="mb-1 text-gray-700 dark:text-gray-100">Form element modal</h6>
+                        </div>
+                        <div class="card-body">
+                            <button type="button"
+                                class="text-white btn bg-primary-default border-primary-default hover:bg-violet-600 focus:ring ring-violet-50focus:bg-violet-600"
+                                data-tw-toggle="modal" data-tw-target="#modal-id_form">Form element</button>
+
+                            <div class="relative z-50 hidden modal" id="modal-id_form" aria-labelledby="modal-title"
+                                role="dialog" aria-modal="true">
+                                <div class="fixed inset-0 z-50 overflow-y-auto">
+                                    <div
+                                        class="absolute inset-0 bg-black transition-opacity bg-opacity-50 modal-overlay">
+                                    </div>
+                                    <div class="p-4 mx-auto animate-translate sm:max-w-lg">
+                                        <div
+                                            class="relative overflow-hidden text-left bg-white rounded-lg shadow-xl transition-all transform dark:bg-zinc-600">
+                                            <div class="bg-white dark:bg-zinc-700">
+                                                <button type="button"
+                                                    class="absolute top-3 right-2.5 text-gray-400 border-transparent hover:bg-gray-50/50 hover:text-gray-900 dark:text-gray-100 rounded-lg text-sm px-2 py-1 ltr:ml-auto rtl:mr-auto inline-flex items-center dark:hover:bg-zinc-600"
+                                                    data-tw-dismiss="modal">
+                                                    <i
+                                                        class="text-xl text-gray-500 mdi mdi-close dark:text-zinc-100/60"></i>
+                                                </button>
+                                                <div class="p-5">
+                                                    <h3
+                                                        class="mb-4 text-xl font-medium text-gray-700 dark:text-gray-100">
+                                                        Sign in to minia</h3>
+                                                    <form class="space-y-4" action="#">
+                                                        <div>
+                                                            <label for="email"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100 ltr:text-left rtl:text-right">Your
+                                                                email</label>
+                                                            <input type="email" name="email" id="email"
+                                                                class="bg-gray-800/5 border border-gray-100 text-gray-900 dark:text-gray-100 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder-gray-400 dark:placeholder:text-zinc-100/60 focus:ring-0"
+                                                                placeholder="name@company.com" required>
+                                                        </div>
+                                                        <div>
+                                                            <label for="password"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100 ltr:text-left rtl:text-right">Your
+                                                                password</label>
+                                                            <input type="password" name="password" id="password"
+                                                                placeholder="••••••••"
+                                                                class="bg-gray-800/5 border border-gray-100 text-gray-900 dark:text-gray-100 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder-gray-400 dark:placeholder:text-zinc-100/60 focus:ring-0"
+                                                                required>
+                                                        </div>
+                                                        <div class="flex justify-between mt-5">
+                                                            <div class="flex items-start">
+                                                                <div class="flex items-center h-5">
+                                                                    <input id="remember" type="checkbox" value=""
+                                                                        class="w-4 h-4 border border-gray-300 rounded ring-0 focus:ring-offset-0 dark:bg-zinc-700 dark:border-zinc-500 dark:checked:bg-primary-default"
+                                                                        required>
+                                                                </div>
+                                                                <label for="remember"
+                                                                    class="text-sm font-medium text-gray-900 ltr:ml-2 rtl:mr-2 dark:text-gray-100">Remember
+                                                                    me</label>
+                                                            </div>
+                                                            <a href="#"
+                                                                class="text-sm font-medium text-violet-500 hover:text-violet-600 ">Forgot
+                                                                Password ?</a>
+                                                        </div>
+                                                        <div class="mt-6">
+                                                            <button type="submit"
+                                                                class="w-full text-white bg-red-600 border-transparent btn">Don't
+                                                                have an account ?</button>
+                                                        </div>
+                                                        <div
+                                                            class="mt-4 text-sm font-medium text-gray-500 dark:text-zinc-100/60 dark:text-gray-300">
+                                                            Not registered? <a href="#"
+                                                                class="text-blue-700 hover:underline dark:text-blue-500">Signup
+                                                                now</a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+@code {
+
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? ClassName { get; set; }
+    [Parameter] public string? BodyClassname { get; set; }
+    [Parameter] public RenderFragment? BodyContent { get; set; }
+    [Parameter] public RenderFragment? FooterContent { get; set; }
+    [Parameter] public bool Opened { get; set; }
+    [Parameter] public EventCallback CloseButtonClicked { get; set; }
+
+    private bool isClosing = false;
+  
+    public class BodyContentProps
+    {
+        public string? Classname { get; set; }
+    }
+}

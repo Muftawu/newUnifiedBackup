@@ -1,0 +1,415 @@
+@page "/dev/{detailType}"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+
+<div class="mt-4 max-w-[1380px] rounded-md mx-auto">
+
+        <div>
+         @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+        {
+            <div>
+                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+            </div>
+        }
+
+        <div class="mb-3 flex flex-row justify-between">
+            @if (detailType != null)
+            {
+            <h5 class="text-2xl font-semibold text-gray-700 dark:text-gray-100 mb-2 mt-2">@(string.Equals(detailType, "all-departments") ? $"All Departments ({departments.Count()})" : string.Equals(detailType, "request-types") ? $"All Services ({allRequestTypes.Count()})" : $"All Department Request Types ({allDepartmentRequestTypes.Count()})") </h5>
+            @if (string.Equals(userType, "Developer"))
+            {
+            <button @onclick="GetRedirectLink"
+                class="block py-2 font-bold text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                @(string.Equals(detailType, "all-departments") ? "Add New Department" : string.Equals(detailType, "request-types") ? "Add New Request Type" : "Add New Department Request Type")
+            </button>
+            }
+            }
+        </div>
+
+    </div>
+    
+    @if (departments.Count() > 0 || allRequestTypes.Count() > 0 || allDepartmentRequestTypes.Count() > 0)
+    {
+    <div class="bg-white p-8 rounded-md mx-auto mt-12">
+        <div class="mb-6 ">
+            <div class="flex justify-between items-center gap-4 mb-6">
+                <div class="relative flex-1 max-w-md">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    @if (string.Equals(detailType, "department-subscriptions") || string.Equals(detailType, "all-departments"))
+                    {
+                    <input 
+                        type="search" 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500"
+                        placeholder="Search..."
+                        @bind="searchQuery"
+                        @bind:event="oninput"
+                    />
+                    }
+                </div>
+                
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b border-gray-100">
+                            <th class="w-12 py-3 px-4">
+                                <input 
+                                    type="checkbox" 
+                                    class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                    @bind="selectAll"
+                                />
+                            </th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">#</th>
+                            @if (string.Equals(detailType, "department-subscriptions"))
+                            {
+                                <th class="text-left py-3 px-4 text-sm font-medium">Department Name</th>
+                            }
+                            <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ?  "Department Name" : string.Equals(detailType, "request-types") ?  "Services" : "Request Type")</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ? "College" : string.Equals(detailType, "request-types") ? "Description" : "Accept Payment")</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ? "Faculty" : string.Equals(detailType, "request-types") ? "Created By" : "Amount")</th>
+                            @if(string.Equals(detailType, "request-types"))
+                            {
+                            <th class="text-left py-3 px-4 text-sm font-medium">Created Date</th>
+                            }
+                            
+                            @if (string.Equals(detailType, "department-subscriptions"))
+                            {
+                                <th class="text-left py-3 px-4 text-sm font-medium">Action</th>
+                            }
+
+
+                            @* @if (string.Equals(detailType, "department-subscriptions")) *@
+                            @* { *@
+                            @*     <th class="text-left py-3 px-4 text-sm font-medium">Amount</th> *@
+                            @* } *@
+                            @* @if (!string.Equals(detailType, "all-departments")) *@
+                            @* { *@
+                            @*     <th class="text-left py-3 px-4 text-sm font-medium">Created Date</th> *@
+                            @* } *@
+                            @* <th class="text-left py-3 px-4 text-sm font-medium">Action</th> *@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (string.Equals(detailType, "all-departments"))
+                        {
+                            @foreach( var(item, index) in FilteredSubscribedDepartments.Select((value, index) => (value, index)))
+                            {
+                                <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                    <td class="py-3 px-4">
+                                        <input 
+                                            type="checkbox" 
+                                            class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                        />
+                                    </td>
+                                    <td class="py-3 px-4 text-sm">@(index+1)</td>
+                                    <td class="py-3 px-4 text-sm">@item.Department.DepartmentName</td>
+                                    <td class="py-3 px-4 text-sm">@item.CollegeName</td>
+                                    <td class="py-3 px-4 text-sm">@item.FacultyName</td>
+                                    <!-- <td class="py-3 px-4 text-sm">@department.CreatedDate</td> -->
+                                    @* <td class="py-3 px-4"> *@
+                                    @*     <a @onclick="() => NavigateToDetailTypeView(department.DepartmentId.ToString())"> *@
+                                    @*     @1* <a> *1@ *@
+                                    @*         <button *@ 
+                                    @*             class="px-4 py-1 text-sm bg-green-400 text-white bg-[#FFE2CF] text-[#FC7B24] rounded-full transition-colors" *@
+                                    @*         > *@
+                                    @*             View Department *@
+                                    @*         </button> *@
+                                    @*     </a> *@
+                                    @* </td> *@
+                                </tr>
+                            }
+                        } else if (string.Equals(detailType, "request-types"))
+                        {
+                            @foreach (var (item, index) in FilteredRequestTypes.Select((value, index) => (value, index)))
+                            {
+                                <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                    <td class="py-3 px-4">
+                                        <input 
+                                            type="checkbox" 
+                                            class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                        />
+                                    </td>
+                                    <td class="py-3 px-4 text-sm">@(index+1)</td>
+                                    <td class="py-3 px-4 text-sm">@item.RequestType.Name</td>
+                                    <td class="py-3 px-4 text-sm">@(!string.IsNullOrEmpty(item.RequestType.Description) ? item.RequestType.Description : "N/A")</td>
+                                    <td class="py-3 px-4 text-sm">@item.RequestType.CreatedBy</td>
+                                    <td class="py-3 px-4 text-sm">@item.RequestType.CreatedDate</td>
+                                    <td class="py-3 px-4">
+                                        <a @onclick="() => NavigateToDetailTypeView(item.RequestType.RequestTypeId.ToString())">
+                                            <button 
+                                                class="px-4 py-1 text-sm bg-green-400 text-white bg-[#FFE2CF] text-[#FC7B24] rounded-full transition-colors"
+                                            >
+                                                View Service 
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        } else if (string.Equals(detailType, "department-subscriptions"))
+                        {
+                            @foreach (var (item, index) in FilteredDepartmentSubscriptions.Select((value, index) => (value, index)))
+                            {
+                                <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                    <td class="py-3 px-4">
+                                        <input 
+                                            type="checkbox" 
+                                            class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                        />
+                                    </td>
+                                    <td class="py-3 px-4 text-sm">@(index+1)</td>
+                                    <td class="py-3 px-4 text-sm">@item.DepartmentName</td>
+                                    <td class="py-3 px-4 text-sm">@item.DeptSubscription.RequestType.Name</td>
+                                    <td class="py-3 px-4 text-sm">@item.DeptSubscription.AcceptPayment</td>
+                                    <td class="py-3 px-4 text-sm">GHS @item.DeptSubscription.Amount</td>
+                                    <td class="py-3 px-4">
+                                        <a @onclick="() => NavigateToDetailTypeView(item.DeptSubscription.DepartmentRequestTypeId.ToString())">
+                                            <button class="px-4 py-1 text-sm bg-green-400 text-white bg-[#FFE2CF] text-[#FC7B24] rounded-full transition-colors">
+                                                View 
+                                            </button>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    }else{
+        @if (isLoading)
+        {
+            <div>
+                <Spinner />
+            </div>
+        }
+        <p class="text-lg ">@(string.Equals(detailType, "all-departments") ? "No departments" : string.Equals(detailType, "request-types") ?  "No request types" : "No department request types")</p>
+    }
+
+</div>
+
+@code 
+{
+    [Parameter] public string? detailType { get; set; }
+
+    private List<Department> departments = new();
+    private List<RequestType> allRequestTypes = new();
+    private List<DepartmentRequestType> allDepartmentRequestTypes = new();
+
+    // dipslay models
+    private List<DepartmentSubscriptionDisplayModel> departmentSubscriptionModels = new();
+    private List<DepartmentDisplayModel> allDepartmentDisplayModels = new();
+    private List<RequestTypeDisplayModel> allRequestTypeDisplayModels = new();
+
+    private string? userId;
+    private string? detailViewType = string.Empty;
+    private string? loopingDepartmentName = string.Empty;
+    private string? userDepartmentId;
+    private string? userType;
+    private string? viewDetailRedirectLink;
+    private string? userEmail;
+    private string? searchQuery = string.Empty;
+    private Department? department = new();
+    private string? redirectLink = string.Empty;
+    private bool selectAll = false;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+
+    private int pending = 0;
+    private int completed = 0;
+    
+    protected override async Task OnInitializedAsync()
+    {   
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        userEmail = _currentUser.FindFirst("Email")?.Value;
+        userDepartmentId = _currentUser.FindFirst("SubscribedDepartmentId")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+        
+        isLoading = true;
+        if (string.Equals(userType, "Developer"))
+        {
+            await FetchDevDetails();
+        }
+        isLoading = false;
+
+        MessageService.AlertMessage = null;
+        MessageService.AlertType = null;
+
+    }
+
+    private string GetDetailTypeViewLink(string detailTypeId)
+    {
+        string resolvedLink = string.Empty;
+        if (string.Equals(detailType, "all-departments"))
+        {
+            resolvedLink = $"/dev/{detailType}/details/{detailTypeId}";
+        }
+        else if (string.Equals(detailType, "request-types"))
+        {
+            resolvedLink = $"/dev/{detailType}/details/{detailTypeId}";
+        }
+        else if (string.Equals(detailType, "department-subscriptions"))
+        {
+            resolvedLink = $"/dev/{detailType}/details/{detailTypeId}";
+        }
+        return resolvedLink;
+    }   
+
+    private void NavigateToDetailTypeView(string detailTypeId)
+    {
+        string redirectlink = GetDetailTypeViewLink(detailTypeId); 
+        NavigationManager.NavigateTo($"{redirectlink}");
+    }
+
+    private async Task FetchDevDetails()
+    {
+        isLoading = true;
+
+        if (string.Equals(userType, "Developer")) 
+        {   
+            if (string.Equals(detailType, "all-departments")) {   
+                var response = await SISAPIService.GetAllDepartments();
+                if (response.departments != null) 
+                {
+                    departments = response.departments;
+                    foreach (var dept in departments) 
+                    {
+                       var college_response = await SISAPIService.GetCollegeById(dept.CollegeId); 
+                       var faculty_response = await SISAPIService.GetFacultyById(dept.FacultyId); 
+
+                       if (college_response.Status || faculty_response.Status ) 
+                       {
+                           allDepartmentDisplayModels.Add(new DepartmentDisplayModel
+                           {
+                               Department = dept,
+                               CollegeName = college_response.college.Name,
+                               FacultyName = faculty_response.faculty.FacultyName
+                           });
+                       }    
+                    }
+                }
+            }
+            else if (string.Equals(detailType, "request-types"))
+            {
+                allRequestTypes = await ApiService.GetAllRequestTypes();
+                if (allRequestTypes != null)
+                {
+                    foreach(var reqType in allRequestTypes)
+                    {
+                        if (reqType != null) 
+                        {
+                            allRequestTypeDisplayModels.Add(new RequestTypeDisplayModel
+                            {
+                                RequestType = reqType
+                            });
+                        }
+                    }
+                }
+            }
+            else if (string.Equals(detailType, "department-subscriptions"))
+            {
+                allDepartmentRequestTypes = await ApiService.GetAllDepartmentRequestTypes();
+                if (allDepartmentRequestTypes.Count() > 0)
+                {
+                    for(int i=0; i < allDepartmentRequestTypes.Count(); i++)
+                    {
+                        var response = await SISAPIService.GetDepartmentDetails(allDepartmentRequestTypes[i].SISDeptId);
+                        department = response.department;
+
+                        departmentSubscriptionModels.Add(new DepartmentSubscriptionDisplayModel
+                        {
+                             DeptSubscription = allDepartmentRequestTypes[i],
+                             DepartmentName = department.DepartmentName
+                        });
+                    }
+                }
+            }
+        }
+        else
+        {
+            MessageService.AlertMessage = "You do not have the right permissions to view this page";
+            MessageService.AlertType = "danger";
+        }
+        isLoading = false;
+    }
+
+    private void GetRedirectLink()
+    {
+        if (string.Equals(detailType, "all-departments"))
+        {
+            NavigationManager.NavigateTo("/admin-forms/all-departments");
+        }
+        else if (string.Equals(detailType, "request-types"))
+        {
+            NavigationManager.NavigateTo("/admin-forms/request-types");
+        }
+        else if (string.Equals(detailType, "department-subscriptions"))
+        {
+            NavigationManager.NavigateTo("/admin-forms/department-subscriptions");
+        }
+    }
+
+    private void NavigationToNewLetterRequest (string userId, string userDepartmentId, string departmentRequestTypeId)
+    {
+        NavigationManager.NavigateTo($"/new-request/{userId}/{userDepartmentId}/{departmentRequestTypeId}");
+    }
+
+    private List<DepartmentDisplayModel> FilteredSubscribedDepartments => 
+        string.IsNullOrWhiteSpace(searchQuery)
+            ? allDepartmentDisplayModels
+            : allDepartmentDisplayModels.Where(d => 
+                (d.Department.DepartmentName.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (d.FacultyName.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (d.CollegeName.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private List<RequestTypeDisplayModel> FilteredRequestTypes => 
+        string.IsNullOrWhiteSpace(searchQuery)
+            ? allRequestTypeDisplayModels 
+            : allRequestTypeDisplayModels.Where(r => 
+                (r.RequestType.Name.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (r.RequestType.Description.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private List<DepartmentSubscriptionDisplayModel> FilteredDepartmentSubscriptions => 
+        string.IsNullOrWhiteSpace(searchQuery)
+            ? departmentSubscriptionModels 
+            : departmentSubscriptionModels.Where(r => 
+                (r.DeptSubscription.RequestType.Name.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (r.DepartmentName.ToString() ?? "").Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private void NavigateToDetails(string requestId)
+    {
+        NavigationManager.NavigateTo($"/proficiency-letter-review/{requestId}");
+    }
+
+    private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+    {
+        {"class", "text-white"},
+    };
+        private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", "w-[500px] max-w-[700px] gap-4 p-4 border-2 bg-white"},
+    };
+
+    private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+        {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

@@ -1,0 +1,411 @@
+@page "/profile/{userId}"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService 
+@inject NewRequestFormState NewRequestFormState
+
+<div class="max-w-6xl mx-auto h-full py-4 rounded-xl shadow-sm">
+
+    @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+    {
+        <div>
+            <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+        </div>
+    }
+
+    <div class="grid grid-cols-12 gap-6">
+        <div class="col-span-12 lg:col-span-9">
+            <div class="card dark:bg-zinc-800 dark:border-zinc-600">
+                <div class="card-body ">
+                    <div class="grid grid-cols-12 ">
+                        <div class="col-span-9">
+                            <div class="flex flex-wrap items-center">
+                                <div class="w-20 h-20 ltr:mr-1 rtl:ml-1">
+                                    <img src="assets/images/users/avatar-2.jpg" alt="" class="rounded-full">
+                                </div>
+                                <div class="mt-3 md:ml-3 md:mt-0">
+                                    @if (user != null)
+                                    {
+                                        <h5 class="text-gray-700 mb-2 text-16 dark:text-gray-100">@user.OtherNames @user.Surname</h5>
+                                        <p class="mb-4 text-gray-500 dark:text-zinc-100 text-13">User Type: @userType</p>
+                                    }
+
+                                    <div class="flex flex-wrap items-start gap-2 text-13">
+                                        <div class="text-gray-500 dark:text-zinc-100"><i
+                                                class="text-green-500 align-middle mdi mdi-circle-medium me-1 ltr:mr-1 rtl:ml-1"></i>Verification Status
+                                        </div>
+                                        @if (user != null)
+                                        {
+                                        <div class="text-gray-500 dark:text-zinc-100"><i
+                                                class="text-green-500 align-middle mdi mdi-circle-medium me-1 ltr:mr-1 rtl:ml-1"></i>@user.IsProfileVerified
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-3">
+                            <div class="flex flex-wrap items-center justify-end">
+                                @* <button type="button" class="border-transparent btn bg-gray-50/50 dark:bg-zinc-700 dark:text-gray-100"><i class="me-1"></i> Message</button> *@
+                                
+                                <a href=@($"/edit-profile/{userId}")>
+                                    <Button>Edit Profile</Button>
+                                    @* <button type="button"
+                                        class="text-white bg-red-500 border-red-500 btn hover:bg-red-600 focus:ring ring-red-200 focus:bg-red-600"
+                                        data-tw-toggle="modal" data-tw-target="#modal-idextralargemodal">Edit
+                                        Profile</button> *@
+                                </a>
+                                @* <div class="relative ml-3 dropdown">
+                                            <button class="text-gray-600 border-0 btn dropdown-toggle" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton1">
+                                                <i class="align-middle text-16 bx bx-dots-horizontal-rounded"></i>
+                                            </button>
+                                            <ul class="absolute top-auto z-50 hidden w-40 py-1.5 text-left list-none bg-white border border-gray-50/50 rounded shadow-lg dropdown-menu ltr:!right-0 ltr:!left-auto rtl:!left-0 rtl:!right-auto dark:bg-zinc-700 dark:border-zinc-600 bg-clip-padding" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="block w-full px-5 py-1.5 text-sm font-normal text-gray-700 bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50/50 dark:text-gray-100 dark:hover:bg-zinc-600/80" href="#">Action</a>
+                                                </li>
+                                                <li><a class="block w-full px-5 py-1.5 text-sm font-normal text-gray-700 bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50/50 dark:text-gray-100 dark:hover:bg-zinc-600/80" href="#">Another action</a>
+                                                </li>
+                                                <li><a class="block w-full px-5 py-1.5 text-sm font-normal text-gray-700 bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50/50 dark:text-gray-100 dark:hover:bg-zinc-600/80" href="#">Something else here</a>
+                                                </li>
+                                            </ul>
+                                        </div> *@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-tabs border-b-tabs">
+
+                        <ul class="flex flex-wrap w-full pt-5 mt-6 text-sm font-medium text-center border-t text-violet-500 nav  border-gray-50 dark:border-zinc-600"
+                            id="pills-tab" role="tablist">
+                            <li>
+                                <a href="javascript:void(0);" data-tw-toggle="tab" data-tw-target="tab-full-u-home"
+                                    class="px-3 pt-5 pb-[1.4rem] font-medium active">Overview</a>
+                            </li>
+                            @* <li>
+                                        <a href="javascript:void(0);" data-tw-toggle="tab" data-tw-target="tab-full-u-Profile" class="px-3 pt-5 pb-[1.4rem] font-medium ">About</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" data-tw-toggle="tab" data-tw-target="tab-full-u-setting" class="px-3 pt-5 pb-[1.4rem] font-medium ">Post</a>
+                                    </li> *@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERSONAL INFO -->
+            <div class="card dark:bg-zinc-800 dark:border-zinc-600">
+                <div class="border-b card-body border-gray-50 dark:border-zinc-600">
+                    <h5 class="text-gray-700 text-15 dark:text-gray-100">PERSONAL INFORMATION</h5>
+                </div>
+
+                <div class="card-body flex flex-row justify-around">
+                    @if (user != null)
+                    {
+                        <div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Surname</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.Surname</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Country of Residence</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.CountryOfResidence</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Gender</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.Gender</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Other Names</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.OtherNames</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Country Code</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.CountryCode</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-4">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Date Of Birth</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@user.DateOfBirth</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+            
+            @if (user.UserType.ToString() == "Applicant")
+            {
+            <!-- PROGRAMMES READ -->
+            <div class="card dark:bg-zinc-800 dark:border-zinc-600">
+                <div class="border-b card-body border-gray-50 dark:border-zinc-600">
+                    <h5 class="text-gray-700 text-15 dark:text-gray-100">PROGRAMMES READ</h5>
+                </div>
+
+                <div class="card-body flex flex-row justify-around">
+                    @for (int i=0; i<userProgrammeReadList.Count(); i++)
+                    {
+                    @if (userProgrammeReadList[i] != null)
+                    {
+                        <div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Full Name on Certificate</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].FullNameOnCertificate</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Student Number</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].StudentNumber</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Index Number</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].IndexNumber</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Programme of Study</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@programmeNamesList[i]</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Admission Year</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].AdmissionYear</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Department</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@departmentNamesList[i]</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Thesis Topic</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].ThesisTopic</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Graduation Year</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].GraduationYear</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-3">
+                                <div class="grid grid-cols-12">
+                                    <div class="col-span-12 md:col-span-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Graduate Type</h5>
+                                            <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userProgrammeReadList[i].GraduateType</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    }
+                </div>
+            </div>
+
+            <!-- IDENTIFICATION CARD -->
+            @* <div class="card dark:bg-zinc-800 dark:border-zinc-600"> *@
+            @*     <div class="border-b card-body border-gray-50 dark:border-zinc-600"> *@
+            @*         <h5 class="text-gray-700 text-15 dark:text-gray-100">IDENTIFICATION CARD</h5> *@
+            @*     </div> *@
+
+            @*     <div class="card-body flex flex-row justify-around"> *@
+            @*         @if (userIdenticationCard != null) *@
+            @*         { *@
+            @*             <div> *@
+            @*                 <div class="pb-3"> *@
+            @*                     <div class="grid grid-cols-12"> *@
+            @*                         <div class="col-span-12 md:col-span-4"> *@
+            @*                             <div> *@
+            @*                                 <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Identification Type: </h5> *@
+            @*                                 <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userIdenticationCard.IdentificationCardType</h5> *@
+            @*                             </div> *@
+            @*                         </div> *@
+            @*                     </div> *@
+            @*                 </div> *@
+            @*                 <div class="pb-3"> *@
+            @*                     <div class="grid grid-cols-12"> *@
+            @*                         <div class="col-span-12 md:col-span-4"> *@
+            @*                             <div> *@
+            @*                                 <h5 class="font-medium text-gray-700 text-15 dark:text-gray-100">Identification Number: </h5> *@
+            @*                                 <h5 class="font-medium text-gray-400 text-15 dark:text-gray-100">@userIdenticationCard.IdentificationCardNumber</h5> *@
+            @*                             </div> *@
+            @*                         </div> *@
+            @*                     </div> *@
+            @*                 </div> *@
+            @*             </div> *@
+            @*         } *@
+            @*     </div> *@
+            @* </div> *@
+            }
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter] public string? userId { get; set; }
+
+    private User? user = new();
+    private List<ProgrammeRead>? userProgrammeReadList = new();
+    private List<Department> departments = new();
+    private List<string> departmentNamesList = new();
+    private List<string> programmeNamesList = new();
+    private ProgrammeRead? userProgrammeRead = new();
+    private IdentificationCard? userIdenticationCard = new();
+    private List<Programme>? userProgrammes = new();
+
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+    private string? userType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+
+        await GetUserDepartment();
+        await GetCurrentUser();
+        await GetApplicantIdentification();
+        await GetApplicantProgrammesRead();
+    }
+
+    private async Task GetApplicantProgrammesRead()
+    {
+        userProgrammeReadList = await ApiService.GetApplicantProgrammesRead(userId);
+        foreach(var userProgrammeRead in userProgrammeReadList)
+        {
+            if (userProgrammeRead != null)
+            {
+                var response = await SISAPIService.GetProgrammeDetails(userProgrammeRead.ProgrammeId);
+                if (response.Status)
+                {
+                    departmentNamesList.Add(response.departmentName); 
+                    for (int i=0; i<response.programmes.Count(); i++)
+                    {
+                        programmeNamesList.Add(response.programmes[i].Name);
+                    }
+                }
+            }
+        }
+    }
+
+    private async Task GetApplicantIdentification()
+    {
+        userIdenticationCard = await ApiService.GetApplicantIdentification(userId);
+        Console.WriteLine($"identification : {userIdenticationCard.IdentificationCardType}");
+    }
+
+
+    private async Task GetCurrentUser()
+    {
+        user = await ApiService.GetUserById(userId);
+    }
+
+    private async Task GetUserDepartment ()
+    {
+        try
+        {   
+            var response = await ApiService.GetUserDepartments(userId);
+            if (response.Status) departments = response.departments;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine($"error getting user department from programme Read: {e.Message}");
+        }
+    }
+
+}
+
+

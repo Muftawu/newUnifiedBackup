@@ -1,0 +1,93 @@
+@namespace Partials
+
+<div class="card dark:bg-zinc-800 dark:border-zinc-600">
+    <a href="@Link">
+        <div class="card-body">
+            <div> 
+                <div class="items-center grid grid-cols-12 gap-6">
+                    @if (EnableIcon)
+                    {
+                    <div class="col-span-4">
+                        <div style="display:flex; flex-direction: row; justify-content: center; align-items: center;">
+                            <i class="@IconName" style="font-size: 80px; color: @IconColor;"></i>
+                        </div>
+                    </div>
+                    }
+                    @if (EnableIcon)
+                    {
+                    <div class="col-span-8">
+                       <div class="pb-3">
+                         <Text
+                            TextLabel="@Title"
+                            TextColor="@IconColor"
+                            TextSize="20px"
+                            TextColorIntensity="600"
+                            IsBold=true 
+                        />
+                       </div>
+
+                        <div>
+                            <Text
+                            TextLabel="@Description"
+                            TextColor="@IconColor"
+                            TextColorIntensity="600"
+                            TextSize="16px"
+                            IsBold=false
+                        />  
+                        </div>
+
+                    </div>
+                    }else
+                    {
+                    <div class="col-span-8">
+                        <div class="pb-3">
+                         <Text
+                            TextLabel="@Title"
+                            TextColor="@IconColor"
+                            TextSize="20px"
+                            IsBold=false
+                        />
+                       </div>
+
+                        <div>
+                            <Text
+                            TextLabel="@Description"
+                            TextColor="@IconColor"
+                            TextSize="16px"
+                            IsBold=false
+                        />  
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Link { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string IconName { get; set; } = string.Empty;
+
+    [Parameter]
+    public string IconColor { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Description { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool EnableIcon { get; set; } = false;
+
+    @* private void Navigate(string url)
+    {
+        NavigationManager!.NavigateTo(url);
+    } *@
+
+}

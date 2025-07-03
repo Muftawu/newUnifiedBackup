@@ -1,0 +1,288 @@
+@page "/letter-dashboard/{departmentRequestTypeId}" 
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+
+    <div class=" max-w-[1380px] rounded-md mx-auto">
+
+        <div>
+         @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+        {
+            <div>
+                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+            </div>
+        }
+        <div class="mb-3 flex flex-row justify-between">
+            @if (departmentRequestType.RequestType != null)
+            {
+            <h5 class="text-3xl font-semibold text-gray-700 dark:text-gray-100 mb-2 mt-2">@departmentRequestType.RequestType.Name</h5>
+            }
+
+            @if (userType == "Applicant" || userType == "DepartmentAdmin")
+            {
+            <div class="flex flex-row justify-between">
+                <div>
+                    <a href=@(string.Equals(userType, "Applicant") ? $"/new-request/{departmentRequestTypeId}" : $"/letter-settings/{departmentRequestTypeId}/form-settings")>
+                    <button type="button" class="block w-32 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                        @(string.Equals(userType, "Applicant") ? "New Request" : "Form Settings")
+                    </button>
+                    </a>
+               </div>
+                @if (string.Equals(userType, "DepartmentAdmin"))
+                {
+                <div class="mx-4">
+                    <a href="#">
+                    <button type="button"  class="px-4 py-2 border-2 border-green-700 text-green-700 rounded hover:bg-green-50 transition-colors">
+                     Payment Settings 
+                    </button>
+                </a>
+            </div>
+                }
+            </div>
+            }
+        </div>
+
+
+    @* <div class="mt-10">
+        <h4 class="text-sm font-light text-[#c0bfbf]">What would you like to do today?</h4>
+    </div> *@
+
+    @if (allRequests != null || transactions != null)
+    {
+    <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 max-w-6xl mt-8 ">
+        <Card OuterShadow="xl" ShowBorder=false BorderRadius="lg" IsDisabled=false
+            AdditionalAttributes="AdditionalCardClasses">
+            <div class="flex flex-col gap-y-4">
+                <h5 class="text-sm text-[#b2b2b2]">All Request</h5>
+                <p class="text-lg font-bold">@(userType == "Applicant" ? allRequests.Count() : transactions.Count())</p>
+            </div>
+            <div>
+                <img src="/assets/images/file-stack-icon.png" alt="file" style="width:30px;" />
+            </div>
+        </Card>
+        <Card OuterShadow="xl" ShowBorder=false BorderRadius="lg" IsDisabled=false
+            AdditionalAttributes="AdditionalCardClasses">
+            <div class="flex flex-col gap-y-4">
+                <h5 class="text-sm text-[#b2b2b2]">Pending</h5>
+                <p class="text-lg font-bold">@pending</p>
+            </div>
+            <div>
+                <img src="/assets/images/pending-icon.png" alt="file" style="width:30px;" />
+            </div>
+        </Card>
+        <Card OuterShadow="xl" ShowBorder=false BorderRadius="lg" IsDisabled=false
+            AdditionalAttributes="AdditionalCardClasses">
+            <div class="flex flex-col gap-y-4">
+                <h5 class="text-sm text-[#b2b2b2]">Completed</h5>
+                <p class="text-lg font-bold">@completed</p>
+            </div>
+            <div>
+                <img src="/assets/images/complete-icon.png" alt="file" style="width:30px;" />
+            </div>
+        </Card>
+    </div>
+    }
+
+    </div>
+
+    @if (allRequests.Count() > 0 || transactions.Count() > 0 )
+    {
+    <div class="bg-white p-8 rounded-md mx-auto mt-12">
+        <div class="mb-6 ">
+            <h2 class="text-lg mb-4">All Requests</h2>
+            <div class="flex justify-between items-center gap-4 mb-6">
+                <div class="relative flex-1 max-w-md">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input 
+                        type="search" 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500"
+                        placeholder="Search..."
+                        @bind="searchQuery"
+                        @bind:event="oninput"
+                    />
+                </div>
+                
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b border-gray-100">
+                            <th class="w-12 py-3 px-4">
+                                <input 
+                                    type="checkbox" 
+                                    class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                    @bind="selectAll"
+                                />
+                            </th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Request Id</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Programme</th>
+                            @if (userType == "Applicant")
+                            {
+                                <th class="text-left py-3 px-4 text-sm font-medium">Payment Status</th>
+                            }
+                            <th class="text-left py-3 px-4 text-sm font-medium">Delivery Mode</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">@(userType == "DepartmentAdmin" ? "Action" : "Request Status" )</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in FilteredRequestTransactions)
+                        {
+                            <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                <td class="py-3 px-4">
+                                    <input 
+                                        type="checkbox" 
+                                        class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                        @* @bind="request.IsSelected" *@
+                                    />
+                                </td>
+                                <td class="py-3 px-4 text-sm">REQ-@transaction.RequestTransactionId.ToString().Substring(0, 5).ToUpper()</td>
+                                <td class="py-3 px-4 text-sm">@transaction.ProgrammeOfStudy</td>
+                                @if (userType == "Applicant")
+                                {
+                                    <td class="py-3 px-4 text-sm">@(!string.IsNullOrEmpty(transaction.PaymentStatus) ? transaction.PaymentStatus : "Not Paid")</td>
+                                }
+                                <td class="py-3 px-4 text-sm">@transaction.DeliveryModeOption</td>
+                                <td class="py-3 px-4">
+                                    <a href=@(userType == "DepartmentAdmin" ? $"/{departmentRequestType.RequestType.Name.Replace(" ", "")}/{transaction.RequestId.ToString()}/verify" : $"/{departmentRequestType.RequestType.Name.Replace(" ", "")}/{transaction.RequestId.ToString()}/details")>
+                                        <button 
+                                            class="px-4 py-1 text-sm @(transaction.ProcessingStatus == "Completed" ? "bg-green-400 text-white" : "bg-[#FFE2CF] text-[#FC7B24]") rounded-full transition-colors"
+                                        >
+                                            @transaction.ProcessingStatus
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {   
+        @if (isProfileVerified && userType == "Applicant")
+        {
+            <p class="text-lg ">You have not made any requests yet. Click on the new request to start.</p>
+        }
+    }
+
+</div>
+
+@code 
+{
+        [Parameter] public string? departmentRequestTypeId { get; set; }
+
+        private List<Request> allRequests = new();
+        private List<RequestTransaction> transactions = new();
+        private DepartmentRequestType? departmentRequestType = new();
+        private User? user { get; set; }
+
+        private string? userId;
+        private string? userType;
+        private string? searchQuery = "";
+        private bool selectAll = false;
+        private bool isProfileVerified = false;
+        private ClaimsPrincipal? _currentUser;
+
+        private int pending = 0;
+        private int completed = 0;
+
+        protected override async Task OnInitializedAsync()
+        {   
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            _currentUser = authState.User;
+            userId = _currentUser.FindFirst("Sub")?.Value;
+
+            user = await ApiService.GetUserById(userId);
+            isProfileVerified = user.IsProfileVerified;
+
+            if (!isProfileVerified)
+            {
+                NavigationManager.NavigateTo("/profile/personal-information");
+            }
+
+            userType = user.UserType.ToString();
+
+            await FetchRequestTransactionsHistory();
+        }
+
+        private async Task FetchRequestTransactionsHistory()
+        {
+            departmentRequestType = await ApiService.GetSingleDepartmentRequestTypeById(departmentRequestTypeId.ToString());
+
+            if (string.Equals(userType, "DepartmentAdmin")) 
+            { 
+                allRequests = await ApiService.GetAllDepartmentRequests(departmentRequestTypeId);
+            }
+            else 
+            {
+                allRequests = await ApiService.GetAllApplicantRequests(userId, departmentRequestTypeId);
+            }
+
+            if (allRequests.Count() > 0)
+            {
+                foreach(var request in allRequests)
+                {
+                    var transactionResponse = await ApiService.GetApplicantRequestTransaction(userId, request.RequestId.ToString());
+                    if (transactionResponse.ProcessingStatus == "Completed" )
+                    { 
+                        completed += 1;
+                    }
+                    else {
+                        pending += 1 ;
+                    }
+                    transactions.Add(transactionResponse);
+                }
+            }
+
+            MessageService.AlertMessage = null;
+            MessageService.AlertType = null;
+        }
+
+
+    private void NavigationToNewLetterRequest (string userId, string userDepartmentId, string departmentRequestTypeId)
+    {
+        NavigationManager.NavigateTo($"/new-request/{userId}/{userDepartmentId}/{departmentRequestTypeId}");
+    }
+
+    private List<RequestTransaction> FilteredRequestTransactions => 
+        string.IsNullOrWhiteSpace(searchQuery)
+            ? transactions
+            : transactions.Where(t => 
+                t.RequestTransactionId.ToString().Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                t.ProgrammeOfStudy.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                t.DeliveryModeOption.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private void NavigateToDetails(string requestId)
+    {
+        NavigationManager.NavigateTo($"/proficiency-letter-review/{requestId}");
+    }
+
+    private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+    {
+        {"class", "text-white"},
+    };
+        private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", " max-w-[350px] gap-4 p-4 border-2 bg-white"},
+    };
+
+        private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+    {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

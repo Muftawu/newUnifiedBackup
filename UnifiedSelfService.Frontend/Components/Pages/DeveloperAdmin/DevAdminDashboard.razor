@@ -1,0 +1,272 @@
+@page "/dashboard/dev"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService 
+
+<div class="max-w-6xl mx-auto">
+    @* @if (!isProfileVerified)
+    {
+         <div class="mb-4" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+            <div>
+                <Alert Variant="warning" Title=@($"Please setup your profile to make a request. Use this link to continue.") />
+            </div>
+        </div>
+    } *@
+    <div>
+         @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+        {
+            <div>
+                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+            </div>
+        }
+        <div style="background-image:url('/assets/images/dashboard-background-image.png');"
+            class="mr-8 p-6 h-36 bg-cover rounded-md">
+            <div class="pb-6">
+                <Text TextLabel="@(string.IsNullOrWhiteSpace(_currentUser?.Identity?.Name) ? userEmail : _currentUser?.Identity?.Name)" FontWeight="bold" TextSize="sm"
+                    AdditionalAttributes="AdditionalTextClasses" />
+            </div>
+
+            <div class="pb-6">
+                <Text TextLabel="Request summaries, click on any to get started." TextSize="sm"
+                    AdditionalAttributes="AdditionalTextClasses" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-10">
+        <h4 class="text-sm font-light text-[#c0bfbf]">Developer Admin Dashboard</h4>
+    </div>
+
+    <div class="grid grid-cols-1 gap-y-0 md:grid-cols-2 2xl:grid-cols-3 mr-8 mt-8 ">
+
+        @if (userType != "Developer")
+        {
+            <p>You do not have the permissions to view this page.</p>
+        }
+        
+        @if (userType == "Developer")
+        {
+            <a href=@($"/dev/all-departments")>
+                <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                        <div class=" ">
+                            <Icon IconName="@Utils.CommonIcons.All" IconSize="40px" IconColor="green" />
+                            <div class="py-4 ">
+                                <Text TextLabel="All Departments" TextSize="sm" />
+                            </div>
+                            <div>
+                                <Text TextLabel="" TextSize="sm" />
+                            </div>
+                        </div>
+                </Card> 
+            </a>
+
+            <a href=@($"/dev/request-types")>
+                <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                    <div class=" ">
+                        <Icon IconName="@Utils.CommonIcons.File" IconSize="40px" IconColor="green" />
+                        <div class="py-4 ">
+                            <Text TextLabel="All Services" TextSize="sm" />
+                        </div>
+                        <div>
+                            <Text TextLabel="" TextSize="sm" />
+                        </div>
+                    </div>
+                </Card>
+            </a>
+
+            <a href=@($"/dev/department-subscriptions")>
+                <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                    <div class=" ">
+                        <Icon IconName="@Utils.CommonIcons.File" IconSize="40px" IconColor="green" />
+                        <div class="py-4 ">
+                            <Text TextLabel="All Department Subscriptions" TextSize="sm" />
+                        </div>
+                        <div>
+                            <Text TextLabel="" TextSize="sm" />
+                        </div>
+                    </div>
+                </Card>
+            </a>
+
+            <a href=@($"/dev-admin/all-request-transactions")>
+                <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                    <div class=" ">
+                        <Icon IconName="@Utils.CommonIcons.File" IconSize="40px" IconColor="green" />
+                        <div class="py-4 ">
+                            <Text TextLabel="All Recorded Transactions" TextSize="sm" />
+                        </div>
+                        <div>
+                            <Text TextLabel="" TextSize="sm" />
+                        </div>
+                    </div>
+                </Card>
+            </a>
+           
+        }
+    
+
+    </div>
+
+     @* @if (allRequests.Count() > 0)
+    {
+    <div class="bg-white p-8 rounded-md mx-auto mt-12">
+        <div class="mb-6 ">
+            <h2 class="text-lg mb-4">All Requests</h2>
+            <div class="flex justify-between items-center gap-4 mb-6">
+                <div class="relative flex-1 max-w-md">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <input 
+                        type="search" 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500"
+                        placeholder="Search..."
+                        @bind="searchQuery"
+                        @bind:event="oninput"
+                    />
+                </div>
+                
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="border-b border-gray-100">
+                            <th class="w-12 py-3 px-4">
+                                <input 
+                                    type="checkbox" 
+                                    class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                    @bind="selectAll"
+                                />
+                            </th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Request Id</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Programme</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Delivery Mode</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in transactions)
+                        {
+                            <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                <td class="py-3 px-4">
+                                    <input 
+                                        type="checkbox" 
+                                        class="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                        
+                                    />
+                                </td>
+                                <td class="py-3 px-4 text-sm">REQ-@transaction.RequestTransactionId.ToString().Substring(0, 5).ToUpper()</td>
+                                <td class="py-3 px-4 text-sm">@transaction.ProgrammeOfStudy</td>
+                                <td class="py-3 px-4 text-sm">@transaction.DeliveryModeOption</td>
+                                <td class="py-3 px-4">
+                                    <button 
+                                        class="px-4 py-1 text-sm text-[#FC7B24] bg-[#FFE2CF] rounded-full transition-colors"
+                                        
+                                    >
+                                        @transaction.ProcessingStatus
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    } *@
+
+</div>
+
+
+
+@code {
+        private List<List<DepartmentRequestType>>? allDepartmentRequestTypes = new();
+        private List<RequestType> allRequestTypes = new();
+        private List<int> departmentIdList = new();
+        private DepartmentRequestType englishProficiency = new();
+        private Department department = new();
+
+        private string? userId;
+        private string? userType;
+        private string? userEmail;
+        private string? departmentIdCount;
+        private bool isLoading = false;
+        private bool isProfileVerified = false;
+        private ClaimsPrincipal? _currentUser;
+        private string? searchQuery = string.Empty;
+
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            _currentUser = authState.User;
+            userId = _currentUser.FindFirst("Sub")?.Value;
+            userEmail = _currentUser.FindFirst("Email")?.Value;            
+
+            userType = _currentUser.FindFirst("UserType")?.Value;
+            bool.TryParse(_currentUser.FindFirst("IsProfileVerified")?.Value, out isProfileVerified);
+
+            <!-- await GetUserSubscribedDepartment(); -->
+            await FetchDepartmentRequestTypes();
+            await GetEnglishProficiency();
+        }
+
+        private async Task FetchDepartmentRequestTypes()
+        {
+            var userProgrammeReadList = await ApiService.GetApplicantProgrammesRead(userId);
+            foreach(var userProgrammeRead in userProgrammeReadList)
+            {
+                if (userProgrammeRead != null)
+                {
+                    var response = await SISAPIService.GetProgrammeDetails(userProgrammeRead.ProgrammeId);
+                    if (response.Status)
+                    {
+                        departmentIdList.Add(response.departmentId ?? 0); 
+                        var departmentRequestTypeResponse= await ApiService.GetAllDepartmentRequestTypesByDepartmentId(response.departmentId); 
+                        Console.WriteLine($"response: response from getting all department request types by id: {departmentRequestTypeResponse}");
+                    }
+                }
+            }
+
+            MessageService.AlertMessage = null;
+            MessageService.AlertType = null;
+        }
+
+        private async Task GetEnglishProficiency ()
+        {
+             var response = await ApiService.GetDepartmentRequestTypeByName("English Proficiency");
+             englishProficiency = response;
+        }
+
+    private void NavigationToNewLetterRequest (string userId, string userDepartmentId, string departmentRequestTypeId)
+    {
+        NavigationManager.NavigateTo($"/new-request/{userId}/{userDepartmentId}/{departmentRequestTypeId}");
+    }
+
+    private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+    {
+        {"class", "text-white"},
+    };
+    
+    private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", " max-w-[350px] gap-4 p-4 border-2 bg-white"},
+    };
+
+    private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+        {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

@@ -1,0 +1,1027 @@
+2025-06-30 15:57:18.293 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-06-30 15:57:18.435 +00:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2025-06-30 15:57:18.629 +00:00 [INF] Executed DbCommand (185ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2025-06-30 15:57:18.866 +00:00 [INF] Executed DbCommand (67ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2025-06-30 15:57:18.904 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-06-30 15:57:18.916 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-06-30 15:57:18.957 +00:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-06-30 15:57:18.997 +00:00 [INF] Applying migration '20250610112506_InitialCreate'.
+2025-06-30 15:57:19.519 +00:00 [INF] Executed DbCommand (385ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE [DepartmentRequestTypeSelectOptions];
+2025-06-30 15:57:19.538 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE [DepartmentRequestTypeFormFields];
+2025-06-30 15:57:19.759 +00:00 [INF] Executed DbCommand (209ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [FormFields] (
+    [FormFieldsId] uniqueidentifier NOT NULL,
+    [RequestTypeId] uniqueidentifier NULL,
+    [Label] nvarchar(255) NOT NULL,
+    [InputType] nvarchar(max) NOT NULL,
+    [IsRequired] bit NOT NULL,
+    [Placeholder] nvarchar(255) NULL,
+    [Width] nvarchar(50) NULL,
+    [FieldTips] nvarchar(500) NULL,
+    [CreatedDate] datetime NOT NULL DEFAULT (GETDATE()),
+    [UpdatedDate] datetime NOT NULL DEFAULT (GETDATE()),
+    [CreatedBy] nvarchar(255) NULL,
+    [UpdatedBy] nvarchar(255) NULL,
+    CONSTRAINT [PK_FormFields] PRIMARY KEY NONCLUSTERED ([FormFieldsId])
+);
+2025-06-30 15:57:19.834 +00:00 [INF] Executed DbCommand (55ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [FormSelectOptions] (
+    [FormSelectOptionsId] uniqueidentifier NOT NULL,
+    [FormFieldsId] uniqueidentifier NOT NULL,
+    [OptionName] nvarchar(255) NULL,
+    [CreatedDate] datetime NOT NULL DEFAULT (GETDATE()),
+    [UpdatedDate] datetime NOT NULL DEFAULT (GETDATE()),
+    [CreatedBy] nvarchar(255) NULL,
+    [UpdatedBy] nvarchar(255) NULL,
+    CONSTRAINT [PK_FormSelectOptions] PRIMARY KEY NONCLUSTERED ([FormSelectOptionsId]),
+    CONSTRAINT [FK_FormSelectOptions_FormFields_FormFieldsId] FOREIGN KEY ([FormFieldsId]) REFERENCES [FormFields] ([FormFieldsId]) ON DELETE CASCADE
+);
+2025-06-30 15:57:19.879 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_FormSelectOptions_FormFieldsId] ON [FormSelectOptions] ([FormFieldsId]);
+2025-06-30 15:57:19.904 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20250610112506_InitialCreate', N'9.0.1');
+2025-06-30 15:57:19.938 +00:00 [INF] Applying migration '20250630155623_NewTablesAdded'.
+2025-06-30 15:57:21.037 +00:00 [INF] Executed DbCommand (872ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var sysname;
+SELECT @var = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[FormFields]') AND [c].[name] = N'RequestTypeId');
+IF @var IS NOT NULL EXEC(N'ALTER TABLE [FormFields] DROP CONSTRAINT [' + @var + '];');
+ALTER TABLE [FormFields] DROP COLUMN [RequestTypeId];
+2025-06-30 15:57:21.066 +00:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [FormFields] ADD [RequestTypeFormStepId] uniqueidentifier NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000';
+2025-06-30 15:57:21.084 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [RequestTypeFormStep] (
+    [RequestTypeFormStepId] uniqueidentifier NOT NULL,
+    [RequestTypeId] uniqueidentifier NOT NULL,
+    [StepNumber] nvarchar(max) NOT NULL,
+    [StepDescription] nvarchar(max) NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [UpdatedDate] datetime2 NOT NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [UpdatedBy] nvarchar(max) NULL,
+    CONSTRAINT [PK_RequestTypeFormStep] PRIMARY KEY NONCLUSTERED ([RequestTypeFormStepId]),
+    CONSTRAINT [FK_RequestTypeFormStep_RequestType_RequestTypeId] FOREIGN KEY ([RequestTypeId]) REFERENCES [RequestType] ([RequestTypeId]) ON DELETE CASCADE
+);
+2025-06-30 15:57:21.099 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_FormFields_RequestTypeFormStepId] ON [FormFields] ([RequestTypeFormStepId]);
+2025-06-30 15:57:21.114 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_RequestTypeFormStep_RequestTypeId] ON [RequestTypeFormStep] ([RequestTypeId]);
+2025-06-30 15:57:21.135 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [FormFields] ADD CONSTRAINT [FK_FormFields_RequestTypeFormStep_RequestTypeFormStepId] FOREIGN KEY ([RequestTypeFormStepId]) REFERENCES [RequestTypeFormStep] ([RequestTypeFormStepId]) ON DELETE CASCADE;
+2025-06-30 15:57:21.154 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20250630155623_NewTablesAdded', N'9.0.1');
+2025-06-30 15:57:21.182 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2025-06-30 15:57:59.854 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-30 15:58:00.288 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-30 15:58:00.295 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-30 15:58:00.296 +00:00 [INF] Hosting environment: Development
+2025-06-30 15:58:00.297 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-30 15:58:00.994 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 15:58:01.021 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-30 15:58:01.409 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 417.4293ms
+2025-06-30 15:58:01.493 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 15:58:01.498 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 6.2063ms
+2025-06-30 15:58:02.080 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 15:58:02.488 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 407.9317ms
+2025-06-30 16:22:14.973 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:22:14.984 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 10.6581ms
+2025-06-30 16:22:15.083 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:22:15.084 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.8825ms
+2025-06-30 16:22:15.386 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:22:15.459 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 72.543ms
+2025-06-30 16:22:17.095 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:22:17.105 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 9.591ms
+2025-06-30 16:22:17.186 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:22:17.188 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.9843ms
+2025-06-30 16:22:17.295 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:22:17.385 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 90.6481ms
+2025-06-30 16:23:17.318 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - null null
+2025-06-30 16:23:17.351 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:23:17.416 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:23:17.431 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 5.5488ms
+2025-06-30 16:23:17.433 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:23:17.436 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'Shared.Application.IGeneralFormFieldService' while attempting to activate 'Shared.Presentation.GeneralFormFieldsController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method10(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:23:17.488 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - 500 null text/plain; charset=utf-8 170.0178ms
+2025-06-30 16:24:36.993 +00:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5161/requestTypeFormStep/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - null null
+2025-06-30 16:24:36.995 +00:00 [INF] CORS policy execution failed.
+2025-06-30 16:24:36.996 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-30 16:24:36.998 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.DeleteFormStepById (Presentation)'
+2025-06-30 16:24:37.014 +00:00 [INF] Route matched with {action = "DeleteFormStepById", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteFormStepById(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:24:37.016 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.DeleteFormStepById (Presentation) in 0.6456ms
+2025-06-30 16:24:37.017 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.DeleteFormStepById (Presentation)'
+2025-06-30 16:24:37.018 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'Shared.Application.IGeneralFormFieldService' while attempting to activate 'Shared.Presentation.GeneralFormFieldsController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method18(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:24:37.023 +00:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5161/requestTypeFormStep/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - 500 null text/plain; charset=utf-8 29.9315ms
+2025-06-30 16:25:42.516 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:25:42.518 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.6597ms
+2025-06-30 16:25:42.564 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:25:42.565 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.9048ms
+2025-06-30 16:25:42.921 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:25:42.964 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 42.4788ms
+2025-06-30 16:26:28.442 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:26:28.447 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 4.4324ms
+2025-06-30 16:26:28.509 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:26:28.509 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.3701ms
+2025-06-30 16:26:28.708 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:26:28.739 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.8996ms
+2025-06-30 16:26:37.876 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:26:37.919 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 43.3291ms
+2025-06-30 16:26:38.037 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:26:38.039 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.7633ms
+2025-06-30 16:26:38.184 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:26:38.250 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 65.5718ms
+2025-06-30 16:27:00.715 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - null null
+2025-06-30 16:27:00.716 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:27:00.724 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:27:00.725 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 0.3363ms
+2025-06-30 16:27:00.725 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:27:00.725 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'Shared.Application.IGeneralFormFieldService' while attempting to activate 'Shared.Presentation.GeneralFormFieldsController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method26(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:27:00.730 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - 500 null text/plain; charset=utf-8 14.7895ms
+2025-06-30 16:27:56.430 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-30 16:27:56.819 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-30 16:27:56.828 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-30 16:27:56.829 +00:00 [INF] Hosting environment: Development
+2025-06-30 16:27:56.830 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-30 16:27:57.412 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:27:57.449 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-30 16:27:57.845 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 432.4538ms
+2025-06-30 16:27:57.916 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:27:57.923 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 8.3562ms
+2025-06-30 16:27:58.210 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:27:58.633 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 423.5094ms
+2025-06-30 16:28:14.639 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - null null
+2025-06-30 16:28:14.656 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:28:14.718 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:28:19.849 +00:00 [INF] Executed DbCommand (129ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:28:20.315 +00:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-30 16:28:20.469 +00:00 [INF] Executed DbCommand (87ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeFormStepId], [r].[CreatedBy], [r].[CreatedDate], [r].[RequestTypeId], [r].[StepDescription], [r].[StepNumber], [r].[UpdatedBy], [r].[UpdatedDate], [s].[FormFieldsId], [s].[CreatedBy], [s].[CreatedDate], [s].[FieldTips], [s].[InputType], [s].[IsRequired], [s].[Label], [s].[Placeholder], [s].[RequestTypeFormStepId], [s].[UpdatedBy], [s].[UpdatedDate], [s].[Width], [s].[FormSelectOptionsId], [s].[CreatedBy0], [s].[CreatedDate0], [s].[FormFieldsId0], [s].[OptionName], [s].[UpdatedBy0], [s].[UpdatedDate0]
+FROM [RequestTypeFormStep] AS [r]
+LEFT JOIN (
+    SELECT [f].[FormFieldsId], [f].[CreatedBy], [f].[CreatedDate], [f].[FieldTips], [f].[InputType], [f].[IsRequired], [f].[Label], [f].[Placeholder], [f].[RequestTypeFormStepId], [f].[UpdatedBy], [f].[UpdatedDate], [f].[Width], [f0].[FormSelectOptionsId], [f0].[CreatedBy] AS [CreatedBy0], [f0].[CreatedDate] AS [CreatedDate0], [f0].[FormFieldsId] AS [FormFieldsId0], [f0].[OptionName], [f0].[UpdatedBy] AS [UpdatedBy0], [f0].[UpdatedDate] AS [UpdatedDate0]
+    FROM [FormFields] AS [f]
+    LEFT JOIN [FormSelectOptions] AS [f0] ON [f].[FormFieldsId] = [f0].[FormFieldsId]
+) AS [s] ON [r].[RequestTypeFormStepId] = [s].[RequestTypeFormStepId]
+WHERE [r].[RequestTypeId] = @__requestTypeId_0
+ORDER BY [r].[RequestTypeFormStepId], [s].[FormFieldsId]
+2025-06-30 16:28:20.522 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:28:20.782 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 6052.9341ms
+2025-06-30 16:28:20.784 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:28:20.831 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/forms/3f2504e0-4f89-11d3-9a0c-0305e82c3301 - 200 null application/json; charset=utf-8 6192.0813ms
+2025-06-30 16:32:16.073 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:32:16.077 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 4.5535ms
+2025-06-30 16:32:16.172 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:32:16.173 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.7495ms
+2025-06-30 16:32:16.408 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:32:16.492 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate schema for type - System.Collections.Generic.List`1[DTOs.RequestTypeFormStepDTO]. See inner exception
+ ---> System.TypeLoadException: Could not load type 'Invalid_Token.0x0200006A' from assembly 'UnifiedSelfService.DTOs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Signature.GetSignature(Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersNoCopy()
+   at System.Attribute.GetIndexParameterTypes(PropertyInfo element)
+   at System.Attribute.InternalGetCustomAttributes(PropertyInfo element, Type type, Boolean inherit)
+   at System.Attribute.GetCustomAttributes(MemberInfo element, Type attributeType, Boolean inherit)
+   at System.Reflection.CustomAttributeExtensions.GetCustomAttribute[T](MemberInfo element)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.<GetDataPropertiesFor>b__6_1(PropertyInfo property)
+   at System.Linq.Enumerable.WhereArrayIterator`1.ToArray()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.OrderedEnumerable`1.GetEnumerator()+MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataPropertiesFor(Type objectType, Type& extensionDataType)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataContractForType(Type type)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GetDataContractFor(Type modelType)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchemaForType(Type modelType, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.CreateArraySchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.<>c__DisplayClass11_0.<GenerateConcreteSchema>b__1()
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateConcreteSchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchemaForParameter(Type modelType, SchemaRepository schemaRepository, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBodyFromBodyParameter(ApiDescription apiDescription, SchemaRepository schemaRepository, ApiParameterDescription bodyParameter)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBody(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:32:16.530 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 121.9164ms
+2025-06-30 16:32:17.834 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:32:17.840 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.2991ms
+2025-06-30 16:32:17.961 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:32:17.961 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.7153ms
+2025-06-30 16:32:18.065 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:32:18.131 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate schema for type - System.Collections.Generic.List`1[DTOs.RequestTypeFormStepDTO]. See inner exception
+ ---> System.TypeLoadException: Could not load type 'Invalid_Token.0x0200006A' from assembly 'UnifiedSelfService.DTOs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Signature.GetSignature(Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersNoCopy()
+   at System.Attribute.GetIndexParameterTypes(PropertyInfo element)
+   at System.Attribute.InternalGetCustomAttributes(PropertyInfo element, Type type, Boolean inherit)
+   at System.Attribute.GetCustomAttributes(MemberInfo element, Type attributeType, Boolean inherit)
+   at System.Reflection.CustomAttributeExtensions.GetCustomAttribute[T](MemberInfo element)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.<GetDataPropertiesFor>b__6_1(PropertyInfo property)
+   at System.Linq.Enumerable.WhereArrayIterator`1.ToArray()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.OrderedEnumerable`1.GetEnumerator()+MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataPropertiesFor(Type objectType, Type& extensionDataType)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataContractForType(Type type)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GetDataContractFor(Type modelType)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchemaForType(Type modelType, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.CreateArraySchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.<>c__DisplayClass11_0.<GenerateConcreteSchema>b__1()
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateConcreteSchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchemaForParameter(Type modelType, SchemaRepository schemaRepository, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBodyFromBodyParameter(ApiDescription apiDescription, SchemaRepository schemaRepository, ApiParameterDescription bodyParameter)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBody(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:32:18.135 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 69.9069ms
+2025-06-30 16:33:05.426 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:33:05.430 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 4.8954ms
+2025-06-30 16:33:05.545 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:33:05.546 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 1.292ms
+2025-06-30 16:33:05.764 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:33:05.803 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate schema for type - System.Collections.Generic.List`1[DTOs.RequestTypeFormStepDTO]. See inner exception
+ ---> System.TypeLoadException: Could not load type 'Invalid_Token.0x0200006A' from assembly 'UnifiedSelfService.DTOs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.
+   at System.Signature.GetSignature(Void* pCorSig, Int32 cCorSig, RuntimeFieldHandleInternal fieldHandle, IRuntimeMethodInfo methodHandle, RuntimeType declaringType)
+   at System.Reflection.RuntimeMethodInfo.<get_Signature>g__LazyCreateSignature|25_0()
+   at System.Reflection.RuntimeMethodInfo.FetchNonReturnParameters()
+   at System.Reflection.RuntimePropertyInfo.GetIndexParametersNoCopy()
+   at System.Attribute.GetIndexParameterTypes(PropertyInfo element)
+   at System.Attribute.InternalGetCustomAttributes(PropertyInfo element, Type type, Boolean inherit)
+   at System.Attribute.GetCustomAttributes(MemberInfo element, Type attributeType, Boolean inherit)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.<GetDataPropertiesFor>b__6_1(PropertyInfo property)
+   at System.Linq.Enumerable.WhereArrayIterator`1.ToArray()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.OrderedEnumerable`1.GetEnumerator()+MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataPropertiesFor(Type objectType, Type& extensionDataType)
+   at Swashbuckle.AspNetCore.SwaggerGen.JsonSerializerDataContractResolver.GetDataContractForType(Type type)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GetDataContractFor(Type modelType)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchemaForType(Type modelType, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.CreateArraySchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.<>c__DisplayClass11_0.<GenerateConcreteSchema>b__1()
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateConcreteSchema(DataContract dataContract, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SchemaGenerator.GenerateSchema(Type modelType, SchemaRepository schemaRepository, MemberInfo memberInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateSchema(Type type, SchemaRepository schemaRepository, PropertyInfo propertyInfo, ParameterInfo parameterInfo, ApiParameterRouteInfo routeInfo)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBodyFromBodyParameter(ApiDescription apiDescription, SchemaRepository schemaRepository, ApiParameterDescription bodyParameter)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateRequestBody(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:33:05.807 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 43.1871ms
+2025-06-30 16:33:40.979 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-30 16:33:41.335 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-30 16:33:41.348 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-30 16:33:41.349 +00:00 [INF] Hosting environment: Development
+2025-06-30 16:33:41.349 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-30 16:33:41.885 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:33:41.917 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-30 16:33:42.340 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 455.3638ms
+2025-06-30 16:33:42.410 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:33:42.416 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 7.3499ms
+2025-06-30 16:33:42.678 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:33:43.138 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 459.792ms
+2025-06-30 16:34:19.240 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-30 16:34:19.289 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-30 16:34:19.302 +00:00 [INF] AuthenticationScheme: MyCookieScheme was challenged.
+2025-06-30 16:34:19.303 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 401 0 null 63.0734ms
+2025-06-30 16:34:39.048 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:34:39.061 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 12.9833ms
+2025-06-30 16:34:39.166 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:34:39.171 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.9209ms
+2025-06-30 16:34:39.423 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:34:39.495 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 71.8772ms
+2025-06-30 16:34:40.975 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:34:40.976 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.8849ms
+2025-06-30 16:34:41.095 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:34:41.096 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.931ms
+2025-06-30 16:34:41.232 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:34:41.320 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 87.5664ms
+2025-06-30 16:34:51.663 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:34:51.667 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 3.4454ms
+2025-06-30 16:34:51.743 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:34:51.744 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.9788ms
+2025-06-30 16:34:51.851 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:34:51.903 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 52.018ms
+2025-06-30 16:34:55.822 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:34:55.824 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.7706ms
+2025-06-30 16:34:55.900 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:34:55.900 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4748ms
+2025-06-30 16:34:56.073 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:34:56.116 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 42.6725ms
+2025-06-30 16:35:02.736 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:35:02.738 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.4153ms
+2025-06-30 16:35:02.794 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:35:02.795 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.9186ms
+2025-06-30 16:35:02.900 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:35:02.960 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 60.821ms
+2025-06-30 16:35:12.371 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-30 16:35:12.378 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:35:12.448 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-06-30 16:35:15.898 +00:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-06-30 16:35:16.155 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:35:16.356 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 3893.939ms
+2025-06-30 16:35:16.358 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:35:16.385 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 4014.6739ms
+2025-06-30 16:35:59.149 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:35:59.152 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.4974ms
+2025-06-30 16:35:59.246 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:35:59.248 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 1.0613ms
+2025-06-30 16:35:59.443 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:35:59.485 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 42.2672ms
+2025-06-30 16:36:24.487 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:36:24.489 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.2409ms
+2025-06-30 16:36:24.551 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:36:24.552 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.5317ms
+2025-06-30 16:36:24.672 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:36:24.700 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 28.18ms
+2025-06-30 16:36:55.465 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-30 16:36:55.800 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-30 16:36:55.810 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-30 16:36:55.812 +00:00 [INF] Hosting environment: Development
+2025-06-30 16:36:55.812 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-30 16:36:56.276 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:36:56.306 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-30 16:36:56.670 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 396.3191ms
+2025-06-30 16:36:56.754 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:36:56.758 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 4.789ms
+2025-06-30 16:36:56.979 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:36:57.399 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 420.8521ms
+2025-06-30 16:37:16.224 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:37:16.264 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:37:16.337 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:37:20.522 +00:00 [INF] Executed DbCommand (113ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:37:20.665 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:37:20.758 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 4409.8907ms
+2025-06-30 16:37:20.761 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:37:20.795 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 400 null application/json; charset=utf-8 4571.3716ms
+2025-06-30 16:38:48.333 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/api/GeneralFormFields?serviceId=d3f880b2-0a30-422b-8d1f-08dd9d2510eb - application/json 163
+2025-06-30 16:38:48.336 +00:00 [INF] CORS policy execution failed.
+2025-06-30 16:38:48.337 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-30 16:38:48.339 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation)'
+2025-06-30 16:38:48.382 +00:00 [INF] Route matched with {action = "AddFormStep", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddFormStep(System.Guid, System.Collections.Generic.List`1[DTOs.RequestTypeFormStepDTO]) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:38:48.635 +00:00 [INF] Executed DbCommand (22ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:38:49.362 +00:00 [INF] Executed DbCommand (70ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Guid), @p9='?' (Size = 4000), @p10='?' (DbType = DateTime2), @p11='?' (DbType = Guid), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestTypeFormStep] ([RequestTypeFormStepId], [CreatedBy], [CreatedDate], [RequestTypeId], [StepDescription], [StepNumber], [UpdatedBy], [UpdatedDate])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7),
+(@p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+2025-06-30 16:38:49.426 +00:00 [INF] Executing CreatedResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:38:49.560 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation) in 1177.6145ms
+2025-06-30 16:38:49.561 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation)'
+2025-06-30 16:38:49.563 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/api/GeneralFormFields?serviceId=d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 201 null application/json; charset=utf-8 1229.777ms
+2025-06-30 16:41:37.241 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/serviceFormField/d3f880b2-0a30-422b-8d1f-08dd9d2510eb?formStepId=0dbecb0c-090c-48c8-9ae6-9531f46febdc - application/json 308
+2025-06-30 16:41:37.243 +00:00 [INF] CORS policy execution failed.
+2025-06-30 16:41:37.243 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-30 16:41:37.244 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation)'
+2025-06-30 16:41:37.252 +00:00 [INF] Route matched with {action = "AddFormFieldWithOptions", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddFormFieldWithOptions(System.Guid, DTOs.FormFieldWithOptionsDTO) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:41:37.342 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-06-30 16:41:37.400 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation) in 147.7243ms
+2025-06-30 16:41:37.400 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation)'
+2025-06-30 16:41:37.401 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/serviceFormField/d3f880b2-0a30-422b-8d1f-08dd9d2510eb?formStepId=0dbecb0c-090c-48c8-9ae6-9531f46febdc - 400 null application/problem+json; charset=utf-8 159.8977ms
+2025-06-30 16:45:51.458 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:45:51.463 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 4.8205ms
+2025-06-30 16:45:51.592 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:45:51.593 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.7764ms
+2025-06-30 16:45:51.798 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:45:51.854 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 56.5116ms
+2025-06-30 16:45:53.225 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:45:53.228 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.5329ms
+2025-06-30 16:45:53.293 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:45:53.319 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 26.3261ms
+2025-06-30 16:45:53.395 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:45:53.395 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4372ms
+2025-06-30 16:45:53.531 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:45:53.648 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 117.2297ms
+2025-06-30 16:46:24.569 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-30 16:46:24.850 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-30 16:46:24.857 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-30 16:46:24.858 +00:00 [INF] Hosting environment: Development
+2025-06-30 16:46:24.858 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-30 16:46:25.356 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:46:25.384 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-30 16:46:25.763 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 411.6196ms
+2025-06-30 16:46:25.845 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:46:25.851 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 6.9493ms
+2025-06-30 16:46:26.088 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:46:26.451 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 363.0602ms
+2025-06-30 16:46:47.575 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-30 16:46:47.594 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:46:47.667 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-06-30 16:46:52.658 +00:00 [INF] Executed DbCommand (172ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-06-30 16:46:53.135 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:46:53.389 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 5710.415ms
+2025-06-30 16:46:53.392 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:46:53.429 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 5854.1961ms
+2025-06-30 16:47:53.223 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d976db95-92d2-402e-8d20-08dd9d2510eb - null null
+2025-06-30 16:47:53.224 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:47:53.272 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:47:53.634 +00:00 [INF] Executed DbCommand (47ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:47:53.640 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:47:53.643 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 370.212ms
+2025-06-30 16:47:53.643 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:47:53.646 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d976db95-92d2-402e-8d20-08dd9d2510eb - 400 null application/json; charset=utf-8 422.5785ms
+2025-06-30 16:49:06.893 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:49:06.895 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:49:06.895 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:49:07.109 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:49:07.111 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:49:07.111 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 215.3347ms
+2025-06-30 16:49:07.112 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:49:07.113 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 400 null application/json; charset=utf-8 219.2722ms
+2025-06-30 16:49:41.562 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:49:41.564 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:49:41.564 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:49:41.611 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:49:41.612 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:49:41.615 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 50.885ms
+2025-06-30 16:49:41.616 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:49:41.617 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 400 null application/json; charset=utf-8 55.7185ms
+2025-06-30 16:50:40.869 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/api/GeneralFormFields?serviceId=d3f880b2-0a30-422b-8d1f-08dd9d2510eb - application/json 162
+2025-06-30 16:50:40.874 +00:00 [INF] CORS policy execution failed.
+2025-06-30 16:50:40.875 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-30 16:50:40.883 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation)'
+2025-06-30 16:50:40.897 +00:00 [INF] Route matched with {action = "AddFormStep", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddFormStep(System.Guid, System.Collections.Generic.List`1[DTOs.RequestTypeFormStepDTO]) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:50:41.014 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:50:41.474 +00:00 [INF] Executed DbCommand (45ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4000), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Guid), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Guid), @p9='?' (Size = 4000), @p10='?' (DbType = DateTime2), @p11='?' (DbType = Guid), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestTypeFormStep] ([RequestTypeFormStepId], [CreatedBy], [CreatedDate], [RequestTypeId], [StepDescription], [StepNumber], [UpdatedBy], [UpdatedDate])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7),
+(@p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+2025-06-30 16:50:41.522 +00:00 [INF] Executing CreatedResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:50:41.529 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation) in 631.5387ms
+2025-06-30 16:50:41.529 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormStep (Presentation)'
+2025-06-30 16:50:41.530 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/api/GeneralFormFields?serviceId=d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 201 null application/json; charset=utf-8 661.0944ms
+2025-06-30 16:53:51.219 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/serviceFormField/d3f880b2-0a30-422b-8d1f-08dd9d2510eb?formStepId=69961d9a-53bd-4fc8-9dd7-9412e15d3ff8 - application/json 668
+2025-06-30 16:53:51.219 +00:00 [INF] CORS policy execution failed.
+2025-06-30 16:53:51.220 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-30 16:53:51.220 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation)'
+2025-06-30 16:53:51.230 +00:00 [INF] Route matched with {action = "AddFormFieldWithOptions", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddFormFieldWithOptions(System.Guid, DTOs.FormFieldWithOptionsDTO) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:53:51.327 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__formStepId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestTypeFormStep] AS [r]
+        WHERE [r].[RequestTypeFormStepId] = @__formStepId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:53:51.634 +00:00 [INF] Executed DbCommand (78ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 255), @p2='?' (DbType = DateTime), @p3='?' (Size = 500), @p4='?' (Size = 4000), @p5='?' (DbType = Boolean), @p6='?' (Size = 255), @p7='?' (Size = 255), @p8='?' (DbType = Guid), @p9='?' (Size = 255), @p10='?' (DbType = DateTime), @p11='?' (Size = 50), @p12='?' (DbType = Guid), @p13='?' (Size = 255), @p14='?' (DbType = DateTime), @p15='?' (DbType = Guid), @p16='?' (Size = 255), @p17='?' (Size = 255), @p18='?' (DbType = DateTime), @p19='?' (DbType = Guid), @p20='?' (Size = 255), @p21='?' (DbType = DateTime), @p22='?' (DbType = Guid), @p23='?' (Size = 255), @p24='?' (Size = 255), @p25='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [FormFields] ([FormFieldsId], [CreatedBy], [CreatedDate], [FieldTips], [InputType], [IsRequired], [Label], [Placeholder], [RequestTypeFormStepId], [UpdatedBy], [UpdatedDate], [Width])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11);
+INSERT INTO [FormSelectOptions] ([FormSelectOptionsId], [CreatedBy], [CreatedDate], [FormFieldsId], [OptionName], [UpdatedBy], [UpdatedDate])
+VALUES (@p12, @p13, @p14, @p15, @p16, @p17, @p18),
+(@p19, @p20, @p21, @p22, @p23, @p24, @p25);
+2025-06-30 16:53:51.688 +00:00 [INF] Executing CreatedResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:53:51.689 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation) in 458.2844ms
+2025-06-30 16:53:51.690 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.AddFormFieldWithOptions (Presentation)'
+2025-06-30 16:53:51.692 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/serviceFormField/d3f880b2-0a30-422b-8d1f-08dd9d2510eb?formStepId=69961d9a-53bd-4fc8-9dd7-9412e15d3ff8 - 201 null application/json; charset=utf-8 473.3322ms
+2025-06-30 16:54:21.591 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:54:21.592 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:54:21.592 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:54:21.601 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:54:21.629 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:54:21.631 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 38.8882ms
+2025-06-30 16:54:21.632 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:54:21.632 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 400 null application/json; charset=utf-8 41.2445ms
+2025-06-30 16:54:25.436 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:54:25.441 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 5.7542ms
+2025-06-30 16:54:25.560 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:54:25.562 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 2.1157ms
+2025-06-30 16:54:25.888 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:54:25.991 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 102.7772ms
+2025-06-30 16:54:49.659 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-30 16:54:49.660 +00:00 [INF] Executing endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:54:49.660 +00:00 [INF] Route matched with {action = "GetAllRequests", controller = "DeveloperSettings"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRequests() on controller Shared.Presentation.DeveloperSettingsController (Presentation).
+2025-06-30 16:54:49.675 +00:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeId], [r].[CreatedBy], [r].[CreatedDate], [r].[Description], [r].[Name], [r].[RoutingtoView], [r].[Steps], [r].[UpdatedBy], [r].[UpdatedDate]
+FROM [RequestType] AS [r]
+2025-06-30 16:54:49.677 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:54:49.678 +00:00 [INF] Executed action Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation) in 17.6841ms
+2025-06-30 16:54:49.678 +00:00 [INF] Executed endpoint 'Shared.Presentation.DeveloperSettingsController.GetAllRequests (Presentation)'
+2025-06-30 16:54:49.678 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 200 null application/json; charset=utf-8 19.2228ms
+2025-06-30 16:55:10.566 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:55:10.567 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:55:10.567 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:55:10.594 +00:00 [INF] Executed DbCommand (22ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:55:10.596 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:55:10.596 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 28.7187ms
+2025-06-30 16:55:10.596 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:55:10.597 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 400 null application/json; charset=utf-8 30.3576ms
+2025-06-30 16:56:18.413 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:56:18.415 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.3689ms
+2025-06-30 16:56:18.505 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:56:18.506 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4474ms
+2025-06-30 16:56:18.767 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:56:18.830 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 62.8364ms
+2025-06-30 16:56:20.080 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:56:20.082 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.1623ms
+2025-06-30 16:56:20.163 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:56:20.163 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.304ms
+2025-06-30 16:56:20.252 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:56:20.313 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 60.5925ms
+2025-06-30 16:56:34.408 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:56:34.409 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:56:34.420 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:56:34.437 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:56:34.621 +00:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-06-30 16:56:34.705 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeFormStepId], [r].[CreatedBy], [r].[CreatedDate], [r].[RequestTypeId], [r].[StepDescription], [r].[StepNumber], [r].[UpdatedBy], [r].[UpdatedDate], [s].[FormFieldsId], [s].[CreatedBy], [s].[CreatedDate], [s].[FieldTips], [s].[InputType], [s].[IsRequired], [s].[Label], [s].[Placeholder], [s].[RequestTypeFormStepId], [s].[UpdatedBy], [s].[UpdatedDate], [s].[Width], [s].[FormSelectOptionsId], [s].[CreatedBy0], [s].[CreatedDate0], [s].[FormFieldsId0], [s].[OptionName], [s].[UpdatedBy0], [s].[UpdatedDate0]
+FROM [RequestTypeFormStep] AS [r]
+LEFT JOIN (
+    SELECT [f].[FormFieldsId], [f].[CreatedBy], [f].[CreatedDate], [f].[FieldTips], [f].[InputType], [f].[IsRequired], [f].[Label], [f].[Placeholder], [f].[RequestTypeFormStepId], [f].[UpdatedBy], [f].[UpdatedDate], [f].[Width], [f0].[FormSelectOptionsId], [f0].[CreatedBy] AS [CreatedBy0], [f0].[CreatedDate] AS [CreatedDate0], [f0].[FormFieldsId] AS [FormFieldsId0], [f0].[OptionName], [f0].[UpdatedBy] AS [UpdatedBy0], [f0].[UpdatedDate] AS [UpdatedDate0]
+    FROM [FormFields] AS [f]
+    LEFT JOIN [FormSelectOptions] AS [f0] ON [f].[FormFieldsId] = [f0].[FormFieldsId]
+) AS [s] ON [r].[RequestTypeFormStepId] = [s].[RequestTypeFormStepId]
+WHERE [r].[RequestTypeId] = @__requestTypeId_0
+ORDER BY [r].[RequestTypeFormStepId], [s].[FormFieldsId]
+2025-06-30 16:56:34.878 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:56:34.952 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 532.1396ms
+2025-06-30 16:56:34.952 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:56:34.954 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Text.Json.JsonException: A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.DataObject.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.FormFieldsId.
+   at System.Text.Json.ThrowHelper.ThrowJsonException_SerializerCycleDetected(Int32 maxDepth)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:56:35.035 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 500 null text/plain; charset=utf-8 626.6476ms
+2025-06-30 16:57:04.378 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:57:04.380 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.1907ms
+2025-06-30 16:57:04.500 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:57:04.500 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.5945ms
+2025-06-30 16:57:04.671 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:57:04.705 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 33.693ms
+2025-06-30 16:57:37.274 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:57:37.276 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.0874ms
+2025-06-30 16:57:37.418 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:57:37.419 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.284ms
+2025-06-30 16:57:37.570 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:57:37.645 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 75.3701ms
+2025-06-30 16:57:49.536 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:57:49.568 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 31.7771ms
+2025-06-30 16:57:49.639 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:57:49.639 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.3007ms
+2025-06-30 16:57:49.773 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:57:49.807 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 34.2372ms
+2025-06-30 16:58:17.413 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 16:58:17.414 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.0854ms
+2025-06-30 16:58:17.487 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 16:58:17.488 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4168ms
+2025-06-30 16:58:17.622 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 16:58:17.691 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 69.2026ms
+2025-06-30 16:58:32.342 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - null null
+2025-06-30 16:58:32.427 +00:00 [INF] Executing endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:58:32.444 +00:00 [INF] Route matched with {action = "GetAllFormStepsFieldsByServiceId", controller = "GeneralFormFields"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllFormStepsFieldsByServiceId(System.Guid) on controller Shared.Presentation.GeneralFormFieldsController (Presentation).
+2025-06-30 16:58:32.469 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RequestType] AS [r]
+        WHERE [r].[RequestTypeId] = @__requestTypeId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-06-30 16:58:32.495 +00:00 [INF] Executed DbCommand (21ms) [Parameters=[@__requestTypeId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[RequestTypeFormStepId], [r].[CreatedBy], [r].[CreatedDate], [r].[RequestTypeId], [r].[StepDescription], [r].[StepNumber], [r].[UpdatedBy], [r].[UpdatedDate], [s].[FormFieldsId], [s].[CreatedBy], [s].[CreatedDate], [s].[FieldTips], [s].[InputType], [s].[IsRequired], [s].[Label], [s].[Placeholder], [s].[RequestTypeFormStepId], [s].[UpdatedBy], [s].[UpdatedDate], [s].[Width], [s].[FormSelectOptionsId], [s].[CreatedBy0], [s].[CreatedDate0], [s].[FormFieldsId0], [s].[OptionName], [s].[UpdatedBy0], [s].[UpdatedDate0]
+FROM [RequestTypeFormStep] AS [r]
+LEFT JOIN (
+    SELECT [f].[FormFieldsId], [f].[CreatedBy], [f].[CreatedDate], [f].[FieldTips], [f].[InputType], [f].[IsRequired], [f].[Label], [f].[Placeholder], [f].[RequestTypeFormStepId], [f].[UpdatedBy], [f].[UpdatedDate], [f].[Width], [f0].[FormSelectOptionsId], [f0].[CreatedBy] AS [CreatedBy0], [f0].[CreatedDate] AS [CreatedDate0], [f0].[FormFieldsId] AS [FormFieldsId0], [f0].[OptionName], [f0].[UpdatedBy] AS [UpdatedBy0], [f0].[UpdatedDate] AS [UpdatedDate0]
+    FROM [FormFields] AS [f]
+    LEFT JOIN [FormSelectOptions] AS [f0] ON [f].[FormFieldsId] = [f0].[FormFieldsId]
+) AS [s] ON [r].[RequestTypeFormStepId] = [s].[RequestTypeFormStepId]
+WHERE [r].[RequestTypeId] = @__requestTypeId_0
+ORDER BY [r].[RequestTypeFormStepId], [s].[FormFieldsId]
+2025-06-30 16:58:32.505 +00:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType4`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-30 16:58:32.528 +00:00 [INF] Executed action Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation) in 83.8102ms
+2025-06-30 16:58:32.528 +00:00 [INF] Executed endpoint 'Shared.Presentation.GeneralFormFieldsController.GetAllFormStepsFieldsByServiceId (Presentation)'
+2025-06-30 16:58:32.529 +00:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Text.Json.JsonException: A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.DataObject.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.RequestTypeFormStep.FormFields.FormFieldsId.
+   at System.Text.Json.ThrowHelper.ThrowJsonException_SerializerCycleDetected(Int32 maxDepth)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.SerializeAsync(PipeWriter pipeWriter, T rootValue, Int32 flushThreshold, CancellationToken cancellationToken, Object rootValueBoxed)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 16:58:32.574 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/formStep/d3f880b2-0a30-422b-8d1f-08dd9d2510eb - 500 null text/plain; charset=utf-8 232.9314ms
+2025-06-30 17:36:01.424 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-30 17:36:01.425 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.6693ms
+2025-06-30 17:36:01.465 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-30 17:36:01.465 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.2798ms
+2025-06-30 17:36:01.729 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-30 17:36:01.742 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 12.6757ms

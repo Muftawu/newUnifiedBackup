@@ -1,0 +1,40 @@
+@namespace Partials
+
+<div class="@AlertClass">
+    <div>
+        <h6 class="text-15 text-center">@Title</h6>
+    </div>
+</div>
+
+@code {
+    [Parameter] 
+    public string? Variant { get; set; } = "success";
+
+    [Parameter] 
+    public string? Icon { get; set; } = "success";
+
+    [Parameter] 
+    public string? Title { get; set; } = "title";
+
+    [Parameter] 
+    public string? Description { get; set; } = "description";
+
+    [Parameter] 
+    public RenderFragment? ChildContent { get; set; }
+    
+    private string AlertClass => $"{BuildAlertClass()}";
+
+    private string BuildAlertClass()
+    {
+        var variantClass = Variant switch
+        {   
+            "warning" => "text-status-warning border-status-warningBg bg-status-warningBg",
+            "success" => "text-status-success border-status-successBg bg-status-successBg",
+            "danger" => "text-status-error border-status-errorBg bg-status-errorBg",
+            _ => "text-white btn bg-actionPrimary-default border-actionPrimary-default hover:bg-actionPrimary-hover hover:border-actionPrimary-default focus:bg-actionPrimary-active focus:border-actionPrimary-active focus:ring focus:ring-actionPrimary-default/30 active:bg-actionPrimary-active active:border-actionPrimary-active" // Primary by default
+        };
+
+        return $"{variantClass} flex px-5 py-3 border rounded";
+    }
+
+}

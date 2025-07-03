@@ -1,0 +1,189 @@
+@page "/edit-profile/{userId}"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<div class="bg-[#fbfbfb] min-h-screen">
+    <h3 class="mb-12 ml-8">Update Profile</h3>
+
+    <div class="max-w-4xl mx-auto p-6 h-[900px] py-4 bg-white  rounded-xl shadow-sm">
+        <div class="max-w-2xl mx-auto">
+
+            <EditForm Model="@userModel" FormName="UpdateProfileForm" OnValidSubmit="@UpdateProfile">
+                <div class="mb-4">
+                    <label for="Surname" class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Surname</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.Surname" placeholder="Adam" id="Surname" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="OtherNames" class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Other Names</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.OtherNames" placeholder="First Name and Other Names" id="OtherNames" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="Email" class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Email</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.Email" placeholder="adamasalifu@gmail.com" id="Email" />
+                </div>
+
+                <div class="mb-4">
+                    <div class="mb-3">
+                        <label class="block mb-2 font-semibold text-gray-800 dark:text-gray-100">Gender</label>
+                        <select @bind="userModel.Gender"
+                            class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                            <option>Select Gender</option>
+                            @foreach (var gender in @Utils.CommonObjects.Genders)
+                            {
+                                <option value="@gender">@gender</option>
+                            }
+                            }
+                        </select>
+                    </div>
+                </div>
+            
+                @if(!string.Equals(userType, "Developer"))
+                {
+                <div class="mb-4">
+                    <label for="Reference Number"
+                        class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Reference Number</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.ReferenceNumber" placeholder="201547885" id="ReferenceNumber" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="Index Number" class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Index
+                        Number</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.IndexNumber" placeholder="30015478" id="IndexNumber" />
+                </div>
+                
+                }
+                <div class="mb-4">
+                    <label for="PhoneNumber" class="block mb-2 font-medium text-gray-800 dark:text-gray-100">PhoneNumber</label>
+                    <InputText
+                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                        @bind-Value="userModel.PhoneNumber" placeholder="054123456" id="PhoneNumber" />
+                </div>
+
+                <!-- <div class="mb-4">
+                    <div class="mb-3">
+                        <label class="block mb-2 font-semibold text-gray-800 dark:text-gray-100">Programme</label>
+                        <select @bind="userModel.Programme"
+                            class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                            <option>Select Programme</option>
+                            @foreach (var program in @Utils.CommonObjects.ProgrammeOfStudy)
+                            {
+                                <option value="@program">@program</option>
+                            }
+                            }
+                        </select>
+                    </div>
+                </div> -->
+
+                @if (isLoading)
+                {
+                    <div class="mb-3 flex justify-center">
+                        <Spinner />
+                    </div>
+                }
+
+                <div class="mb-3">
+                    <button type="submit"
+                        class="block w-full py-3 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                        Save Changes
+                    </button>
+                </div>
+            </EditForm>
+
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter] public string? userId { get; set; }
+
+    private List<Department> departments;
+    private Department department;
+    private int? userDepartmentId;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+    private User? userModel = new User();
+    private string? userType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        var user = await ApiService.GetUserById(userId);
+        userType = user.UserType.ToString();
+
+        await GetUserProfile();
+        await GetAllSubscribedDepartments();
+        if (!string.Equals(userType, "Developer")) await GetSubscribedDepartment();
+    }
+
+    private async Task GetUserProfile()
+    {
+        var response = await ApiService.GetUserById(userId);
+        userModel = response;
+    }
+
+    private async Task GetAllSubscribedDepartments()
+    {
+        var response = await SISAPIService.GetAllDepartments();
+        departments = response.departments;
+    }
+
+    private async Task GetSubscribedDepartment()
+    {
+        var response = await SISAPIService.GetDepartmentDetails(userDepartmentId);
+        department = response.department;
+    }
+
+    private async Task UpdateProfile()
+    {
+        isLoading = true;
+        UserDTO userDTO = new UserDTO
+        {
+            Email = userModel.Email,
+            Surname = userModel.Surname,
+            OtherNames = userModel.OtherNames,
+            Gender = userModel.Gender,
+            ReferenceNumber = userModel.ReferenceNumber,
+            IndexNumber = userModel.IndexNumber,
+            PhoneNumber = userModel.PhoneNumber
+        };
+
+        var response = await ApiService.UpdateUserProfile(userId, userDTO);
+        if (response.Status)
+        {
+            isLoading = false;
+            MessageService.AlertMessage = response.Message;
+            MessageService.AlertType = "success";
+            NavigationManager.NavigateTo($"/profile/{userId}", forceLoad: true);
+        }
+        else
+        {
+            isLoading = false;
+            MessageService.AlertMessage = response.Message;
+            MessageService.AlertType = "danger";
+        }
+        
+    }
+}

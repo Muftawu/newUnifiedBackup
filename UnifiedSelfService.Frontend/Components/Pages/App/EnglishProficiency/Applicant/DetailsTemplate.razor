@@ -1,0 +1,80 @@
+
+
+@page "/details-template"
+
+<div class="p-6 ">
+     <h3 class="mb-12 ml-24">English Proficiency Letter</h3>
+    <div class="mb-12 ml-12">
+        <button class="flex items-center text-gray-700 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            back
+        </button>
+    </div>
+
+    
+    <div class="  rounded-md bg-white shadow-lg   w-[786px] mx-auto relative  pb-6">
+       
+        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2">
+            <div class=" rounded-full flex items-center justify-center ">
+               <img src="/assets/images/check-image.png" class=""/>
+            </div>
+        </div>
+
+      
+        <div class="pt-10 pb-3 text-center">
+            <div class="flex items-center justify-center">
+                <h2 class="text-base font-normal text-gray-800">Payment Status:</h2>
+                <span class="text-base font-normal text-green-600 ml-1">Completed</span>
+            </div>
+            <div class="flex items-center justify-center mt-1">
+                <p class="text-xs text-gray-600">Amount Paid :</p>
+                <span class="text-xs text-gray-600 ml-1">Ghs 60.00</span>
+            </div>
+        </div>
+
+        
+        <div class="border-t border-dotted border-gray-200 mx-6"></div>
+
+       
+        <div class="px-12 pt-6">
+            <h3 class="text-sm font-medium mb-4">Request Detail</h3>
+
+            <div class="grid grid-cols-2 gap-x-64">
+                <div class="space-y-3 ">
+                    <p class="text-xs text-gray-400">Request Date</p>
+                    <p class="text-xs text-gray-400">Request Id</p>
+                    <p class="text-xs text-gray-400">Recipient Name</p>
+                    <p class="text-xs text-gray-400">Delivery Mode</p>
+                    <p class="text-xs text-gray-400">Recipient Address</p>
+                </div>
+                <div class="space-y-3">
+                    <p class="text-xs font-medium text-gray-800">10th February, 2025</p>
+                    <p class="text-xs font-medium text-gray-800">EPL 948</p>
+                    <p class="text-xs font-medium text-gray-800">Emmanuel Ofori</p>
+                    <p class="text-xs font-medium text-gray-800">Email</p>
+                    <p class="text-xs font-medium text-gray-800">emaofori@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Admin button -->
+        <div class="flex justify-between items-center mt-6 px-12">
+            <button class="bg-transparent border-2  text-[#f6e3aa] border-[#f9e6ac] px-3 py-1 rounded-md text-xs hover:bg-[#f2e8cc] hover:text-white transition-colors">
+                edit
+            </button>
+            <button class="bg-transparent border-2  text-[#f6e3aa] border-[#f9e6ac] px-3 py-1 rounded-md text-xs hover:bg-[#f2e8cc] hover:text-white transition-colors">
+                Alert Admin
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    
+    private void AlertAdmin()
+    {
+       
+    }
+}

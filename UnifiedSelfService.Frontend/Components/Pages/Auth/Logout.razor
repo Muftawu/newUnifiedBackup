@@ -1,0 +1,96 @@
+@page "/logout/{parsedUserId}"
+@attribute [Authorize]
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject ApiService ApiService
+@inject CookieService CookieService 
+@inject IJSRuntime _jsruntime
+
+<h3 class="mb-12 ml-24">Logout</h3>
+
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg pt-8">
+
+       <div class="flex row justify-center gap-32 ">
+            <div class="flex-col justify-center items-center w-full text-lg">
+                @* <h2 class="text-lg font-semibold text-gray-700 mb-8 text-center">Are you sure you want to Logout?</h2> *@
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+                    <p class="text-center text-lg">Click the button below to Logout</p>
+                </div>
+            </div>    
+       </div>
+
+        @if (isLoading)
+        {
+            <div class="mb-3 flex justify-center">
+                <Spinner />
+            </div>
+        }
+
+        <div class="flex justify-center gap-2 mt-8">
+            <button @onclick="OnLogout" class="px-3 py-2 font-bold bg-red-700 text-white rounded hover:bg-red-800 transition-colors">
+                Logout
+            </button>
+        </div>
+</div>
+
+@code 
+{
+    [Parameter] public string? parsedUserId { get; set; }
+
+    private string? userId;
+    private string? userDepartmentId;
+    private string? userType; 
+    private string? userEmail;
+    private string? searchQuery = "";
+    private bool selectAll = false;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {   
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        userEmail = _currentUser.FindFirst("Email")?.Value;
+        userDepartmentId = _currentUser.FindFirst("SubscribedDepartmentId")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+
+        MessageService.AlertMessage = null;
+        MessageService.AlertType = null;
+    }
+
+    private async Task OnLogout()
+    {
+        isLoading = true;
+		@* await CustomAuthenticationStateProviderJWT.MarkUserAsLoggedOut(); *@
+        @* await AccessTokenService.RemoveToken(); *@ 
+        @* await CookieService.Remove("token"); *@
+        await _jsruntime.InvokeVoidAsync("deleteCookie", "token");
+        NavigationManager.NavigateTo("/login");
+         MessageService.AlertMessage = "Logout success";
+        MessageService.AlertType = "success";
+        isLoading = false;
+    }
+  
+    private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+    {
+        {"class", "text-white"},
+    };
+        private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", "w-[500px] max-w-[700px] gap-4 p-4 border-2 bg-white"},
+    };
+
+        private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+    {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

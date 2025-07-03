@@ -1,0 +1,43 @@
+@page "/profile/profile-verification"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager NavigationManager
+
+<div class="flex flex-col items-center justify-center mt-24 max-w-4xl mx-auto bg-white rounded-sm px-4 py-12">
+    <div class="w-full max-w-md mx-auto text-center">
+        <!-- Hourglass Icon -->
+         <div class="flex justify-center items-center my-8">
+            <img src="/assets/images/pending-icon.png" alt="file" style="width:50px;" />
+        </div>
+        
+        <!-- Heading -->
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Your profile is being verified</h1>
+        
+        <!-- Subheading -->
+        <p class="text-gray-600 mb-8">
+            Thank you for completing your profile. We are reviewing your information to verify your account
+        </p>
+        
+        <!-- Notification Box -->
+        <div class="bg-blue-50 rounded-md p-4 flex items-start text-left">
+            <div class="flex-shrink-0 mt-0.5">
+                <svg class="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm text-blue-700 font-medium">user@example.com</p>
+                <p class="mt-1 text-sm text-blue-600">You will receive an email when your verification is complete</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    // You can add any C# logic here if needed
+}

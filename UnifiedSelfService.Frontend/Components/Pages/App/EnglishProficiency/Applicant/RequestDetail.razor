@@ -1,0 +1,101 @@
+@page "/{departmentRequestTypeName}/{requestId}/details"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+
+<div class="">
+    <!-- <h3 class="mb-12 ml-24">@departmentRequestType.RequestType.Name</h3> -->
+    <div class="max-w-7xl mx-auto bg-white p-6"> 
+        <div class="mt-10 py-5 p-6 bg-[#fbfbfb]  rounded-md ">
+            @* <h3 class="text-sm mb-4 font-semibold">Payment status</h3> *@
+            <div class="text-center">
+                <h2 class="mb-2 text-3xl font-bold  text-[#18ab50]">Payment Status: @(departmentRequestType.AcceptPayment ? $"GHS {departmentRequestType.Amount} - Payment Completed"  : "No Payment Required")</h2>
+                <p class="text-sm">If Payment has been deducted successfully. Kindly contact our help desk via <a href="" class="text-blue-400"> https://englishdptmnt.knust.st.edu.gh</a> </p>
+            </div>
+        </div>
+        <div class=" mt-10 p-6 bg-[#fbfbfb] rounded-md ">
+                <div class="flex justify-between items-center mb-6 mt-4">
+                    <h1 class="text-base">Request Detail</h1>
+                    <button class="bg-red-500 text-sm hover:bg-red-600 text-white mr-24 py-1 px-4 rounded-full">
+                        Alert Admin
+                    </button>
+                </div>
+            <div class="max-w-5xl mx-auto">
+                <div class="space-y-4">
+                    <div class="flex justify-between py-1">
+                        <span class="">Request Date</span>
+                        <span>@applicantRequest.CreatedDate</span>
+                    </div>
+                     <div class="flex justify-between py-1">
+                        <span class="">Request Status</span>
+                        <span>@applicantRequestTransaction.ProcessingStatus</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span class="">Due Date</span>
+                        <span class="text-red-500">20th February, 2025</span>
+                    </div>
+                     <div class="flex justify-between py-1">
+                        <span class="">Delivery Mode</span>
+                        <span>@applicantRequestTransaction.DeliveryModeOption</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span class="">@(applicantRequestTransaction.DeliveryModeOption == "Email" ? "Recipient Email" : "Recipient Name")</span>
+                        <span>@applicantRequestTransaction.RecipientInfo</span>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+
+
+@code
+{
+    [Parameter] public string? departmentRequestTypeName { get; set; }
+    [Parameter] public string? requestId { get; set; }
+
+        private Request applicantRequest = new();
+        private RequestType requestType = new();
+        private RequestTransaction applicantRequestTransaction = new();
+        private  DepartmentRequestType departmentRequestType = new();
+
+        private string? userId;
+        private string? userDepartmentId;
+        private string? userType;
+        private ClaimsPrincipal? _currentUser;
+
+        protected override async Task OnInitializedAsync()
+        {   
+            await FetchRequestTransactionsHistory();
+        }
+
+        private async Task FetchRequestTransactionsHistory()
+        {
+            
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            _currentUser = authState.User;
+            userId = _currentUser.FindFirst("Sub")?.Value;
+            userDepartmentId = _currentUser.FindFirst("SubscribedDepartmentId")?.Value;
+            userType = _currentUser.FindFirst("UserType")?.Value;
+
+            applicantRequest = await ApiService.GetApplicantRequestById(requestId);
+
+            if (applicantRequest != null)
+            {
+                applicantRequestTransaction = await ApiService.GetApplicantRequestTransaction(applicantRequest.UserId.ToString(), applicantRequest.RequestId.ToString());
+                departmentRequestType = await ApiService.GetDepartmentRequestTypeById(applicantRequest.DepartmentRequestTypeId.ToString());
+                Console.WriteLine($"department request type: {departmentRequestType} {departmentRequestType.RequestTypeId.ToString()} {departmentRequestType.CreatedBy}");
+
+                <!-- requestType = await ApiService.GetRequestTypeById(departmentRequestType.RequestTypeId.ToString());
+                if (requestType != null)
+                {
+                } -->
+            }
+
+            MessageService.AlertMessage = null;
+            MessageService.AlertType = null;
+        }
+}

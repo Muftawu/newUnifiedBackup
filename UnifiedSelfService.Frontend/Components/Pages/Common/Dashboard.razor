@@ -1,0 +1,244 @@
+@page "/dashboard"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+
+<div class="max-w-6xl mx-auto">
+    <div>
+        @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+        {
+            <div class="flex items-center justify-center mb-2">
+                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+            </div>
+        }
+        <div style="background-image:url('/assets/images/dashboard-background-image.png');"
+            class=" mr-8 p-6 h-36 bg-cover rounded-md ">
+            <div class="pb-6">
+                <Text TextLabel="@(string.IsNullOrWhiteSpace(_currentUser?.Identity?.Name) ? $"Hi {userEmail}" : $"{@_currentUser?.Identity?.Name}")" FontWeight="bold" TextSize="sm" AdditionalAttributes="AdditionalTextClasses" />
+                <!-- <Text TextLabel="@userType" TextSize="sm"
+                    AdditionalAttributes="AdditionalTextClasses" /> -->
+            </div>
+
+            <div class="pb-6">
+                <Text TextLabel="Request summaries, click on any to get started." TextSize="sm" AdditionalAttributes="AdditionalTextClasses" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-10">
+        <h4 class="text-sm font-light text-[#c0bfbf]">What you would you like to do today?</h4>
+    </div>
+    
+    @if (isLoading)
+    {
+        <div class="mb-3 flex justify-center">
+            <Spinner />
+        </div>
+    } else
+    {
+    <div class="grid grid-cols-1 gap-y-0 md:grid-cols-2 2xl:grid-cols-3 mr-8 mt-8 ">
+ 
+        @if (userType == "Applicant" && isProfileVerified)
+        {
+            @if (englishProficiency != null)
+            {
+                @if (englishProficiency.RequestType != null)
+                {
+                    <a href=@($"/letter-dashboard/{englishProficiency.DepartmentRequestTypeId.ToString()!}")>
+                    <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                                <div class=" ">
+                                    <img src="/assets/images/File.png" alt="icon here" class="w-10" />
+                                    <div class="py-4 ">
+                                        <Text TextLabel="@englishProficiency.RequestType.Name" TextSize="sm" />
+                                    </div>
+                                    <div>
+                                        <Text TextLabel="@englishProficiency.RequestType.Description" TextSize="sm" />
+                                    </div>
+                                </div>
+                        </Card>
+                    </a>
+                }
+            }
+        }
+
+        @if(userType == "DepartmentAdmin")
+        {
+            @if (englishProficiency != null)
+            {
+                @if (englishProficiency.RequestType != null)
+                {
+                    <a href=@($"/letter-dashboard/{englishProficiency.DepartmentRequestTypeId.ToString()!}")>
+                    <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                                <div class=" ">
+                                    <img src="/assets/images/File.png" alt="icon here" class="w-10" />
+                                    <div class="py-4 ">
+                                        <Text TextLabel="@englishProficiency.RequestType.Name" TextSize="sm" />
+                                    </div>
+                                    <div>
+                                        <Text TextLabel="@englishProficiency.RequestType.Description" TextSize="sm" />
+                                    </div>
+                                </div>
+                        </Card>
+                    </a>
+                }
+            }
+        }
+
+        @if (allDepartmentRequestTypes != null)
+        {
+            @foreach (var deptRequestTypeObj in allDepartmentRequestTypes!)
+            {
+                if (deptRequestTypeObj != null)
+                {
+                    @foreach(var deptRequestType in deptRequestTypeObj)
+                    {
+                <a href=@($"/letter-dashboard/{deptRequestType.DepartmentRequestTypeId.ToString()!}")>
+                <Card ShowBorder=true OuterShadow="lg" BorderRadius="lg" AdditionalAttributes="AdditionalCardClass2">
+                        <div class=" ">
+                            <img src="/assets/images/File.png" alt="icon here" class="w-10" />
+                            <div class="py-4 ">
+                                <Text TextLabel="@deptRequestType.RequestType.Name" TextSize="sm" />
+                            </div>
+                            <div>
+                                <Text TextLabel="@deptRequestType.RequestType.Description" TextSize="sm" />
+                            </div>
+                        </div>
+                </Card>
+                </a>
+                    }
+                }                                                                                                                                                                                                                                                                                                                                                         
+            }
+        }else
+        {
+            <p>No department subscriptions yet</p>
+        }
+
+    </div>
+    }
+
+</div>
+
+@code {
+
+        private List<List<DepartmentRequestType>>? allDepartmentRequestTypes = new();
+        private List<RequestType> allRequestTypes = new();
+        private DepartmentRequestType englishProficiency = new();
+        private List<ProgrammeRead> userProgrammes = new();
+        private List<int> departmentIdList = new();
+
+        private DepartmentSettingDTO departmentSettingsModel = new();
+
+        private string? userId;
+        private string? userType;
+        private string? userEmail;
+        private bool isProfileVerified = false;
+        private bool isLoading = false;
+        private ClaimsPrincipal? _currentUser;
+        private string? searchQuery = string.Empty;
+
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            _currentUser = authState.User;
+            userId = _currentUser.FindFirst("Sub")?.Value;
+            var user = await ApiService.GetUserById(userId);
+
+            userType = user.UserType.ToString();
+            userEmail = user.Email;
+            isProfileVerified = user.IsProfileVerified;
+            
+            isLoading = true;
+            await GetUserSubscribedDepartment();
+            await FetchDepartmentRequestTypes();
+            await GetEnglishProficiency();
+            isLoading = false;
+
+            MessageService.AlertType = null;
+            MessageService.AlertMessage = null;
+        }
+
+    public void NavigateToDashboard()
+    {
+        NavigationManager.NavigateTo("/dashboard");
+    }
+
+    private async Task HandleDepartmentSettingsFormSubmit()
+    {   
+        @* isLoading = true; *@
+
+        Boolean.TryParse(departmentSettingsModel.PortalStatus.ToString(), out bool dstatus);
+
+        var newDepartmentSettingsDTO = new DepartmentSettingDTO
+        {
+            Logo = departmentSettingsModel.Logo,
+            CurrentHod = departmentSettingsModel.CurrentHod,
+            Email = departmentSettingsModel.Email,
+            Telephone = departmentSettingsModel.Telephone,
+            Office = departmentSettingsModel.Office,
+            ThankYouMessage = departmentSettingsModel.ThankYouMessage,
+            WorkingHours = departmentSettingsModel.WorkingHours,
+            PortalStatus = dstatus,
+            PortalStatusMessage = departmentSettingsModel.PortalStatusMessage,
+        };
+    }
+
+        private async Task FetchDepartmentRequestTypes()
+        {
+            var userProgrammeReadList = await ApiService.GetApplicantProgrammesRead(userId);
+            foreach(var userProgrammeRead in userProgrammeReadList)
+            {
+                if (userProgrammeRead != null)
+                {
+                    var response = await SISAPIService.GetProgrammeDetails(userProgrammeRead.ProgrammeId);
+                    if (response.Status)
+                    {
+                        departmentIdList.Add(response.departmentId ?? 0); 
+                        var departmentRequestTypeResponse = await ApiService.GetAllDepartmentRequestTypesByDepartmentId(response.departmentId); 
+                        allDepartmentRequestTypes.Add(departmentRequestTypeResponse.departmentRequestTypes);
+                    }
+                }
+            }
+            
+        }
+
+        private async Task GetEnglishProficiency ()
+        {
+            englishProficiency = await ApiService.GetDepartmentRequestTypeByName("English Proficiency");
+        }
+
+        private async Task GetUserSubscribedDepartment ()
+        {
+            var response = await ApiService.GetUserProgrammes(userId);
+            if (response.Status) userProgrammes = response.programmes;
+        }
+
+        private void NavigationToNewLetterRequest (string userId, string userDepartmentId, string departmentRequestTypeId)
+        {
+            NavigationManager.NavigateTo($"/new-request/{userId}/{userDepartmentId}/{departmentRequestTypeId}");
+        }
+
+        private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+        {
+            {"class", "text-white pb-2"},
+        };
+    
+    private Dictionary<string, object> AdditionalCardClasses = new Dictionary<string, object>
+    {
+        {"class", "flex justify-between items-center p-4 bg-white shadow-md max-w-[350px] "},
+    };
+
+    private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", " max-w-[350px] gap-4 p-4 border-2 bg-white"},
+    };
+
+    private Dictionary<string, object> AdditionalTextClass = new Dictionary<string, object>
+    {
+        {"class", " font-bold text-gray-800 dark:text-gray-100"},
+    };
+}

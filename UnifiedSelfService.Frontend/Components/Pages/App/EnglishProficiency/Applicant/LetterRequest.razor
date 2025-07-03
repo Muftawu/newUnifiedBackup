@@ -1,0 +1,60 @@
+@page "/letter-request/{requestType}"
+
+
+<div style="padding: 0 55px;">
+            <div class="pb-6 grid grid-cols-1">
+                <div class="md:flex items-center justify-between px-[2px]">
+
+                    <Text 
+                        TextLabel="@LetterType"
+                        TextColor="black"
+                        TextColorIntensity="600"
+                        TextSize="20px"
+                        IsBold=false
+                    />
+
+                    <Button
+                        ButtonTitle="Make a Request"
+                        ButtonColor="green"
+                        ButtonColorIntensity="800"
+                        ButtonTextSize="15px"
+                        TextColor="white"
+                        IsTextBold=true
+                        NavigationURL=@($"/new-request/{LetterType}")
+                     />
+
+                </div>
+            </div>
+            
+           <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <Icon IconName="@Utils.CommonIcons.File" IconColor="green" IconSize="80px" />
+
+                <div class="mt-3">
+                    <Text 
+                        TextLabel="You have no request"
+                        TextColor="gray"
+                        TextColorIntensity="600"
+                        TextSize="18px"
+                        IsBold=false
+                        />
+                </div>
+
+                <div class="mt-3">
+                    <Text 
+                        TextLabel="You don't seem to have any request at the moment"
+                        TextColor="gray"
+                        TextColorIntensity="300"
+                        TextSize="18px"
+                        IsBold=false
+                        />
+                </div>
+
+           </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public string? requestType { get; set; }
+    public string? LetterType { get; set; } = "Reference Letter";
+}

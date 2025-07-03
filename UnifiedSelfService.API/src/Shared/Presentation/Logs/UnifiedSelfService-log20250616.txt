@@ -1,0 +1,24 @@
+2025-06-16 10:44:50.336 +00:00 [INF] Executed DbCommand (110ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-16 10:44:50.693 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-16 10:44:50.700 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-16 10:44:51.032 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-16 10:44:51.413 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-16 10:44:51.421 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-16 10:44:51.422 +00:00 [INF] Hosting environment: Development
+2025-06-16 10:44:51.422 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-16 10:44:52.111 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-16 10:44:52.472 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 366.6257ms
+2025-06-16 10:44:52.689 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-16 10:44:52.696 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 6.7983ms
+2025-06-16 10:44:53.427 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-16 10:44:53.852 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 425.8024ms
+2025-06-16 11:31:39.590 +00:00 [INF] Application is shutting down...

@@ -1,0 +1,71 @@
+@namespace Partials
+
+<button @attributes="AdditionalAttributes" type="@Type" class="@ButtonClass" @onclick="OnClickHandler" disabled="@IsDisabled">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter] 
+    public string? Variant { get; set; } = "primary";
+
+    [Parameter] 
+    public string? Size { get; set; } = "md";
+
+    [Parameter] 
+    public bool IsDisabled { get; set; } = false;
+
+    [Parameter] 
+    public string? Type { get; set; } = string.Empty;
+    
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter] 
+    public RenderFragment? ChildContent { get; set; }
+    
+    [Parameter(CaptureUnmatchedValues = true)] 
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string ButtonClass => $"{BuildButtonClass()} {AdditionalClass}";
+
+    private string BuildButtonClass()
+    {
+        var variantClass = Variant switch
+        {
+            "danger" => "bg-red-500 text-white hover:bg-red-600",
+            "light" => "text-black bg-gray-100 border-gray-100 btn focus:bg-gray-300 focus:border-gray-300 focus:ring focus:ring-gray-500/30 active:bg-gray-300 active:border-gray-300",
+            "destructive" => "text-white border-status-error bg-status-error btn hover:bg-red-600 hover:border-red-600 focus:bg-status-error focus:border-status-error focus:ring focus:ring-red-500/30 active:bg-status-error active:border-status-error",
+            "outline" => "border border-actionPrimary-default bg-transparent text-actionPrimary-default",
+            "gray" => "bg-white text-[#888888] hover:bg-gray-600 border-[#eeeeee] border-[1px]",
+            "green" => "bg-white text-[#177445]  hover:bg-green-600 hover:text-white border-[#177445] border-[1px] font-semibold",
+            "secondary" => "bg-primary-10 text-primary-default hover:bg-primary-10 dark:bg-primary-10 ",
+            "ghost" => "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
+            "link" => "text-actionPrimary-default underline-offset-4 hover:underline dark:text-slate-50",
+            _ => "text-white btn bg-actionPrimary-default border-actionPrimary-default hover:bg-actionPrimary-hover hover:border-actionPrimary-default focus:bg-actionPrimary-active focus:border-actionPrimary-active focus:ring focus:ring-actionPrimary-default/30 active:bg-actionPrimary-active active:border-actionPrimary-active" // Primary by default
+        };
+
+        var sizeClass = Size switch
+        {
+            "sm" => "h-9 rounded-md px-3",
+            "lg" => "h-11 rounded-md px-8",
+            "icon" => "h-10 w-10",
+            _ => "h-10 px-4 py-2" // Medium by default
+        };
+
+        var disabledClass = IsDisabled ? "opacity-50 cursor-not-allowed" : "";
+
+        return $"{variantClass} {sizeClass} {disabledClass} inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm  ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300";
+    }
+
+    private string? AdditionalClass => AdditionalAttributes != null && AdditionalAttributes.ContainsKey("class")
+    ? AdditionalAttributes["class"].ToString()
+    : string.Empty;
+
+    private async Task OnClickHandler(MouseEventArgs e)
+    {
+        if (!IsDisabled && OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(e);
+        }
+    }
+}

@@ -1,0 +1,100 @@
+@page "/application-details"
+
+
+<!-- <Modal ModalTitle="Reason for Decline">
+
+    <ModalContent>
+         <div class="mt-5">
+            <TextInput PlaceHolderTitle="Please specify a reason for decline" />
+        </div>
+
+        <div class="justify-center px-4 py-2 mt-2 border-gray-50 sm:flex sm:px-6">
+
+            <Button 
+                ButtonTitle="Submit"
+                ButtonColor="green"
+                TextColor="white"
+                />
+        </div>
+    </ModalContent>
+
+</Modal> -->
+
+<div class="main-content group-data-[sidebar-size=sm]:ml-[70px]">
+    <div class="page-content dark:bg-zinc-700">
+        <div class="container-fluid px-[0.625rem]">
+
+            <Card
+                CardTitle="Application Details" 
+                ShowBorder=true
+                BorderRadius="xl">
+
+                    <div class="flex justify-between items-center py-6">
+                        <div class="px-16">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-bold">Name</td>
+                                        <td class="mb-10">John Arthur</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold">Purpose</td>
+                                        <td>Applying for further studies</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold">Request Type</td>
+                                        <td>Reference</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="px-16">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-bold">Programme</td>
+                                        <td>Msc Computer Engineering</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold">Reciepient Mail</td>
+                                        <td>registrar@ksu.edu.us</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold">View CWA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="justify-around px-4 py-3 mt-5 border-gray-50 sm:flex sm:px-6 pb-6">
+
+                        <ModalButton 
+                            ModalButtonName="Decline" 
+                            ModalButtonColor="red"
+                            TextColor="white"
+                        />
+
+                        <Button 
+                            ButtonTitle="Process" 
+                            ButtonColor="green" 
+                            ButtonColorIntensity="600"
+                            TextColor="white"
+                            ButtonTextSize="16px"
+                            OnHoverColor="green"
+                            HoverColorIntensity="700"
+                            IsTextBold=false
+                            NavigationURL = "/processing-request"
+                        />
+
+                </div>
+                   
+
+            </Card>
+
+        </div>
+    </div>
+</div>
+

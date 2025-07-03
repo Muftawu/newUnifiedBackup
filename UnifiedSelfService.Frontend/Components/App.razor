@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<base href="/" />
+
+	<link rel="stylesheet" href="./assets/css/swiper-bundle.css">
+	<link rel="stylesheet" href="./assets/css/icons.css">
+	<link rel="stylesheet" href="./assets/css/modal.css">
+	<link rel="stylesheet" href="tailwind.css">
+
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<HeadOutlet @rendermode="new InteractiveServerRenderMode(prerender:false)"/>
+</head>
+
+<body data-mode="light" data-sidebar-size="lg" class="group">
+
+
+	<div class="main-content group-data-[sidebar-size=sm]:ml-[70px]">
+		<div class="page-content dark:bg-zinc-700">
+			 <div class="container-fluid">	
+				
+					<Routes @rendermode="new InteractiveServerRenderMode(prerender:false)" />
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Footer Start -->
+	@* <footer class="fixed bottom-0 left-0 right-0 px-5 py-5 bg-white border-t footer border-gray-50 dark:bg-zinc-700 dark:border-zinc-600 dark:text-gray-200">
+        <div class="text-gray-500 grid grid-cols-2 dark:text-zinc-100">
+            <div class="grow">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script> Minia
+            </div>
+            <div class="hidden md:inline-block text-end">KNUST <a href="/" class="underline text-violet-500">UITS</a></div>
+
+        </div>
+    </footer> *@
+	<!-- end Footer -->
+
+	<script src="_framework/blazor.web.js"></script>
+	<script src="./js/cookie.js"></script>
+	<script src="./js/custom.js"></script>
+
+	<!-- all scripts -->
+	<script src="_framework/blazor.webassembly.js"></script>
+
+	<!-- third-party scripts -->
+	<script src="./assets/libs/popperjs/core/umd/popper.min.js"></script>
+	<script src="./assets/libs/feather-icons/feather.min.js"></script>
+	<script src="./assets/libs/metismenujs/metismenujs.min.js"></script>
+	<script src="./assets/libs/simplebar/simplebar.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<!-- apexcharts -->
+	<script src="./assets/libs/apexcharts/apexcharts.min.js"></script>
+
+	<!-- Plugins js-->
+	<script src="./assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+	<script src="./assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+
+	<script src="./assets/libs/swiper/swiper-bundle.min.js"></script>
+
+	<!-- dashboard init -->
+	<script src="./assets/js/pages/dashboard.init.js"></script>
+
+	<script src="./assets/js/pages/nav&tabs.js"></script>
+
+	<script src="./assets/js/pages/login.init.js"></script>
+
+	<script src="./assets/js/app.js"></script>
+
+	<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+</body>
+
+</html>

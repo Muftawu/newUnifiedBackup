@@ -1,0 +1,209 @@
+2025-06-18 11:02:01.929 +00:00 [INF] Executed DbCommand (92ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-18 11:02:02.231 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-18 11:02:02.239 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-06-18 11:02:02.577 +00:00 [INF] User profile is available. Using 'C:\Users\IngRichie\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-18 11:02:02.949 +00:00 [INF] Now listening on: http://localhost:5161
+2025-06-18 11:02:02.956 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-18 11:02:02.957 +00:00 [INF] Hosting environment: Development
+2025-06-18 11:02:02.957 +00:00 [INF] Content root path: C:\Users\IngRichie\Desktop\unified\UnifiedSelfService.API\src\Shared\Presentation
+2025-06-18 11:02:03.616 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:02:03.980 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 369.9441ms
+2025-06-18 11:02:04.073 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:02:04.080 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 6.6547ms
+2025-06-18 11:02:04.405 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:02:04.919 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 513.8639ms
+2025-06-18 11:05:09.823 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json 70
+2025-06-18 11:05:09.852 +00:00 [WRN] Failed to determine the https port for redirect.
+2025-06-18 11:05:09.924 +00:00 [INF] CORS policy execution failed.
+2025-06-18 11:05:09.925 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-18 11:05:09.983 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:05:10.037 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-18 11:05:10.344 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-18 11:05:10.364 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-18 11:05:10.414 +00:00 [INF] Executed action AuthController.Login (Presentation) in 367.3526ms
+2025-06-18 11:05:10.415 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:05:10.419 +00:00 [INF] HTTP POST /login responded 400 in 451.2082 ms
+2025-06-18 11:05:10.436 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 612.1143ms
+2025-06-18 11:05:43.259 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json 66
+2025-06-18 11:05:43.280 +00:00 [INF] CORS policy execution failed.
+2025-06-18 11:05:43.281 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-18 11:05:43.284 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:05:43.285 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-18 11:05:43.362 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-18 11:05:43.823 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-18 11:05:43.826 +00:00 [INF] Executed action AuthController.Login (Presentation) in 539.5615ms
+2025-06-18 11:05:43.826 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:05:43.827 +00:00 [INF] HTTP POST /login responded 400 in 542.2125 ms
+2025-06-18 11:05:43.829 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 569.1514ms
+2025-06-18 11:05:57.411 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-18 11:05:57.466 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:05:57.474 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:05:57.475 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 302 0 null 63.7548ms
+2025-06-18 11:05:57.480 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - null null
+2025-06-18 11:05:57.482 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.2110 ms
+2025-06-18 11:05:57.483 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - 404 0 null 3.1663ms
+2025-06-18 11:05:57.485 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:19:39.829 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:19:39.831 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.759ms
+2025-06-18 11:19:39.928 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:19:39.928 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4894ms
+2025-06-18 11:19:40.163 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:19:40.204 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 40.5507ms
+2025-06-18 11:19:42.213 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:19:42.217 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 3.4307ms
+2025-06-18 11:19:42.349 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:19:42.350 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 1.3291ms
+2025-06-18 11:19:42.699 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:19:42.743 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 43.7388ms
+2025-06-18 11:19:51.404 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:19:51.409 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 4.8202ms
+2025-06-18 11:19:51.501 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:19:51.502 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.4466ms
+2025-06-18 11:19:51.702 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:19:51.759 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 56.8876ms
+2025-06-18 11:19:57.550 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:19:57.552 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.5885ms
+2025-06-18 11:19:57.674 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:19:57.675 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.7779ms
+2025-06-18 11:19:57.902 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:19:57.925 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.5777ms
+2025-06-18 11:20:37.403 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:20:37.406 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.4394ms
+2025-06-18 11:20:37.480 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:20:37.481 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 1.1193ms
+2025-06-18 11:20:37.821 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:20:37.855 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 33.997ms
+2025-06-18 11:21:23.010 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:21:23.013 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.7123ms
+2025-06-18 11:21:23.131 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:21:23.132 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.657ms
+2025-06-18 11:21:23.364 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:21:23.441 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 76.7639ms
+2025-06-18 11:22:04.288 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json 68
+2025-06-18 11:22:04.289 +00:00 [INF] CORS policy execution failed.
+2025-06-18 11:22:04.289 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-18 11:22:04.290 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:22:04.309 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-18 11:22:04.349 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-06-18 11:22:04.407 +00:00 [INF] Executed action AuthController.Login (Presentation) in 97.6597ms
+2025-06-18 11:22:04.407 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:22:04.408 +00:00 [INF] HTTP POST /login responded 400 in 118.1551 ms
+2025-06-18 11:22:04.408 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/problem+json; charset=utf-8 120.1322ms
+2025-06-18 11:22:34.234 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json 67
+2025-06-18 11:22:34.276 +00:00 [INF] CORS policy execution failed.
+2025-06-18 11:22:34.276 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-18 11:22:34.277 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:22:34.277 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-18 11:22:34.279 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-06-18 11:22:34.279 +00:00 [INF] Executed action AuthController.Login (Presentation) in 2.2647ms
+2025-06-18 11:22:34.279 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:22:34.280 +00:00 [INF] HTTP POST /login responded 400 in 2.8985 ms
+2025-06-18 11:22:34.280 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/problem+json; charset=utf-8 46.1694ms
+2025-06-18 11:27:23.807 +00:00 [INF] Request starting HTTP/1.1 POST http://localhost:5161/login - application/json 66
+2025-06-18 11:27:23.808 +00:00 [INF] CORS policy execution failed.
+2025-06-18 11:27:23.808 +00:00 [INF] Request origin http://localhost:5161 does not have permission to access the resource.
+2025-06-18 11:27:23.808 +00:00 [INF] Executing endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:27:23.809 +00:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(DTOs.LoginDTO) on controller AuthController (Presentation).
+2025-06-18 11:27:24.180 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[CountryCode], [a].[CountryOfResidence], [a].[DateCreated], [a].[DateOfBirth], [a].[Email], [a].[EmailConfirmed], [a].[Gender], [a].[IndexNumber], [a].[IsProfileVerified], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[OtherNames], [a].[PassportPicture], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ReferenceNumber], [a].[SecurityStamp], [a].[Surname], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-06-18 11:27:24.548 +00:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType2`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-06-18 11:27:24.551 +00:00 [INF] Executed action AuthController.Login (Presentation) in 741.6469ms
+2025-06-18 11:27:24.551 +00:00 [INF] Executed endpoint 'AuthController.Login (Presentation)'
+2025-06-18 11:27:24.551 +00:00 [INF] HTTP POST /login responded 400 in 742.8070 ms
+2025-06-18 11:27:24.552 +00:00 [INF] Request finished HTTP/1.1 POST http://localhost:5161/login - 400 null application/json; charset=utf-8 744.842ms
+2025-06-18 11:27:35.491 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-18 11:27:35.495 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:27:35.496 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:27:35.496 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 302 0 null 4.8928ms
+2025-06-18 11:27:35.516 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - null null
+2025-06-18 11:27:35.516 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0237 ms
+2025-06-18 11:27:35.516 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - 404 0 null 0.7884ms
+2025-06-18 11:27:35.517 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:37:17.139 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:37:17.141 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.9359ms
+2025-06-18 11:37:17.241 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:37:17.241 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.3429ms
+2025-06-18 11:37:17.473 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:37:17.504 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.2487ms
+2025-06-18 11:37:21.769 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:37:21.770 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 1.4166ms
+2025-06-18 11:37:21.806 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:37:21.806 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.2842ms
+2025-06-18 11:37:22.016 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:37:22.054 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 38.395ms
+2025-06-18 11:38:24.789 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:38:24.792 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.134ms
+2025-06-18 11:38:24.912 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:38:24.913 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 1.7906ms
+2025-06-18 11:38:25.105 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:38:25.144 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 38.6838ms
+2025-06-18 11:38:44.270 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-18 11:38:44.275 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:38:44.275 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:38:44.276 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 302 0 null 4.992ms
+2025-06-18 11:38:44.283 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - null null
+2025-06-18 11:38:44.316 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0382 ms
+2025-06-18 11:38:44.316 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - 404 0 null 33.2223ms
+2025-06-18 11:38:44.316 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:38:48.488 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/request_type - null null
+2025-06-18 11:38:48.490 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:38:48.490 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:38:48.490 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/request_type - 302 0 null 1.8185ms
+2025-06-18 11:38:48.497 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - null null
+2025-06-18 11:38:48.497 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0226 ms
+2025-06-18 11:38:48.498 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Frequest_type - 404 0 null 0.738ms
+2025-06-18 11:38:48.498 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:39:23.159 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/all-request-transactions - null null
+2025-06-18 11:39:23.160 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:39:23.160 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:39:23.160 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/all-request-transactions - 302 0 null 1.4527ms
+2025-06-18 11:39:23.169 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Fall-request-transactions - null null
+2025-06-18 11:39:23.170 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0540 ms
+2025-06-18 11:39:23.170 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2Fall-request-transactions - 404 0 null 1.2454ms
+2025-06-18 11:39:23.171 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:39:37.336 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/allSubscribedDepartments - null null
+2025-06-18 11:39:37.337 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:39:37.337 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:39:37.337 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/allSubscribedDepartments - 302 0 null 1.0357ms
+2025-06-18 11:39:37.347 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2FallSubscribedDepartments - null null
+2025-06-18 11:39:37.348 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0366 ms
+2025-06-18 11:39:37.349 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2FallSubscribedDepartments - 404 0 null 1.4103ms
+2025-06-18 11:39:37.349 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:43:37.018 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/departmentSettings/profile - null null
+2025-06-18 11:43:37.023 +00:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-06-18 11:43:37.023 +00:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-06-18 11:43:37.023 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/departmentSettings/profile - 302 0 null 4.7137ms
+2025-06-18 11:43:37.028 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2FdepartmentSettings%2Fprofile - null null
+2025-06-18 11:43:37.028 +00:00 [INF] HTTP GET /Account/Login responded 404 in 0.0364 ms
+2025-06-18 11:43:37.028 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/Account/Login?ReturnUrl=%2FdepartmentSettings%2Fprofile - 404 0 null 0.8165ms
+2025-06-18 11:43:37.029 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5161/Account/Login, Response status code: 404
+2025-06-18 11:47:43.524 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/index.html - null null
+2025-06-18 11:47:43.526 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/index.html - 200 null text/html;charset=utf-8 2.5332ms
+2025-06-18 11:47:43.679 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-18 11:47:43.679 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/_framework/aspnetcore-browser-refresh.js - 200 13748 application/javascript; charset=utf-8 0.3522ms
+2025-06-18 11:47:43.949 +00:00 [INF] Request starting HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - null null
+2025-06-18 11:47:43.972 +00:00 [INF] Request finished HTTP/1.1 GET http://localhost:5161/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.9635ms

@@ -1,0 +1,77 @@
+@namespace Layout
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+
+<nav class="fixed xl:w-[85%] w-full top-0 z-10 shadow-sm border-gray-50 right-0 h-[60px] justify-between items-center flex xl:justify-end xl:items-end bg-white dark:bg-zinc-800  dark:border-zinc-700">
+
+	<div class="flex xl:hidden">
+		<button type="button"
+			class="  dark:border-zinc-600 dark:lg:border-transparent lg:border-transparent group-data-[sidebar-size=sm]:border-[#e9e9ef] group-data-[sidebar-size=sm]:dark:border-zinc-600 text-gray-800 dark:text-white  px-4  py-1 vertical-menu-btn text-16"
+			id="vertical-menu-btn">
+			<Icon IconName="bx bx-menu" IconColor="gray" IconSize="25px" />
+		</button>
+	</div>
+	<div>
+		<div class="relative dropdown">
+			<button type="button"
+				class="flex items-center px-3 py-2 dropdown-toggle dark:bg-zinc-700 dark:border-zinc-600 dark:text-gray-100"
+				id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				<img class="border-[3px]  dark:border-zinc-400 rounded-full w-9 h-9 ltr:xl:mr-2 rtl:xl:ml-2"
+					src="assets/images/users/avatar-1.jpg" alt="Header Avatar" />
+				<a href=@($"/profile/{userId}")>
+					<span class=" font-sm xl:block px-2">
+					<AuthorizeView>
+						<Authorized>
+							@* @foreach (var claim in context.User.Claims)
+							{ 
+								@if (claim.Type == "name")
+								{
+									<p>@claim.Value</p>
+								}
+							} *@
+							<p>
+								@(string.IsNullOrWhiteSpace(_currentUser?.Identity?.Name) ? userEmail : _currentUser?.Identity?.Name) | <b>@(userType)</b>
+							</p>
+						</Authorized>
+					</AuthorizeView>
+				</span>
+				</a>
+			</button>
+
+			<div class="absolute top-0 z-50 hidden w-40 list-none bg-white rounded shadow dropdown-menu dropdown-animation dark:bg-zinc-800"
+				id="profile/log">
+				<div class="border border-gray-50 dark:border-zinc-600" aria-labelledby="navNotifications">
+					<div class="dropdown-item dark:text-gray-100">
+						<a class="block px-3 py-2 hover:bg-gray-50/50 dark:hover:bg-zinc-700/50"
+							href="/profile/lsdjfkdlfjsdk">
+							<i class="mr-1 align-middle mdi mdi-face-man text-16"></i> Profile
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+@code {
+
+	private string? userId;
+	private string? userType;
+	private string? userEmail;
+	private ClaimsPrincipal? _currentUser;
+
+ 	protected override async Task OnInitializedAsync()
+	{
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		_currentUser = authState.User;
+		userId = _currentUser.FindFirst("Sub")?.Value;
+
+		var user = await ApiService.GetUserById(userId);
+		userEmail = _currentUser.FindFirst("Email")?.Value;
+		userType = user.UserType.ToString();
+	}
+
+
+
+}

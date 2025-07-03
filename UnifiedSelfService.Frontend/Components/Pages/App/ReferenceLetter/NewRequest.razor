@@ -1,0 +1,128 @@
+@page "/dummypath"
+
+
+            <div class="pb-6 grid grid-cols-1 px-6">
+                <div class="md:flex items-center justify-between px-[2px]">
+
+                    <Text TextLabel=@($"{LetterType} - New Request") TextColor="black" TextColorIntensity="600"
+                        TextSize="20px" IsBold=true />
+
+                    <Button ButtonTitle="Make a Request" ButtonColor="green" ButtonColorIntensity="800"
+                        ButtonTextSize="15px" TextColor="white" IsTextBold=true />
+
+                </div>
+            </div>
+
+        <div class=" dark:bg-zinc-800 dark:border-zinc-600">
+
+            <div class="card-body">
+                <div class="grid grid-cols-12 gap-x-6">
+
+                    @* left pane *@
+                    <div class="col-span-12 lg:col-span-6">
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Email" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Email" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Recipient Organization" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Email" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Recipient Email" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Email" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Project Topic" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Email" />
+                        </div>
+
+                        <div class="mb-4">
+                            <SelectInput title="Delivery Mode" Options=Programmes />
+                        </div>
+
+                        <div class="mb-4">
+                            <SelectInput title="Select lecturers you want recommendations from" Options=Lecturers />
+                        </div>
+
+                    </div>
+
+                    @* right pane *@
+                    <div class="col-span-12 lg:col-span-6">
+
+                        <div class="mb-4">
+                            <SelectInput title="Programme of Study" Options=DeliveryModes />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Recipient Address" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Eg Noclan Globals, Ghana" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Purpose of Letter" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Eg Noclan Globals, Ghana" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Project Supervisor" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Eg Noclan Globals, Ghana" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="mb-2">
+                                <Text TextLabel="Number of Copies" TextSize="15px" IsBold=true />
+                            </div>
+                            <TextInput PlaceHolderTitle="Eg Noclan Globals, Ghana" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center mt-10">
+                    <Button ButtonTitle="Submit" ButtonColor="green" ButtonColorIntensity="600" ButtonTextSize="18px"
+                        IsTextBold=true />
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+@code {
+
+    [Parameter]
+    public string? requestType { get; set; } = "Reference Letter";
+
+    [Parameter]
+    public List<string> Programmes { get; set; } = Utils.CommonObjects.ProgrammeOfStudy;
+
+    [Parameter]
+    public List<string> DeliveryModes { get; set; } = Utils.CommonObjects.DeliveryMode;
+
+    [Parameter]
+    public List<string> Lecturers { get; set; } = Utils.CommonObjects.Lecturers;
+
+    private string? LetterType { get; set; } = "Reference Letter";
+
+
+}

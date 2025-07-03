@@ -1,0 +1,40 @@
+@namespace Partials
+
+<form class="hidden app-search xl:block">
+    <div class="relative inline-block">
+        <input type="text"
+            class="
+                pl-4 
+                pr-[40px] 
+                rounded 
+                dark:bg-[#363a38] 
+                focus:ring-0 
+                text-13 
+                placeholder:text-13 
+                dark:placeholder:text-gray-200 
+                dark:text-gray-100 
+                max-w-[223px]"
+
+                placeholder="@SearchPlaceholder" 
+                />
+
+                <button class="
+                    btn"
+
+                    style="
+                        background-color: rgb(72, 175, 72);
+                    "
+                >
+                    <i class="align-middle bx bx-search-alt"></i>
+                </button>
+
+             
+    </div>
+</form>
+
+@code {
+
+    [Parameter]
+    public string SearchPlaceholder { get; set; } = "Search...";
+
+}

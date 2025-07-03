@@ -1,0 +1,218 @@
+@page "/register"
+@layout EmptyLayout
+@rendermode InteractiveServer
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject NavigationManager NavigationManager
+@inject MessageService MessageService
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+
+<div class="container-fluid">
+    <div class="h-screen md:overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-12 ">
+
+            <!-- Right side  -->
+            <div class="hidden lg:inline lg:col-span-full xl:col-span-6">
+                <div
+                    class="h-screen bg-cover object-cover bg-center relative p-5 bg-[url('/assets/images/lady-typing2.jpeg')]">
+                    <div class="absolute z-[1] inset-0 bg-primary-default/80">
+
+                        <ul class="absolute top-0 left-0 w-full h-full overflow-hidden bg-bubbles animate-square">
+                            <li class="h-10 w-10 rounded-3xl bg-white/10 absolute left-[10%] "></li>
+                            <li class="h-28 w-28 rounded-3xl bg-white/10 absolute left-[20%]"></li>
+                            <li class="h-10 w-10 rounded-3xl bg-white/10 absolute left-[25%]"></li>
+                            <li class="h-20 w-20 rounded-3xl bg-white/10 absolute left-[40%]"></li>
+                            <li class="h-24 w-24 rounded-3xl bg-white/10 absolute left-[70%]"></li>
+                            <li class="h-32 w-32 rounded-3xl bg-white/10 absolute left-[70%]"></li>
+                            <li class="h-36 w-36 rounded-3xl bg-white/10 absolute left-[32%]"></li>
+                            <li class="h-20 w-20 rounded-3xl bg-white/10 absolute left-[55%]"></li>
+                            <li class="h-12 w-12 rounded-3xl bg-white/10 absolute left-[25%]"></li>
+                            <li class="h-36 w-36 rounded-3xl bg-white/10 absolute left-[90%]"></li>
+                        </ul>
+                    </div>
+
+
+                    @* <img src="/assets/images/lady-typing2.jpeg" class="bg-cover absolute inset-0 -z-[1]  w-full h-full bg-center object-cover object-center" alt="lady-image" style="width:100%;" /> *@
+
+                    <div class="flex items-center justify-center h-screen ">
+                        <div class="w-full md:max-w-4xl lg:px-9">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Left side -->
+            <div class="z-50 my-auto bg-white col-span-full lg:col-span-4 xl:col-span-6">
+                <div class="dark:bg-zinc-800 flex justify-center items-center">
+                    <div class="w-96 flex justify-center items-center flex-col">
+                        <div class="mx-auto mb-12 flex flex-row">
+                            <img src="assets/images/logos/knust.png" alt="" class="inline h-28">
+                        </div>
+                        <div class="">
+
+                            <h5 class="text-900 font-semibold text-gray-700 dark:text-gray-100 mb-4">Create your account
+                            </h5>
+                            <p class="mt-1 mb-4 text-gray-500 dark:text-gray-100/60">Please provide your username
+                                and password to log in
+                            </p>
+
+                            @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+                            {
+                                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+                            }
+
+                            <EditForm Model="@userModel" FormName="RegisterForm" OnValidSubmit="@HandleRegister">
+                                <div class="mb-4">
+                                    <label for="email"
+                                        class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Email</label>
+                                    <InputText
+                                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                        @bind-Value="userModel.Email" placeholder="Eg. ad.adama@knust.edu.gh" id="email" />
+                                </div>
+
+                                @* <div class="mb-4">
+                                    <div class="mb-3">
+                                        <label
+                                            class="block mb-2 font-semibold text-gray-800 dark:text-gray-100">Select</label>
+                                        <select
+                                            @bind="userModel.SubscribedDepartmentId" class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active">
+                                            <option>Select Department</option>
+                                            @if (subscribedDepartments != null)
+                                            {
+                                                @foreach (var subDept in subscribedDepartments)
+                                                {
+                                                    <option value="@subDept.SubscribedDepartmentId.ToString()">@subDept.DepartmentName</option>
+                                                }
+                                            }       
+                                            else
+                                            {
+                                                <option>Loading...</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div> *@
+
+                                <div class="mb-4">
+                                    <label for="password"
+                                        class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Password</label>
+                                    <InputText type="password"
+                                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                        @bind-Value="userModel.Password" placeholder="**********"
+                                        id="password" />
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="confirm-password"
+                                        class="block mb-2 font-medium text-gray-800 dark:text-gray-100">Confirm
+                                        Password</label>
+                                    <InputText type="password"
+                                        class="w-full py-3 text-sm border-gray-200 rounded-lg placeholder:text-sm placeholder:text-gray-300 bg-gray-50/5 dark:bg-zinc-700/50 dark:border-zinc-500 dark:focus:border-zinc-300 dark:text-gray-100 dark:placeholder:text-zinc-100/60 focus:border-actionPrimary-active"
+                                        @bind-Value="userModel.ConfirmPassword" placeholder="**********"
+                                        id="confirm-password" />
+                                </div>
+
+                                @if (isLoading)
+                                {
+                                    <div class="mb-3 flex justify-center">
+                                        <Spinner />
+                                    </div>
+                                }
+
+                                <div class="mb-3">
+                                    <button type="submit"
+                                        class="block w-full py-3 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                                        Sign Up
+                                    </button>
+                                </div>
+                            </EditForm>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@code {
+    private RegisterDTO userModel = new RegisterDTO();
+
+    private List<Department>? departments = new();
+
+    private bool isLoading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await SISAPIService.GetAllDepartments();  
+        departments = response.departments;    
+
+        MessageService.AlertMessage = null;
+        MessageService.AlertType = null;
+    }
+
+    private async Task HandleRegister()
+    {   
+        isLoading = true;
+
+        if (string.IsNullOrEmpty(userModel.Email) || !userModel.Email.Contains("@"))
+        {
+            MessageService.AlertMessage = "Invalid email format.";
+            MessageService.AlertType = "error";
+            isLoading = false;
+            return;
+        }
+
+        var emailDomain = userModel.Email.Split("@")[1].ToLower();
+
+        UserRoles userType = UserRoles.Applicant;
+
+        if (emailDomain == "knust.edu.gh")
+        {
+            userType = UserRoles.DepartmentAdmin;
+        }
+        else if (emailDomain == "dev.knust.edu.gh")
+        {
+            userType = UserRoles.Developer;
+        }
+        else if (emailDomain == "gmail.com" || emailDomain == "st.knust.edu.gh")
+        {
+            userType = UserRoles.Applicant;
+        }
+
+        Console.WriteLine($"user role after email domain check: {userType}");
+
+        var userregisterDTO = new RegisterDTO
+        {
+            Email = userModel.Email,
+            UserType = userType,
+            Password = userModel.Password,
+            ConfirmPassword = userModel.ConfirmPassword,
+        };
+
+        Console.WriteLine($"data dto {userregisterDTO.UserType}");
+
+        var response = await ApiService.Register(userregisterDTO);
+        Console.WriteLine($"response from register page: {response}");
+        if (response.Status)
+        {
+            isLoading = false;
+            MessageService.AlertMessage = $"{response.Message}.";
+            MessageService.AlertType = response.AlertType;
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            isLoading = false;
+            MessageService.AlertMessage = response.Message;
+            MessageService.AlertType = response.AlertType;
+        }
+    }
+}    

@@ -1,0 +1,220 @@
+@page "/request-summary/{departmentRequestTypeId}"
+@attribute [Authorize]
+@inject MessageService MessageService
+@inject ApiService ApiService
+@inject CookieService CookieService 
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="bg-[#fbfbfb] min-h-screen">
+    @if (departmentRequestType?.RequestType != null)
+    {
+    <h3 class="mb-12 ml-24">@departmentRequestType?.RequestType.Name</h3>
+    }
+    <div class="max-w-4xl mx-auto p-6 h-[520px] py-4 bg-white rounded-xl shadow-lg">
+        <!-- Progress Steps -->
+        <div class="max-w-2xl mx-auto">
+
+            <div class="flex flex-col justify-center items-center gap-2 mb-8 mt-8">
+                <div class="flex items-center ">
+                        <div class="w-8 h-8 rounded-full bg-green-600 text-white border-2 border-green-600  flex items-center justify-center">
+                            1
+                        </div>
+                        <div class="h-[2px] w-80 bg-gray-300 mx-2"></div>
+                        <div class="w-8 h-8 rounded-full flex bg-white border-2 border-green-600 text-green-600 items-center justify-center">
+                            2
+                        </div>
+                </div>
+                    <div class="flex justify-between items-center w-9/12  gap-2">
+                        <span class="text-[15px]">Step 1-Request Detail</span>
+                        <span class="mx-4 text-[15px] ">Step 2-Request Review</span>
+                    </div>
+            </div>
+
+
+            <div class="flex max-w-2xl mx-auto justify-between  items-center mb-8">
+                <h2 class="text-xl font-bold">EPL-#003</h2>
+                <p class="text-green-600 font-semibold">Total Cost: @(departmentRequestType.AcceptPayment == true ? $"GHS {departmentRequestType?.Amount}" : "No Payment Required")</p>
+                
+            </div>
+
+            @* <EditForm Model="@requestTransactionModel" FormName="NewRequestForm" OnValidSubmit="@SaveRequest"> *@
+            <div class="max-w-2xl mx-auto">
+                @* @if (departmentRequestType?.RequestType != null) *@
+                @* { *@
+                @* <h1 class="text-2xl font-bold mb-8 mt-12">@departmentRequestType?.RequestType.Name</h1> *@
+                @* } *@
+               
+                @if (dynamicFormFieldStatus)
+                {
+                    @foreach (var item in dynamicFormFields)
+                    {
+                    <div class="space-y-6">
+                        <div class=" grid grid-cols-2 max-w-96  pb-2">
+                            <div class="font-semibold text-md mb-4">@item</div>
+                            <div class="text-md">@item</div>
+                        </div>
+                    </div>
+                    }
+                }
+
+                    @* <div class=" grid grid-cols-2 max-w-96  pb-2"> *@
+                    @*     <div class="font-semibold text-sm">Delivery Mode</div> *@
+                    @*     <div class="text-sm">@selectedDeliveryMode</div> *@
+                    @* </div> *@
+
+                    @* @if (selectedDeliveryMode == "Email") *@
+                    @* { *@
+                    @* <div class=" grid grid-cols-2 max-w-96 pb-4"> *@
+                    @*     <div class="font-semibold  text-sm">Recipient Email</div> *@
+                    @*     <div class="text-sm">@selectedRecipientInfo</div> *@
+                    @* </div> *@
+                    @* } *@
+
+                    @* @if (selectedDeliveryMode == "Pick-up") *@ 
+                    @* { *@
+                    @* <div class=" grid grid-cols-2 max-w-96 pb-4"> *@
+                    @*     <div class="font-semibold  text-sm">Delivery Address</div> *@
+                    @*     <div class="text-sm">@selectedRecipientInfo</div> *@
+                    @* </div> *@
+                    @* } *@
+
+                @* </div> *@
+
+                @if (isLoading)
+                {
+                    <div class="mb-3 flex justify-center">
+                        <Spinner />
+                    </div>
+                }
+
+                <div class="flex justify-end space-x-4 mt-8">
+                    <button @onclick="NavigateToFormDetails" class="px-6 py-2 border rounded-md hover:bg-gray-100">
+                        Previous
+                    </button>
+                    <button @onclick="SaveRequest" type="submit" class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                        Save and Pay
+                    </button>
+                </div>
+            </div>
+             @* </EditForm> *@
+        </div>
+</div>
+</div>
+
+@code {
+
+    [Parameter] public string? departmentRequestTypeId { get; set; }
+
+    private string? userId { get; set; }
+    private string? userDepartmentId { get; set; }
+    private ClaimsPrincipal? _currentUser;
+
+    private string selectedDepartment;
+    private string selectedDeliveryMode;
+    private string selectedRecipientInfo;
+
+    private DepartmentRequestType? departmentRequestType = new();
+    private List<FormFields> departmentRequestTypeFormFields = new(); 
+    private RequestTransactionDTO requestTransactionModel;
+    private List<string> dynamicFormFields = new();
+
+    private bool isLoading = false;
+    private bool dynamicFormFieldStatus = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+
+        await GetDepartmentRequestType();
+        await FetchForm();
+        @* await FetchCachedData(); *@
+    }
+
+    private async Task FetchCachedData()
+    {
+        selectedDepartment = await CookieService.Get("selected_department_new_request");
+        selectedDeliveryMode = await CookieService.Get("selected_delivery_mode_new_request");
+        selectedRecipientInfo = await CookieService.Get("selected_recipient_info_new_request");
+    }
+
+    private async Task RemoveCachedData()
+    {
+        await CookieService.Remove("selected_department_new_request");
+        await CookieService.Remove("selected_delivery_mode_new_request");
+        await CookieService.Remove("selected_recipient_info_new_request");
+    }
+
+     private async Task FetchForm()
+        {
+            var response = await ApiService.FetchDepartmentRequestTypeFormFields(departmentRequestTypeId);
+            if (response.Status)
+            {
+                departmentRequestTypeFormFields = response.formFields;
+                 foreach(var item in departmentRequestTypeFormFields)
+                {
+                    var itemString = item.Label.ToString().Replace(" ", "");
+                    dynamicFormFields.Add(itemString);
+                    dynamicFormFieldStatus = true;
+                }
+            }
+         }
+
+    private async Task GetDepartmentRequestType()
+    {
+        var requestType = await ApiService.GetDepartmentRequestTypeById(departmentRequestTypeId!);
+        departmentRequestType = requestType;
+    }
+
+    private async Task NavigateToFormDetails()
+    {
+        NavigationManager.NavigateTo($"/new-request/{departmentRequestTypeId}");
+    }
+
+    private async Task SaveRequest ()
+    {
+        try
+        {  
+            requestTransactionModel = new RequestTransactionDTO
+            {
+                ProcessingStatus = "Pending",
+                ProgrammeOfStudy = selectedDepartment,
+                DeliveryModeOption = selectedDeliveryMode, 
+                PaymentStatus = "Paid",
+                RecipientInfo = selectedRecipientInfo  
+            };
+
+            isLoading = true;
+            var response = await ApiService.CreateNewApplicantRequest(userId, departmentRequestTypeId, requestTransactionModel);
+        
+            if (response.Status)
+            {
+                isLoading = false;
+                await RemoveCachedData();
+                MessageService.AlertMessage = response.Message;
+                MessageService.AlertType = "success";
+                NavigationManager.NavigateTo($"/letter-dashboard/{departmentRequestTypeId}");
+            }
+            else
+            {
+                isLoading = false;
+                MessageService.AlertType = "danger";
+                MessageService.AlertMessage = string.Join(", ", response.Message);
+                Console.WriteLine($"{response}");    
+            }
+        }
+        catch (Exception e)
+        {
+            isLoading = false;
+            MessageService.AlertMessage = e.Message;
+            MessageService.AlertType = "danger";
+            Console.WriteLine($"Error saving request: {e.Message}");
+        }
+       
+    }
+
+}
+
+

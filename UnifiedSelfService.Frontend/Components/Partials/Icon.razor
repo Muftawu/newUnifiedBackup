@@ -1,0 +1,16 @@
+@namespace Partials
+
+<i class="@IconName" style="font-size: @IconSize; color: @IconColor;"></i>
+
+@code {
+
+    [Parameter]
+    public string? IconName { get; set; } = "IconName";
+
+    [Parameter]
+    public string? IconColor { get; set; } = "blue";
+
+    [Parameter]
+    public string? IconSize { get; set; } = "80px";
+
+}

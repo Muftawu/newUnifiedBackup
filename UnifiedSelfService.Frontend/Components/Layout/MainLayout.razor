@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+
+<div class="page">
+<AuthorizeView>
+    <Authorized>
+        <main>
+        <article class="content">
+            
+            <Sidebar />
+            <Topbar />
+            <div style="top: 80px; margin-left:250px; position:relative;" >
+                @Body
+            </div>
+        </article>
+    </main>
+    </Authorized>
+    <NotAuthorized>
+       
+    </NotAuthorized>
+</AuthorizeView>
+</div>
+

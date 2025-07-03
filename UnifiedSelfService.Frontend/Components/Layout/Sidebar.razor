@@ -1,0 +1,293 @@
+@namespace Layout 
+@inject CustomAuthenticationStateProviderJWT CustomAuthenticationStateProviderJWT
+@inject MessageService MessageService
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+@inject NavigationManager NavigationManager
+
+<div
+	class="fixed bottom-0 z-20 top-0 hidden xl:flex  shadow-sm w-[15%] h-screen ltr:border-r rtl:border-l vertical-menu rtl:right-0 ltr:left-0  border-gray-50 print:hidden dark:bg-zinc-800 dark:border-neutral-700" style="background-color:rgb(248, 250, 250)">
+	<div data-simplebar class="h-full">
+		<div class="pb-10" id="sidebar-menu">
+			<div class="flex items-center topbar-brand">
+			<div
+				class="hidden lg:flex navbar-brand items-center justify-between shrink px-6 h-[70px] ltr:border-r rtl:border-l border-gray-50 dark:border-zinc-700 dark:bg-zinc-800 shadow-none"
+			>
+				<a href="@redirectLink" class="flex items-center flex-shrink-0 dark:text-white leading-[69px]">
+					<img
+						src="assets/images/KNUSTLOGO.svg"
+						alt=""
+						class="inline-block w-10 h-10 align-middle ltr:xl:mr-2 rtl:xl:ml-2"
+					/>
+					<span class="hidden ml-4 mt-2 text-gray-100 align-middle xl:block dark:text-gray-100 leading-[69px]">
+						<Text TextLabel="Unified Self Service" FontWeight="bold" TextSize="lg" AdditionalAttributes="AdditionalTextClasses" />
+						<Text TextLabel="Portal" FontWeight="bold" TextSize="lg" AdditionalAttributes="AdditionalTextClasses" />
+					</span
+				</a>
+			</div>
+			
+		</div>
+			<ul id="side-menu">
+				<li
+					class="px-5 py-3 mt-8 text-xs font-medium text-gray-500 cursor-default leading-[18px] group-data-[sidebar-size=sm]:hidden block"
+					data-key="t-menu">
+					Menu
+				</li>
+
+				@* Dashboard *@
+				<li>
+					<a @onclick="() => RedirectRoute(redirectLink)"
+						class="block py-2.5 px-6 cursor-pointer text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<div class="flex">
+							<Icon IconName="@Utils.CommonIcons.Home" IconColor="gray" IconSize="30px" />
+							<span class="mt-2 mx-4" data-key="t-dashboard"><Text TextLabel="Dashboard" /></span>
+						</div>
+					</a>
+				</li>
+
+				@* Services *@
+                @if (userType != "Developer")
+                {
+				<li>
+					<a aria-expanded="false"
+						class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<div class="flex">
+							<Icon IconName="@Utils.CommonIcons.Services" IconColor="gray" IconSize="30px" />
+							<span class="mt-2 mx-4" data-key="t-apps">Services</span>
+						</div>
+					</a>
+					<ul>
+						@if (userType == "Applicant")
+        				{
+						@if (englishProficiency != null)
+							{
+								@if (englishProficiency.RequestType != null)
+								{
+								<li>
+									@* <Text TextLabel="@requestType.Name" FontWeight="bold" TextSize="sm" /> *@
+									<a href=@($"/dashboard/{englishProficiency.DepartmentRequestTypeId.ToString()!}")
+										class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">@englishProficiency.RequestType.Name</a>
+								</li>
+								}
+							}
+						}
+
+						@if (allDepartmentRequestTypes != null)
+						{
+						@foreach (var deptRequestTypeObj in allDepartmentRequestTypes!)
+						{
+							@foreach(var deptRequestType in deptRequestTypeObj)
+							{
+								<li>
+									@* <Text TextLabel="@requestType.Name" FontWeight="bold" TextSize="sm" /> *@
+										<a href=@($"/dashboard/{deptRequestType.DepartmentRequestTypeId.ToString()!}")
+										class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">@deptRequestType.RequestType.Name</a>
+								</li>
+							}
+						}
+						}
+					</ul>
+				</li>
+                }
+
+				@* Payment History *@
+				<li>
+					<a href="#" aria-expanded="false"
+						class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<div class="flex">
+							<Icon IconName="@Utils.CommonIcons.Wallet" IconColor="gray" IconSize="30px" />
+							<span class="mt-2 mx-4" data-key="t-apps">Payment History</span>
+						</div>
+					</a>
+				</li>
+
+				
+			</ul>
+
+			<ul>
+				<div class="absolute bottom-0 left-0">
+					<li
+					class="px-5 py-3 text-xs font-medium text-gray-500 cursor-default leading-[18px] group-data-[sidebar-size=sm]:hidden block"
+					data-key="t-menu">
+					Others
+				</li>
+                @if (userType == "DepartmentAdmin")
+                {
+				<li>
+					<a
+						class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<span data-key="t-dashboard">
+							<div class="cursor-pointer" @onclick="NavigateDepartmentSettings" style="display: flex; flex-direction: row; justify-content: start; align-items: start;">
+								<div class="mr-2">
+									<Icon IconName="@Utils.CommonIcons.Settings" IconColor="gray" IconSize="30px" />
+								</div>
+								<div class="mt-1">
+									<Text TextLabel="Settigns" TextColor="gray" TextColorIntensity="100" TextSize="16px" IsBold=false />
+								</div>
+							</div>
+						</span>
+					</a>
+				</li>
+                }
+
+				<li>
+					<a
+						class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<span data-key="t-dashboard">
+							<div style="display: flex; flex-direction: row; justify-content: start; align-items: start;">
+								<div class="mr-2">
+									<Icon IconName="@Utils.CommonIcons.Help" IconColor="gray" IconSize="30px" />
+								</div>
+								<div class="mt-1">
+									<Text TextLabel="Help" TextColor="gray" TextColorIntensity="100" TextSize="16px" IsBold=false />
+								</div>
+							</div>
+						</span>
+					</a>
+				</li>
+
+				<li>
+					<a
+						class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-primary-default dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+						<span data-key="t-dashboard">
+							<div class="cursor-pointer" @onclick="NavigateToLogout" style="display: flex; flex-direction: row; justify-content: start; align-items: start;">
+								<div class="mr-2">
+									<Icon IconName="@Utils.CommonIcons.Logout" IconColor="gray" IconSize="30px" />
+								</div>
+								<div class="mt-1">
+									<Text TextLabel="Logout" TextColor="gray" TextColorIntensity="100" TextSize="16px" IsBold=false />
+								</div>
+							</div>
+						</span>
+					</a>
+				</li>
+
+				</div>
+			</ul>
+		
+		</div>
+
+	</div>
+</div>
+
+@code 
+{
+	private List<RequestType> allRequestTypes = new();
+	private List<List<DepartmentRequestType>>? allDepartmentRequestTypes = new();
+	private DepartmentRequestType englishProficiency = new();
+    private List<int>? departmentIdList = new();
+
+	private string? userDepartmentId;
+	private string? departmentIdCount;
+	private string? userType;
+	private string? userId;
+	private string? redirectLink = "/dashboard";
+	private ClaimsPrincipal? _currentUser;
+
+	private bool isLoading = false;
+	private bool isProfileVerified = false;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var authState = await CustomAuthenticationStateProviderJWT.GetAuthenticationStateAsync();
+		_currentUser = authState.User;
+		userId = _currentUser.FindFirst("Sub")?.Value;
+		userType = _currentUser.FindFirst("UserType")?.Value;
+
+		var user = await ApiService.GetUserById(userId);
+
+		if (user.IsProfileVerified)
+		{
+			switch (user.UserType.ToString())
+			{
+				case "DepartmentAdmin":
+					redirectLink = "/dashboard";
+					break;
+				case "Developer":
+					redirectLink = "/dashboard/dev";
+					break;
+				case "Applicant":
+					redirectLink = "/dashboard";
+					break;
+				default:
+					redirectLink = "/dashboard";
+					break;
+			}
+		}else
+		{
+			redirectLink = "profile/personal-information";
+		}
+
+		await GetEnglishProficiency();
+		await FetchDepartmentRequestTypes();
+	}
+
+	private async Task NavigateToLogout()
+	{
+		NavigationManager.NavigateTo($"/logout/{userId}", true);
+	}
+
+	private async Task NavigateDepartmentSettings()
+	{
+		NavigationManager.NavigateTo($"/department-settings/general-information", true);
+	}
+
+	private void RedirectRoute(string link)
+	{
+		NavigationManager.NavigateTo(link, true);
+	}
+
+	private async Task GetEnglishProficiency ()
+	{
+			var response = await ApiService.GetDepartmentRequestTypeByName("English Proficiency");
+			englishProficiency = response;
+	}
+
+    // goes here
+    @* private async Task FetchDepartmentRequestTypes() *@
+    @*     { *@
+    @*         var userProgrammeReadList = await ApiService.GetApplicantProgrammesRead(userId); *@
+    @*         foreach(var userProgrammeRead in userProgrammeReadList) *@
+    @*         { *@
+    @*             if (userProgrammeRead != null) *@
+    @*             { *@
+    @*                 var response = await SISAPIService.GetProgrammeDetails(userProgrammeRead.ProgrammeId); *@
+    @*                 if (response.Status) *@
+    @*                 { *@
+    @*                     departmentIdList.Add(response.departmentId ?? 0); *@ 
+    @*                     var departmentRequestTypeResponse= await ApiService.GetAllDepartmentRequestTypesByDepartmentId(response.departmentId); *@ 
+    @*                     @1* Console.WriteLine($"response: response from getting all department request types by id: {departmentRequestTypeResponse}"); *1@ *@
+    @*                 } *@
+    @*             } *@
+    @*         } *@
+    @*     } *@
+
+    private async Task FetchDepartmentRequestTypes()
+        {
+            var userProgrammeReadList = await ApiService.GetApplicantProgrammesRead(userId);
+            foreach(var userProgrammeRead in userProgrammeReadList)
+            {
+                if (userProgrammeRead != null)
+                {
+                    var response = await SISAPIService.GetProgrammeDetails(userProgrammeRead.ProgrammeId);
+                    if (response.Status)
+                    {
+                        departmentIdList.Add(response.departmentId ?? 0); 
+                        var departmentRequestTypeResponse = await ApiService.GetAllDepartmentRequestTypesByDepartmentId(response.departmentId); 
+                        allDepartmentRequestTypes.Add(departmentRequestTypeResponse.departmentRequestTypes);
+                    }
+                }
+            }
+            
+        }
+
+	private Dictionary<string, object> AdditionalTextClasses = new Dictionary<string, object>
+	{
+		{"class", "text-black"},
+	};
+
+	private Dictionary<string, object> AdditionalCardClass2 = new Dictionary<string, object>
+    {
+        {"class", " max-w-[350px] gap-4 p-4 border-2 bg-white"},
+    };
+}

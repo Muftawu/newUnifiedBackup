@@ -1,0 +1,59 @@
+@namespace Partials
+@inject NavigationManager NavigationManager
+
+<div @attributes="AdditionalAttributes" class="@CardClass" disabled="@IsDisabled">
+    @ChildContent
+</div>
+
+
+@code {
+    [Parameter]
+    public string? OuterShadow { get; set; } = "md";
+
+    [Parameter]
+    public bool ShowBorder { get; set; } = false;
+
+    [Parameter]
+    public string? BorderRadius { get; set; } = "10px";
+
+    [Parameter]
+    public bool IsDisabled { get; set; } = false;
+
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string CardClass => $"{BuildCardClass()} {AdditionalClass}";
+
+    private string BuildCardClass()
+    {
+
+        var borderRadius = BorderRadius switch
+        {
+            "sm" => "rounded-sm",
+            "md" => "rounded-md",
+            "lg" => "rounded-lg",
+            "xl" => "rounded-xl",
+            _ => "rounded-sm"
+        };
+
+        var showBorder = ShowBorder switch
+        {
+            true => "border-b",
+            false => "border-none"
+        };
+
+
+        var disabledClass = IsDisabled ? "opacity-50 cursor-not-allowed" : "";
+
+        return $"{borderRadius} {showBorder} {disabledClass} card dark:bg-zinc-800";
+    }
+
+    private string? AdditionalClass => AdditionalAttributes != null && AdditionalAttributes.ContainsKey("class")
+    ? AdditionalAttributes["class"].ToString()
+    : string.Empty;
+
+}

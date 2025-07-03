@@ -1,0 +1,427 @@
+@page "/profile/profile-review"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject SISAPIService SISAPIService
+@inject CookieService CookieService 
+@using System.ComponentModel.DataAnnotations
+@using Shared.Domain.Models
+@inject NavigationManager NavigationManager
+
+<div class="">
+    <div class="ml-24">
+    @if (!string.IsNullOrEmpty(MessageService.AlertMessage))
+        {
+            <div>
+                <Alert Variant="@MessageService.AlertType" Title="@MessageService.AlertMessage" />
+            </div>
+        }
+    </div>
+
+    <h1 class="text-2xl font-bold mb-8 ml-28">Create Your Profile</h1>
+    <div class="card max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-sm">
+
+        <div class="max-w-4xl mx-auto mb-24 flex flex-col justify-center items-center gap-2">
+            <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-green-600 text-white border-2 border-green-600 flex items-center justify-center">
+                    1
+                </div>
+                <div class="h-[2px] w-60 md:w-48 bg-green-600 mx-2"></div>
+                <div class="w-8 h-8 rounded-full flex bg-green-600 border-2 border-green-600 text-white items-center justify-center">
+                    2
+                </div>
+                <div class="h-[2px] w-60 md:w bg-green-600 mx-2"></div>
+                <div class="w-8 h-8 rounded-full flex bg-green-600 border-2 border-green-600 text-white items-center justify-center">
+                    3
+                </div>
+                <div class="h-[2px] w-60 md:w bg-green-600 mx-2"></div>
+                <div class="w-8 h-8 rounded-full flex bg-green-600 border-2 border-green-600 text-white items-center justify-center">
+                    4
+                </div>
+            </div>
+            <div class="flex justify-between items-center w-full">
+                <span class="mr-8 text-[15px]">Personal Information</span>
+                <span class="relative right-12 text-[15px]">Identification</span>
+                <span class="mr-8 text-[15px]">Programme(s) Read</span>
+                <span class="mr-8 text-[15px]">Review</span>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto">
+        <form>
+            <div class="text-sm text-[#2b5aaa] mb-6 bg-[#eef2fb] py-3 px-2 w-full  rounded-md flex justify-center items-center gap-2">
+                <i class='bx bxs-alarm-exclamation text-xl' style='color:#2b5aaa'  ></i>
+                Kindly review your details. You can go back to make changes.
+            </div>
+
+            @* PERSONAL INFOMATION *@
+            <div class="mb-10 p-6 rounded-lg shadow-sm">
+                <h2 class="text-lg font-bold mb-6">Personal Information</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Surname</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@Surname</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">OtherNames</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@OtherNames</h2>
+                    </div>
+                </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Gender</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@Gender</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Date Of Birth</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@DateOfBirth</h2>
+                    </div>
+                </div>
+            
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Phone</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@Phone</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Country Of Residence</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@CountryOfResidence</h2>
+                    </div>
+                </div>
+            </div>
+
+            @* IDENTIFICATION CARD *@
+            <div class="mb-10 p-6 rounded-lg shadow-sm">
+                <h2 class="text-lg font-bold mb-6">Identification</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Card Type</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@identificationCardType</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Card Number</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@identificationCardNumber</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            @* PROGRAMMES READ *@
+            <div class="mb-10 p-6 rounded-lg shadow-sm">
+                <h2 class="text-lg font-bold mb-6">Programmes Read</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">FullName</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@FullNameOnCertificate</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Student Number</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@StudentNumber</h2>
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Index Number</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@IndexNumber</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Graduate Type</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@GraduateType</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Programme Of Study</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@programmeReadName</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Admission Year</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@AdmissionYear</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Graduation Year</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@GraduationYear</h2>
+                    </div>
+                </div>
+            
+                @if (GraduateType != "Undergraduate")
+                {
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-32 mb-4">
+                    <div>
+                        <h2 class="text-sm  mb-0">Thesis Topic</h2>
+                    </div>
+                    <div>
+                         <h2 class="text-sm mb-0">@ThesisTopic</h2>
+                    </div>
+                </div>
+                }
+
+            </div>
+
+
+            </form>
+            <div class="flex justify-end gap-2">
+                @* <button @onclick="NavigateToPrevious" class="px-4 py-2 border-2 border-green-700 text-green-700 rounded hover:bg-green-50 transition-colors"> *@
+                @*     Previous *@
+                @* </button> *@
+
+                <button @onclick="SaveUserProfile" class="px-6 py-2 bg-green-700 text-white rounded hover:bg-green-800 transition-colors">
+                   Submit 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    
+    private string? currentUserId;
+    private string? userEmail;
+    private string? userDepartmentId;
+    private string? userType;
+    object graduate_type_response = null;
+    private string? programmeReadName = string.Empty;
+    private ClaimsPrincipal? _currentUser;
+    private bool isLoading = false;
+
+    // cookie-data personal info
+    private string? Surname;
+    private string? OtherNames;
+    private string? Gender;
+    private DateTime? DateOfBirth;
+    private string? CountryOfResidence;
+    private string? Phone;
+
+    // cookie data identification
+    private string? identificationCardType;
+    private string? identificationCardNumber;
+
+    // cookie data programme read
+    private string? FullNameOnCertificate;
+    private string? StudentNumber;
+    private string? IndexNumber;
+    private string? ReferenceNumber;
+    private string? ProgrammeId;
+    private string? AdmissionYear;
+    private string? GraduationYear;
+    private string? GraduateType;
+    private string? ThesisTopic;
+
+    protected override async Task OnInitializedAsync()
+    {   
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        currentUserId = _currentUser.FindFirst("Sub")?.Value;
+        userEmail = _currentUser.FindFirst("Email")?.Value;
+        userDepartmentId = _currentUser.FindFirst("SubscribedDepartmentId")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+        
+        try
+        {
+            // retrieve data (personal)
+            Surname = await CookieService.Get("Surname");
+            OtherNames = await CookieService.Get("OtherNames");
+            Gender = await CookieService.Get("Gender");
+            CountryOfResidence = await CookieService.Get("CountryOfResidence");
+            Phone = await CookieService.Get("PhoneNumber");   
+            var response = await CookieService.Get("DateOfBirth");
+            DateTime.TryParse(response, out var dt);
+            DateOfBirth = dt;
+
+            // retrieve data (identification)
+            identificationCardType = await CookieService.Get("identificationCardType");
+            identificationCardNumber = await CookieService.Get("identificationCardNumber");
+
+            // retrieve data programmes read
+            FullNameOnCertificate = await CookieService.Get("FullNameOnCertificate");
+            StudentNumber = await CookieService.Get("StudentNumber");
+            IndexNumber = await CookieService.Get("IndexNumber");
+            ReferenceNumber = await CookieService.Get("ReferenceNumber");
+            ProgrammeId = await CookieService.Get("ProgrammeId");
+            AdmissionYear = await CookieService.Get("AdmissionYear");
+            GraduationYear = await CookieService.Get("GraduationYear");
+            GraduateType = await CookieService.Get("GraduateType");
+            ThesisTopic = await CookieService.Get("ThesisTopic");
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data from cookie storage: {ex.Message}");
+        }
+        
+        await GetSelectedProgramme(Int32.Parse(ProgrammeId));
+        MessageService.AlertMessage = null;
+        MessageService.AlertType = null;
+    }
+
+    private async Task GetSelectedProgramme(int programmeId)
+    {
+        var response = await SISAPIService.GetProgrammeDetails(programmeId);
+        if (response.Status) 
+        {
+            programmeReadName = response.departmentName;
+        }
+    }
+
+    private async Task ClearCachedData()
+    {
+        await CookieService.Remove("Surname");
+        await CookieService.Remove("OtherNames");
+        await CookieService.Remove("Gender");
+        await CookieService.Remove("CountryOfResidence");
+        await CookieService.Remove("PhoneNumber");   
+        await CookieService.Remove("DateOfBirth");
+
+        await CookieService.Remove("identificationCardType");
+        await CookieService.Remove("identificationCardNumber");
+
+        await CookieService.Remove("FullNameOnCertificate");
+        await CookieService.Remove("StudentNumber");
+        await CookieService.Remove("IndexNumber");
+        await CookieService.Remove("ReferenceNumber");
+        await CookieService.Remove("ProgrammeId");
+        await CookieService.Remove("AdmissionYear");
+        await CookieService.Remove("GraduationYear");
+        await CookieService.Remove("GraduateType");
+        await CookieService.Remove("ThesisTopic");
+    }
+ 
+    private async Task SaveUserProfile()
+    {
+        isLoading = true;
+
+        var newUserDTO = new UserDTO
+        {
+            Email = userEmail,
+            ReferenceNumber = ReferenceNumber,
+            IndexNumber = IndexNumber,
+            Surname = Surname,
+            OtherNames = OtherNames,
+            Gender = Gender,
+            DateOfBirth = DateOfBirth,
+            PhoneNumber = Phone,
+            CountryOfResidence = CountryOfResidence,
+        };
+
+        var newIdentificationCardDTO = new IdentificationCardDTO
+        {
+            IdentificationCardType = identificationCardType,
+            IdentificationCardNumber = identificationCardNumber,
+            IdentificationCardFile = Array.Empty<byte>(),
+        };
+
+        var newProgrammesReadDTO = new ProgrammesReadDTO
+        {
+            FullNameOnCertificate = FullNameOnCertificate,
+            StudentNumber = StudentNumber,
+            IndexNumber = IndexNumber,
+            ProgrammeId = Int32.Parse(ProgrammeId),
+            AdmissionYear = AdmissionYear,
+            GraduationYear = GraduationYear,
+            GraduateType = GraduateType,
+            ThesisTopic = (!string.IsNullOrEmpty(ThesisTopic) ? ThesisTopic : string.Empty)
+        };
+
+        var newCreateUserProfileDTO = new CreateUserProfileDTO
+        {
+            userDTO = newUserDTO,
+            identificationCardDTO = newIdentificationCardDTO,
+            programmesReadDTO = newProgrammesReadDTO,
+            userId = currentUserId
+        };
+
+        var response = await ApiService.CreateUserProfile(newCreateUserProfileDTO);
+        if (response.Status)
+        {
+            await ClearCachedData();
+            MessageService.AlertMessage = response.err.Title;
+            MessageService.AlertType = "success";
+            NavigationManager.NavigateTo("/dashboard");
+            isLoading = false;
+        }
+        else
+        {
+            isLoading = false;
+
+            Console.WriteLine($"response: {response.err.Title}");
+            ErrorResponse err;
+            MessageService.AlertMessage = $"An error occured. Please review your details.";
+            MessageService.AlertType = "danger";
+        }
+
+    }
+ 
+    private void GoToPrevious()
+    {
+        NavigationManager.NavigateTo("/profile/programmes-read/");
+        Console.WriteLine("Navigate to previous page");
+    }
+}
+
+
+
+

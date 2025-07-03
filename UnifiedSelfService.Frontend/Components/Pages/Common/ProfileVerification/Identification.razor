@@ -1,0 +1,187 @@
+@page "/profile/identification"
+@attribute [Authorize]
+@inject MessageService MessageService
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ApiService ApiService
+@inject CookieService CookieService 
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager NavigationManager
+
+<div class="px-4 py-8">
+    <h1 class="text-2xl font-bold mb-8 ml-28">Create Your Profile</h1>
+
+<div class="card max-w-6xl mx-auto bg-white rounded-md p-6">
+    <!-- Progress Steps -->
+    <div class=" max-w-4xl mx-auto mb-24 flex flex-col justify-center items-center gap-2 ">
+        <div class="flex items-center ">
+                <div class="w-8 h-8 rounded-full bg-green-600 text-white border-2 border-green-600  flex items-center justify-center">
+                    1
+                </div>
+                <div class="h-[2px] w-60 md:w-48 bg-green-600 mx-2"></div>
+
+                <div class="w-8 h-8 rounded-full   flex    bg-green-600 text-white items-center justify-center">
+                    2
+                </div>
+                <div class="h-[2px] w-60 md:w bg-gray-300 mx-2"></div>
+
+                <div class="w-8 h-8 rounded-full   flex    bg-gray-300 text-white items-center justify-center">
+                    3
+                </div>
+                <div class="h-[2px] w-60 md:w bg-gray-300 mx-2"></div>
+
+                <div class="w-8 h-8 rounded-full   flex    bg-gray-300 text-white items-center justify-center">
+                    4
+                </div>
+        </div>
+
+        <div class="flex justify-between items-center w-full ">
+            <span class=" mr-8 text-[15px]">Personal Information</span>
+            <span class=" relative right-12 text-[15px] ">Identification</span>
+            <span class=" mr-8 text-[15px] ">Programme(s) Read</span>
+            <span class=" mr-8 text-[15px] "> Review</span>
+        </div>
+
+    </div>
+
+    <div class="flex mt-8 justify-center items-center">
+    <form class="">            
+            <div>
+                <label for="idType" class="block mb-2 font-medium">
+                    Type of Identification Card <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <InputSelect id="idType" @bind-Value="identificationCardType" class="w-96 px-3 py-2 border-2 border-gray-300 rounded-md appearance-none pr-8">
+                        <option value="">Select ID Card type</option>
+                        <option value="National ID">National ID</option>
+                        <option value="Passport">Passport</option>
+                        <option value="Driver's License">Driver's License</option>
+                        <option value="Voter's ID">Voter's ID</option>
+                    </InputSelect>
+                    
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <label for="idNumber" class="block mb-2 font-medium">
+                    Identification Card Number <span class="text-red-500">*</span>
+                </label>
+                <InputText id="idNumber" @bind-Value="identificationCardNumber" class="w-96 px-3 py-2 border-2 border-gray-300 rounded-md" placeholder="GHA-..." />
+            </div> 
+
+            @* <div> *@
+            @*     <label for="idFile" class="block mb-2 font-medium mt-6"> *@
+            @*         Identification File <span class="text-red-500">*</span> *@
+            @*     </label> *@
+            @*     <div class="border-dashed border-2 border-spacing-8 border-gray-300 rounded-md py-8 px-4 w-96"> *@
+            @*         <InputFile OnChange="@OnFileChange" class="hidden " id="idFile" accept=".pdf" /> *@
+            @*         <label for="idFile" class="flex items-center justify-between cursor-pointer "> *@
+            @*             <span class="text-gray-500">@(IdentificationCardStateForm.IdentificationCardFile == null ? "Choose file" : IdentificationCardStateForm.IdentificationCardFile)</span> *@
+            @*             <span class="bg-gray-100 px-4 py-2 rounded-sm text-sm">Choose File</span> *@
+            @*         </label> *@
+            @*     </div> *@
+            @* </div> *@
+                
+            @*     <div class="text-sm text-blue-600 mt-3"> *@
+            @*         <div>.pdf only, 5mb maximum</div> *@
+            @*         <div>Upload a pdf copy of the biodata page of your identification card</div> *@
+            @*         <div>This page should contain your name, picture and identification ID</div> *@
+            @*     </div> *@
+        </form>
+
+            </div>
+
+     <div class="flex items-end justify-end gap-4 mt-12">
+        <button type="button" @onclick="NavigateToPrevious" class="border-2 border-green-600 text-green-600 hover:bg-green-50 font-medium py-[6px] px-3 rounded">
+            Previous
+        </button>
+
+        <button @onclick="NavigateToProgrammesRead" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded">
+            Next
+        </button>
+    </div>
+    
+    </div>
+</div>
+
+
+@code {
+
+    private IdentificationCardDTO identificationCardModel = new();
+
+    private string? userId;
+    private string? userDepartmentId;
+    private string? userType;
+    private int days = 3;
+    private string? userEmail;
+    private bool isProfileVerified = false;
+    private ClaimsPrincipal? _currentUser;
+
+    @* cookie form state *@
+    private string? identificationCardType;
+    private string? identificationCardNumber;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _currentUser = authState.User;
+        userId = _currentUser.FindFirst("Sub")?.Value;
+        userEmail = _currentUser.FindFirst("Email")?.Value;
+        userDepartmentId = _currentUser.FindFirst("SubscribedDepartmentId")?.Value;
+        userType = _currentUser.FindFirst("UserType")?.Value;
+        bool.TryParse(_currentUser.FindFirst("IsProfileVerified")?.Value, out isProfileVerified);
+
+        if (isProfileVerified)
+        {
+            NavigationManager.NavigateTo("/dashboard");
+        }
+
+        identificationCardType = await CookieService.Get("identificationCardType");
+        identificationCardNumber = await CookieService.Get("identificationCardNumber");
+    }
+    
+    private async Task CacheIdentificationDetails()
+    {
+        await CookieService.Set("identificationCardType", identificationCardType, days);
+        await CookieService.Set("identificationCardNumber", identificationCardNumber, days);
+    }
+
+    private async Task NavigateToProgrammesRead()
+    {
+        await CacheIdentificationDetails();
+        NavigationManager.NavigateTo("/profile/programmes-read");
+    }
+    
+    private void NavigateToPrevious()
+    {
+        NavigationManager.NavigateTo("/profile/personal-information");
+    }
+    
+    private void OnFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null)
+        {
+            // Check if file is PDF
+            if (!file.ContentType.Equals("application/pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                //identificationCardModel.FileError = "Only PDF files are allowed";
+                return;
+            }
+            
+            // Check file size (5MB max)
+            if (file.Size > 5 * 1024 * 1024)
+            {
+                //identificationCardModel.FileError = "File size must be less than 5MB";
+                return;
+            }
+            
+            // In a real application, you would upload the file to a server
+            // For now, we'll just store the filename
+            // identificationCardModel.FileName = file.Name;
+            // identificationCardModel.IdFile = "uploaded"; // Just to pass validation
+            // identificationCardModel.FileError = null;
+        }
+    }   
+}
