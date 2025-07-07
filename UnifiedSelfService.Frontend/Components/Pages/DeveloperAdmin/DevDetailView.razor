@@ -103,22 +103,25 @@
                     }else if (string.Equals(detailType, "request-types"))
                     {
                         <tbody>
-                            @foreach (var (field, index) in departmentRequestTypeFormFields.Select((field, index) => (field, index)))
+                            @foreach (var (fields, index) in requestTypeFormSteps.Select((field, index) => (field, index)))
                             {
-                                <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
-                                    <td class="py-3 px-4">
-                                        <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
-                                    </td>
-                                    <td class="py-3 px-4 text-sm">@(index+1)</td>
-                                    <td class="py-3 px-4 text-sm">@field.Label</td>
-                                    <td class="py-3 px-4 text-sm">@field.InputType</td>
-                                    <td class="py-3 px-4 text-sm">@field.Width</td>
-                                    <td class="py-3 px-4 text-sm">@field.IsRequired</td>
-                                    <td class="py-3 px-4 text-sm">
-                                        <button type="button" @onclick="() => DeleteField(field.FormFieldsId.ToString())" class="btn bg-actionPrimary-success">Delete</button>
-                                        @* <button type="button" @onc Fieldlick="EditField" class="btn bg-actionPrimary-default text-white">Edit</button> *@
-                                    </td>
-                                </tr>
+                                @foreach(var field in fields)
+                                {
+                                    <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
+                                        <td class="py-3 px-4">
+                                            <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
+                                        </td>
+                                        <td class="py-3 px-4 text-sm">@(index+1)</td>
+                                        <td class="py-3 px-4 text-sm">@field.Label</td>
+                                        <td class="py-3 px-4 text-sm">@field.InputType</td>
+                                        <td class="py-3 px-4 text-sm">@field.Width</td>
+                                        <td class="py-3 px-4 text-sm">@field.IsRequired</td>
+                                        <td class="py-3 px-4 text-sm">
+                                            <button type="button" @onclick="() => DeleteField(field.FormFieldsId.ToString())" class="btn bg-actionPrimary-success">Delete</button>
+                                            @* <button type="button" @onc Fieldlick="EditField" class="btn bg-actionPrimary-default text-white">Edit</button> *@
+                                        </td>
+                                    </tr>
+                                }
                         }
                     </tbody>
                   }
@@ -333,14 +336,8 @@
     private int optionCounter = 2;
     private List<string> selectOptionBindValues = new();
 
+    private List<RequestTypeFormStep> requestTypeFormSteps;
     private  NewFormField newFormField = new();
-
-    @* private string? Type; *@
-    @* private string? IsRequired; *@
-    @* private string? Label; *@
-    @* private string? Placeholder; *@
-    @* private string? Width; *@
-    @* private byte[]? fileHolder = Array.Empty<byte>(); *@
 
     private List<FormFields> departmentRequestTypeFormFields = new(); 
 
@@ -516,6 +513,16 @@
     {
         {"class", "w-[500px] max-w-[700px] gap-4 p-4 border-2 bg-white"},
     };
+
+    private async Task FetchGenericFormFields()
+    {
+        var response = await ApiService.FetchGenericServiceFormFields(detailTypeId ?? "");
+        if (response.Status)
+        {
+            Console.WriteLine($"response form step {response.requestTypeFormStep}");
+            requestTypeFormSteps = response.requestTypeFormStep;
+        }   
+    }
 
 }
 

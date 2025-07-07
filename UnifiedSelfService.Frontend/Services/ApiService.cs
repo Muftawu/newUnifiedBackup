@@ -811,6 +811,26 @@ public class ApiService
             return (false, ex.Message);
         }
     }
+    
+     public async Task<(bool Status, List<RequestTypeFormStep> requestTypeFormStep)> FetchGenericServiceFormFields(string serviceTypeId)
+     {
+        try
+        {
+            var response = await _httpClient.GetFromJsonAsync<GenericResponseDTO<RequestTypeFormStep>>($"{ApplicationEndpoints.FetchGenericFormFields}/{serviceTypeId}");
+            var formFields = response?.Data!;
+            if (formFields != null)
+            {
+                return (true, formFields!);
+            }
+            return (false, new List<RequestTypeFormStep>());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occured [fetching all form fields for a generic form]: {ex.Message}");
+            return (false, new List<RequestTypeFormStep>());
+        }
+    }
+
 
 
 

@@ -192,6 +192,13 @@
                                     <button type="button" @onclick="AddField" class="block w-40 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
                                       Add Input 
                                     </button>
+                                    @if (string.Equals(formView, "addGenericFormFields"))
+                                    {
+                                        <button type="button" @onclick="NavigateToLetterDashboard" class="block w-40 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                                         Done 
+                                        </button>
+                                    }
+
                                 </div>
                             </div>
                         @* </div> *@           
@@ -284,6 +291,7 @@
     private string? userId;
     private string? typedDepartment;
     private User? user;
+    private string formStepId = string.Empty;
 
     private NewFormField newFormField = new NewFormField();
     private string serviceTypeId = string.Empty;
@@ -330,47 +338,55 @@
         }
     }
 
+    private void ClearFormField()
+    {
+        @* newFormField.Label, *@
+        @* newFormField.Type, *@
+        @* newFormField.Placeholder, *@
+        @* string.Equals(newFormField.IsRequired, "true") ? true : false, *@
+        @* newFormField.Width *@
+        newFormField = new NewFormField();
+    }
+
     private async Task AddField()
     {
-                
-        if (string.Equals(newFormField.Type, "select"))
+        FormFieldWithOptionsDTO formData = new();
+        var formfieldDTO = new FormFieldDTO()
         {
-            var formSelectOptionsData = new FormFieldWithOptionsDTO()
+            Label = newFormField.Label,
+            InputType = newFormField.Type,
+            Placeholder = newFormField.Placeholder,
+            IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
+            Width = newFormField.Width
+        };
+        
+        var formselectoptionsDTO = new List<FormSelectOptionDTO>()
+        {
+            new FormSelectOptionDTO
             {
-                new FormField()
-                {
-                    Label = newFormField.Label,
-                    InputType = newFormField.Type,
-                    Placeholder = newFormField.Placeholder,
-                    IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
-                    Width = newFormField.Width
-                },
-                new SelectOptions
-                {
-                    OptionName = "";
-                }
-            };
-        }else{
-            var formData = new FormFieldDTO()
-            {
-                Label = newFormField.Label,
-                InputType = newFormField.Type,
-                Placeholder = newFormField.Placeholder,
-                IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
-                Width = newFormField.Width
-            };
-        }
+                OptionName = ""
+            }
+        };
+
+        formData.FormField = formfieldDTO;
+        formData.SelectOptions = formselectoptionsDTO;
 
         Console.WriteLine($"form data: {formData}");
-
-        var response = await ApiService.AddGenericServiceFormField(serviceTypeId, formData);
+        Console.WriteLine($"form step id before api call: {formStepId}");
+        var response = await ApiService.AddGenericServiceFormField(formStepId ?? "", formData);
         Console.WriteLine($"response: {response}");
         if (response.Status)
         {
             Console.WriteLine($"response message: {response.Message}");
-            NavigationManager.NavigateTo(NavigationManager.Uri, true);
             MessageService.AlertType = "success";
-            MessageService.AlertMessage = "Form Field added successfully";
+            MessageService.AlertMessage = "Form Field added successfully. Please add another or click Done to exit.";
+            NavigationManager.NavigateTo(NavigationManager.Uri, false);
+            showNewFormField();
+            StateHasChanged();
+        }else
+        {
+            MessageService.AlertType = "danger";
+            MessageService.AlertMessage = "An error occured. Please try again later.";
         }
     }
 
@@ -398,7 +414,7 @@
 
         var generateCredential = true;
         var response = await ApiService.AddNewDepartmentSubscription(newDepartmentDTO, generateCredential, departmentAdminMail);
-        Console.WriteLine($"response from creating new department: {response.Status} {response.Message}");
+        @* Console.WriteLine($"response from creating new department: {response.Status} {response.Message}"); *@
 
         if (response.Status)
         {
@@ -451,6 +467,7 @@
             };
             serviceTypeId = response.requestType.RequestTypeId.ToString(); 
             var formStepResponse = await ApiService.AddFormStep(serviceTypeId, formStepDTO);
+            formStepId = formStepResponse.requestTypeFormStep.First().RequestTypeFormStepId.ToString();
             isLoading = false;
             MessageService.AlertMessage = "Request type successfully added";
             MessageService.AlertType = "success";
@@ -513,6 +530,11 @@
     private void showNewFormField()
     {
        formView = "addGenericFormFields"; 
+    }
+
+    private async Task NavigateToLetterDashboard()
+    {
+        NavigationManager.NavigateTo($"dev/request-types/details/{serviceTypeId}", true);
     }
 
 }

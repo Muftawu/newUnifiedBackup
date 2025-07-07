@@ -97,7 +97,7 @@ namespace Shared.Presentation
 
                 if (result.Status)
                 {
-                    return Created("Create Successfully", new { Message = result.Message, Data = result.DataObject });
+                    return Created("Create Successfully", new { Message = result.Message, DataObject = result.DataObject });
                 }
 
                 return BadRequest(new { Message = result.Message });
@@ -112,7 +112,7 @@ namespace Shared.Presentation
 
 
 
-        [HttpPost("/serviceFormField/{requestTypeId}/")]
+        [HttpPost("/serviceFormField/{formStepId}/")]
         public async Task<IActionResult> AddFormFieldWithOptions(
            Guid formStepId,
            [FromBody] FormFieldWithOptionsDTO request)
