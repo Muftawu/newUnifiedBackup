@@ -32,7 +32,7 @@ namespace Shared.Presentation
                 var result = await _generalFormFieldService.GetGeneralFormStepsWithFields(requestTypeId);
                 if (result.Status)
                 {
-                    return Ok(new { Message = result.Message, DataObject = result.DataObject });
+                    return Ok(new { Status = true, Message = result.Message, DataObject = result.DataObject });
                 }
 
                 return BadRequest(new { Message = result.Message });

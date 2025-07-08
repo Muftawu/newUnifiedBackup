@@ -817,6 +817,7 @@ public class ApiService
         try
         {
             var response = await _httpClient.GetFromJsonAsync<GenericResponseDTO<RequestTypeFormStep>>($"{ApplicationEndpoints.FetchGenericFormFields}/{serviceTypeId}");
+            Console.WriteLine($"response from generic response {response}");
             var formFields = response?.Data!;
             if (formFields != null)
             {
