@@ -202,6 +202,7 @@ public class GeneralFormFieldService : IGeneralFormFieldService
                 InputType = Enum.Parse<InputTypesEnum>(formFieldDto.InputType),
                 IsRequired = formFieldDto.IsRequired,
                 Placeholder = formFieldDto.Placeholder,
+                Width = formFieldDto.Width,
                 RequestTypeFormStepId = formStepId
             };
 

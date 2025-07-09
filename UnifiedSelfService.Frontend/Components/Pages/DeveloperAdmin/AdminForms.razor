@@ -203,7 +203,7 @@
                             </div>
                         @* </div> *@           
                     } else if (string.Equals(detailType, "department-subscriptions"))
-                {
+                    {
                 <EditForm Model="@newDepartmentRequestTypeModel" FormName="NewDepartmentSubscriptionForm" OnValidSubmit="@HandleNewDepartmentRequestType">
                     <div class="mb-4">
                         <div class="mb-3">
@@ -338,46 +338,46 @@
         }
     }
 
-    private void ClearFormField()
-    {
-        @* newFormField.Label, *@
-        @* newFormField.Type, *@
-        @* newFormField.Placeholder, *@
-        @* string.Equals(newFormField.IsRequired, "true") ? true : false, *@
-        @* newFormField.Width *@
-        newFormField = new NewFormField();
-    }
-
     private async Task AddField()
     {
         FormFieldWithOptionsDTO formData = new();
-        var formfieldDTO = new FormFieldDTO()
+        if (string.Equals(newFormField.Type, "select"))
         {
-            Label = newFormField.Label,
-            InputType = newFormField.Type,
-            Placeholder = newFormField.Placeholder,
-            IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
-            Width = newFormField.Width
-        };
-        
-        var formselectoptionsDTO = new List<FormSelectOptionDTO>()
-        {
-            new FormSelectOptionDTO
+            var formfieldDTO = new FormFieldDTO()
             {
-                OptionName = ""
-            }
-        };
+                Label = newFormField.Label,
+                InputType = newFormField.Type,
+                Placeholder = newFormField.Placeholder,
+                IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
+                Width = newFormField.Width
+            };
+            
+            var formselectoptionsDTO = new List<FormSelectOptionDTO>()
+            {
+                new FormSelectOptionDTO
+                {
+                    OptionName = ""
+                }
+            };
 
-        formData.FormField = formfieldDTO;
-        formData.SelectOptions = formselectoptionsDTO;
+            formData.SelectOptions = formselectoptionsDTO;
 
-        Console.WriteLine($"form data: {formData}");
-        Console.WriteLine($"form step id before api call: {formStepId}");
+        } else {
+            var formfieldDTO = new FormFieldDTO()
+            {
+                Label = newFormField.Label,
+                InputType = newFormField.Type,
+                Placeholder = newFormField.Placeholder,
+                IsRequired = string.Equals(newFormField.IsRequired, "true") ? true : false,
+                Width = newFormField.Width
+            };
+
+            formData.FormField = formfieldDTO;
+        }
+
         var response = await ApiService.AddGenericServiceFormField(formStepId ?? "", formData);
-        Console.WriteLine($"response: {response}");
         if (response.Status)
         {
-            Console.WriteLine($"response message: {response.Message}");
             MessageService.AlertType = "success";
             MessageService.AlertMessage = "Form Field added successfully. Please add another or click Done to exit.";
             NavigationManager.NavigateTo(NavigationManager.Uri, false);

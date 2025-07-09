@@ -8,3 +8,8 @@ public class NewFormField
     public  string? Width { get; set; }
     public  byte[]? fileHolder = Array.Empty<byte>();
 }
+
+public class NewFormSelectOptionField 
+{
+    public string? OptionName { get; set; } 
+}
