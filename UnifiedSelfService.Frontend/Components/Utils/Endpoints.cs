@@ -53,3 +53,4 @@ public static class ApplicationEndpoints
     public static string FetchGenericFormFields = "http://localhost:5161/formStep";
 
 }
+

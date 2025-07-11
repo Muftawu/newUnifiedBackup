@@ -479,6 +479,7 @@
 
     private async Task DeleteField(string departmentRequestTypeFormFieldId) {
         var response = await ApiService.DeleteDepartmentRequestTypeFormField(departmentRequestTypeFormFieldId);
+        Console.WriteLine($"response from deletign request type form field: {response}");
         if (response.Status) 
         {
             MessageService.AlertType = "success";
