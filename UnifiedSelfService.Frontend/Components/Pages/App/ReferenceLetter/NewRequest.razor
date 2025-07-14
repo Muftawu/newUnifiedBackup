@@ -114,13 +114,13 @@
     public string? requestType { get; set; } = "Reference Letter";
 
     [Parameter]
-    public List<string> Programmes { get; set; } = Utils.CommonObjects.ProgrammeOfStudy;
+    public List<string> Programmes { get; set; } = Utils.CommonObjects.Genders;
 
     [Parameter]
-    public List<string> DeliveryModes { get; set; } = Utils.CommonObjects.DeliveryMode;
+    public List<string> DeliveryModes { get; set; } = Utils.CommonObjects.Genders;
 
     [Parameter]
-    public List<string> Lecturers { get; set; } = Utils.CommonObjects.Lecturers;
+    public List<string> Lecturers { get; set; } = Utils.CommonObjects.Genders;
 
     private string? LetterType { get; set; } = "Reference Letter";
 

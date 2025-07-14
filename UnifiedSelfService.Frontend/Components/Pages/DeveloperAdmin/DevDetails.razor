@@ -25,7 +25,7 @@
             {
             <button @onclick="GetRedirectLink"
                 class="block py-2 font-bold text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
-                @(string.Equals(detailType, "all-departments") ? "Add New Department" : string.Equals(detailType, "request-types") ? "Add New Request Type" : "Add New Department Request Type")
+                @(string.Equals(detailType, "all-departments") ? "Add New Department" : string.Equals(detailType, "request-types") ? "Add New Service" : "Add New Department Request Type")
             </button>
             }
             }
@@ -74,7 +74,7 @@
                             {
                                 <th class="text-left py-3 px-4 text-sm font-medium">Department Name</th>
                             }
-                            <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ?  "Department Name" : string.Equals(detailType, "request-types") ?  "Services" : "Request Type")</th>
+                            <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ?  "Department Name" : string.Equals(detailType, "request-types") ?  "Service" : "Request Type")</th>
                             <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ? "College" : string.Equals(detailType, "request-types") ? "Description" : "Accept Payment")</th>
                             <th class="text-left py-3 px-4 text-sm font-medium">@(string.Equals(detailType, "all-departments") ? "Faculty" : string.Equals(detailType, "request-types") ? "Created By" : "Amount")</th>
                             @if(string.Equals(detailType, "request-types"))
@@ -82,21 +82,7 @@
                             <th class="text-left py-3 px-4 text-sm font-medium">Created Date</th>
                             }
                             
-                            @if (string.Equals(detailType, "department-subscriptions"))
-                            {
-                                <th class="text-left py-3 px-4 text-sm font-medium">Action</th>
-                            }
-
-
-                            @* @if (string.Equals(detailType, "department-subscriptions")) *@
-                            @* { *@
-                            @*     <th class="text-left py-3 px-4 text-sm font-medium">Amount</th> *@
-                            @* } *@
-                            @* @if (!string.Equals(detailType, "all-departments")) *@
-                            @* { *@
-                            @*     <th class="text-left py-3 px-4 text-sm font-medium">Created Date</th> *@
-                            @* } *@
-                            @* <th class="text-left py-3 px-4 text-sm font-medium">Action</th> *@
+                            <th class="text-left py-3 px-4 text-sm font-medium">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,12 +119,7 @@
                             @foreach (var (item, index) in FilteredRequestTypes.Select((value, index) => (value, index)))
                             {
                                 <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
-                                    <td class="py-3 px-4">
-                                        <input 
-                                            type="checkbox" 
-                                            class="rounded border-gray-300 text-green-600 focus:ring-green-500"
-                                        />
-                                    </td>
+                                    <td class="py-3 px-4"><input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" /></td>
                                     <td class="py-3 px-4 text-sm">@(index+1)</td>
                                     <td class="py-3 px-4 text-sm">@item.RequestType.Name</td>
                                     <td class="py-3 px-4 text-sm">@(!string.IsNullOrEmpty(item.RequestType.Description) ? item.RequestType.Description : "N/A")</td>
@@ -146,9 +127,7 @@
                                     <td class="py-3 px-4 text-sm">@item.RequestType.CreatedDate</td>
                                     <td class="py-3 px-4">
                                         <a @onclick="() => NavigateToDetailTypeView(item.RequestType.RequestTypeId.ToString())">
-                                            <button 
-                                                class="px-4 py-1 text-sm bg-green-400 text-white bg-[#FFE2CF] text-[#FC7B24] rounded-full transition-colors"
-                                            >
+                                            <button class="px-2 py-2 text-sm bg-green-400 text-white bg-[#FFE2CF] text-[#FC7B24] rounded-md transition-colors">
                                                 View Service 
                                             </button>
                                         </a>
@@ -194,7 +173,7 @@
                 <Spinner />
             </div>
         }
-        <p class="text-lg ">@(string.Equals(detailType, "all-departments") ? "No departments" : string.Equals(detailType, "request-types") ?  "No request types" : "No department request types")</p>
+        <p class="text-lg text-center mt-4">@(string.Equals(detailType, "all-departments") ? "No departments" : string.Equals(detailType, "request-types") ?  "No services available" : "No department request types")</p>
     }
 
 </div>

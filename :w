@@ -1,4 +1,4 @@
-@page "/admin-forms/{detailType}"
+@page "/form-steps/{detailType}/{serviceTypeId}"
 @attribute [Authorize]
 @inject MessageService MessageService
 @rendermode InteractiveServer
@@ -26,7 +26,7 @@
             <!-- Progress Steps -->
             <div class="flex flex-row justify-center items-center gap-2 mb-8">
                     <div class="flex justify-between items-center w-full mt-4  gap-2">
-                        <span style="font-size: 20px;" class="mx-2">Complete this form to create a new service</span>
+                        <span class="text-[28px]">Step 1: Personal Information</span>
                     </div>
             </div>
 
@@ -458,34 +458,28 @@
         var response = await ApiService.AddNewRequestType(newRequestTypeDTO);
         if (response.Status && response.requestType != null)
         {
+            var formStepDTO = new List<RequestTypeFormStepDTO> 
+            { 
+                new RequestTypeFormStepDTO {
+                    StepNumber = "Step 1",
+                    StepDescription = "Personal Information"
+                }
+            };
             serviceTypeId = response.requestType.RequestTypeId.ToString(); 
-            NavigationManager.NavigateTo($"/form-steps/request-types/{serviceTypeId}");
+            var formStepResponse = await ApiService.AddFormStep(serviceTypeId, formStepDTO);
+            formStepId = formStepResponse.requestTypeFormStep.First().RequestTypeFormStepId.ToString();
+            isLoading = false;
+            MessageService.AlertMessage = "Request type successfully added";
+            MessageService.AlertType = "success";
+            showNewFormField();
+            @* NavigationManager.NavigateTo("/dev/request-types"); *@
         }
-
-        @* if (response.Status && response.requestType != null) *@
-        @* { *@
-        @*     var formStepDTO = new List<RequestTypeFormStepDTO> *@ 
-        @*     { *@ 
-        @*         new RequestTypeFormStepDTO { *@
-        @*             StepNumber = "Step 1", *@
-        @*             StepDescription = "Personal Information" *@
-        @*         } *@
-        @*     }; *@
-        @*     serviceTypeId = response.requestType.RequestTypeId.ToString(); *@ 
-        @*     var formStepResponse = await ApiService.AddFormStep(serviceTypeId, formStepDTO); *@
-        @*     formStepId = formStepResponse.requestTypeFormStep.First().RequestTypeFormStepId.ToString(); *@
-        @*     isLoading = false; *@
-        @*     MessageService.AlertMessage = "Request type successfully added"; *@
-        @*     MessageService.AlertType = "success"; *@
-        @*     showNewFormField(); *@
-        @*     NavigationManager.NavigateTo($"/form-steps/{detailType}"); *@
-        @* } *@
-        @* else *@
-        @* { *@
-        @*     isLoading = false; *@
-        @*     MessageService.AlertMessage = "Failed to save request type"; *@
-        @*     MessageService.AlertType = "danger"; *@
-        @* } *@
+        else
+        {
+            isLoading = false;
+            MessageService.AlertMessage = "Failed to save request type";
+            MessageService.AlertType = "danger";
+        }
     }
 
     // adding new department request type

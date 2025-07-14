@@ -13,3 +13,10 @@ public class NewFormSelectOptionField
 {
     public string? OptionName { get; set; } 
 }
+
+public class NewFormStep
+{
+    public string StepNumber { get; set; }
+    public string StepName { get; set; }
+    public string StepDescription { get; set; }
+}
