@@ -832,6 +832,24 @@ public class ApiService
         }
     }
 
+    public async Task<(bool Status, List<RequestTypeFormStep> requestTypeFormSteps)> FetchServiceFormSteps(string serviceId)
+    {
+        try
+        {
+            var response = await _httpClient.GetFromJsonAsync<GenericResponseDTO<RequestTypeFormStep>>($"{ApplicationEndpoints.FetchServiceFormSteps}/{serviceId}");
+            var formFields = response?.Data!;
+            if (formFields != null)
+            {
+                return (true, formFields!);
+            }
+            return (false, new List<RequestTypeFormStep>());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occured [fetching all form steps for a service: apiservice] {ex.Message}");
+            return (false, new List<RequestTypeFormStep>());
+        }
+    }
 
 
 

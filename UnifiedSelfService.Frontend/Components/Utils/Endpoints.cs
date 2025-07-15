@@ -51,6 +51,7 @@ public static class ApplicationEndpoints
     public static string NewFormStep = "http://localhost:5161/addFormStep";
     public static string GenericServiceFormField = "http://localhost:5161/serviceFormField";
     public static string FetchGenericFormFields = "http://localhost:5161/formStep";
+    public static string FetchServiceFormSteps = "http://localhost:5161/formStep";
 
 }
 

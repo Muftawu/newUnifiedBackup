@@ -107,12 +107,19 @@
                             {
                             @foreach (var (field, index) in requestTypeFormSteps.Select((field, index) => (field, index)))
                             {
+                                <tr>
+                                    <td class="py-3 px-4"></td>
+                                    <td>@field.StepNumber: @field.StepDescription</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                                 @foreach(var item in field.FormFields)
                                 {
                                     <tr class="border-b border-gray-50 hover:bg-[#FBFBFB]">
-                                        <td class="py-3 px-4">
-                                            <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" />
-                                        </td>
+                                        <td class="py-3 px-4"><input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500" /></td>
                                         <td class="py-3 px-4 text-sm">@(index+1)</td>
                                         <td class="py-3 px-4 text-sm">@item.Label</td>
                                         <td class="py-3 px-4 text-sm">@item.InputType</td>
@@ -134,7 +141,7 @@
         @if (string.Equals(detailType, "department-subscriptions") || string.Equals(detailType, "request-types"))
         {
             <div class="flex justify-center mt-4">
-                <button @onclick="toggleModal"  type="button" class="block w-32 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
+                <button @onclick="NavigateToFormStepPage"  type="button" class="block w-32 py-2 text-white border-transparent hover:bg-actionPrimary-hover btn bg-actionPrimary-default focus:ring focus:ring-actionPrimary-active/30 dark:border-actionPrimary-default">
                     <Icon IconName="@Utils.CommonIcons.File" IconColor="white" IconSize="20px;" />
                     Add Field 
                 </button>
@@ -487,6 +494,11 @@
             NavigationManager.NavigateTo(NavigationManager.Uri, true);
         }
     }
+
+    private void NavigateToFormStepPage()
+    {
+        NavigationManager.NavigateTo($"/form-steps/{detailType}/{detailTypeId}", true);
+    }
     
     private async Task AddField()
     {
@@ -562,10 +574,10 @@
 
     private async Task FetchForm()
     {
-        var response = await ApiService.FetchDepartmentRequestTypeFormFields(detailTypeId);
+        var response = await ApiService.FetchServiceFormSteps(detailTypeId);
         if (response.Status)
         {
-            departmentRequestTypeFormFields = response.formFields;
+            requestTypeFormSteps = response.requestTypeFormSteps;
         }
     }
 
@@ -595,8 +607,6 @@
                 formStepId = response.requestTypeFormStep[0].RequestTypeFormStepId.ToString(); 
                 Console.WriteLine($"form step id before api call: {formStepId}");
             }
-
-            Console.WriteLine($"response form step {response.requestTypeFormStep}");
             requestTypeFormSteps = response.requestTypeFormStep;
         }   
     }

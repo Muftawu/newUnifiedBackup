@@ -17,6 +17,5 @@ public class NewFormSelectOptionField
 public class NewFormStep
 {
     public string StepNumber { get; set; }
-    public string StepName { get; set; }
     public string StepDescription { get; set; }
 }
